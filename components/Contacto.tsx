@@ -14,22 +14,45 @@ export default function Contacto() {
   });
 
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
+    setErrorMessage(null);
 
-    // Simulate API call
-    setTimeout(() => {
-      setStatus("success");
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        company: "",
-        message: "",
+    try {
+      const response = await fetch("/api/contacto", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
-    }, 1500);
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setStatus("success");
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          company: "",
+          message: "",
+        });
+        if (data.warning) {
+          console.warn("Advertencia de Resend:", data.warning);
+        }
+      } else {
+        setStatus("error");
+        setErrorMessage(data.error || "Ocurrió un error al enviar el mensaje. Por favor, inténtalo de nuevo.");
+      }
+    } catch (err) {
+      console.error("Error al enviar el formulario:", err);
+      setStatus("error");
+      setErrorMessage("No se pudo conectar con el servidor. Por favor, comprueba tu conexión de red.");
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -242,6 +265,16 @@ export default function Contacto() {
                       placeholder="Escribe tu mensaje aquí..."
                     ></textarea>
                   </div>
+
+                  {status === "error" && errorMessage && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="p-4 bg-rose-50 border border-rose-200 rounded-md text-rose-800 text-xs font-semibold"
+                    >
+                      {errorMessage}
+                    </motion.div>
+                  )}
 
                   <button
                     type="submit"
