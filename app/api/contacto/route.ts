@@ -42,7 +42,7 @@ async function sendEmail({
 
 export async function POST(request: NextRequest) {
   try {
-    const { name, email, phone, company, message } = await request.json();
+    const { name, email, phone, company, role, message } = await request.json();
 
     // Validar campos requeridos
     if (!name || !email || !message) {
@@ -56,22 +56,22 @@ export async function POST(request: NextRequest) {
     const htmlWelcome = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eaeaea; border-radius: 8px;">
         <div style="text-align: center; margin-bottom: 20px;">
-          <h1 style="color: #0b2240; margin: 0; font-size: 24px;">Estribor Consultores</h1>
-          <p style="color: #00D1FF; font-size: 14px; margin: 5px 0 0 0; font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">Tu rumbo seguro</p>
+          <h1 style="color: #0F1D33; margin: 0; font-size: 24px;">Estribor Consultores</h1>
+          <p style="color: #C9A05C; font-size: 14px; margin: 5px 0 0 0; font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">Navega con seguridad hacia la excelencia operacional</p>
         </div>
-        <div style="background-color: #f9f9f9; padding: 20px; border-radius: 6px; margin-bottom: 20px;">
-          <h2 style="color: #0b2240; margin-top: 0; font-size: 18px;">Hola, ${name}:</h2>
-          <p style="color: #4a5568; line-height: 1.6; font-size: 15px;">
-            Hemos recibido correctamente tu mensaje a través de nuestro sitio web. Queremos darte la bienvenida y agradecer tu interés en nuestros servicios de consultoría, gestión, seguridad y cumplimiento normativo.
+        <div style="background-color: #f9f9f9; padding: 20px; border-radius: 6px; margin-bottom: 20px; border-left: 4px solid #C9A05C;">
+          <h2 style="color: #0F1D33; margin-top: 0; font-size: 18px;">Hola, ${name}:</h2>
+          <p style="color: #475467; line-height: 1.6; font-size: 15px;">
+            Hemos recibido correctamente tu mensaje a través de nuestro sitio web. Queremos darte la bienvenida y agradecer tu interés en nuestros servicios de Gestión de Personas, Seguridad y Salud en el Trabajo, y Sostenibilidad Organizacional.
           </p>
-          <p style="color: #4a5568; line-height: 1.6; font-size: 15px;">
+          <p style="color: #475467; line-height: 1.6; font-size: 15px;">
             Uno de nuestros consultores especializados revisará tu consulta de inmediato y se pondrá en contacto contigo en breve para evaluar tus requerimientos específicos.
           </p>
         </div>
         <hr style="border: 0; border-top: 1px solid #eaeaea; margin: 20px 0;" />
         <div style="text-align: center; color: #718096; font-size: 12px; line-height: 1.5;">
           <p style="margin: 0 0 5px 0;">Estribor Consultores — Santiago, Chile</p>
-          <p style="margin: 0;">Contacto: <a href="mailto:contacto@estribor.cl" style="color: #00D1FF; text-decoration: none;">contacto@estribor.cl</a> | Web: <a href="https://estribor.cl" style="color: #00D1FF; text-decoration: none;">estribor.cl</a></p>
+          <p style="margin: 0;">Contacto: <a href="mailto:contacto@estribor.cl" style="color: #4A7FA5; text-decoration: none;">contacto@estribor.cl</a> | Web: <a href="https://estribor.cl" style="color: #4A7FA5; text-decoration: none;">estribor.cl</a></p>
         </div>
       </div>
     `;
@@ -79,31 +79,35 @@ export async function POST(request: NextRequest) {
     // Diseñar cuerpo del correo de notificación para el administrador
     const htmlNotification = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eaeaea; border-radius: 8px;">
-        <h2 style="color: #0b2240; border-bottom: 2px solid #00D1FF; padding-bottom: 10px; margin-top: 0;">Nuevo Mensaje de Contacto</h2>
-        <p style="color: #4a5568; font-size: 15px;">Se ha recibido una consulta a través del formulario de la landing page. A continuación se detallan los datos del contacto:</p>
+        <h2 style="color: #0F1D33; border-bottom: 2px solid #C9A05C; padding-bottom: 10px; margin-top: 0;">Nuevo Mensaje de Contacto</h2>
+        <p style="color: #475467; font-size: 15px;">Se ha recibido una consulta a través del formulario de la landing page. A continuación se detallan los datos del contacto:</p>
         
         <table style="width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px;">
           <tr>
-            <td style="padding: 8px; font-weight: bold; width: 30%; border-bottom: 1px solid #eaeaea; color: #0b2240;">Nombre Completo:</td>
-            <td style="padding: 8px; border-bottom: 1px solid #eaeaea; color: #4a5568;">${name}</td>
+            <td style="padding: 8px; font-weight: bold; width: 30%; border-bottom: 1px solid #eaeaea; color: #0F1D33;">Nombre Completo:</td>
+            <td style="padding: 8px; border-bottom: 1px solid #eaeaea; color: #475467;">${name}</td>
           </tr>
           <tr>
-            <td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eaeaea; color: #0b2240;">Correo Electrónico:</td>
-            <td style="padding: 8px; border-bottom: 1px solid #eaeaea;"><a href="mailto:${email}" style="color: #00D1FF; text-decoration: none;">${email}</a></td>
+            <td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eaeaea; color: #0F1D33;">Correo Electrónico:</td>
+            <td style="padding: 8px; border-bottom: 1px solid #eaeaea;"><a href="mailto:${email}" style="color: #4A7FA5; text-decoration: none;">${email}</a></td>
           </tr>
           <tr>
-            <td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eaeaea; color: #0b2240;">Teléfono:</td>
-            <td style="padding: 8px; border-bottom: 1px solid #eaeaea; color: #4a5568;">${phone || "No especificado"}</td>
+            <td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eaeaea; color: #0F1D33;">Teléfono:</td>
+            <td style="padding: 8px; border-bottom: 1px solid #eaeaea; color: #475467;">${phone || "No especificado"}</td>
           </tr>
           <tr>
-            <td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eaeaea; color: #0b2240;">Empresa:</td>
-            <td style="padding: 8px; border-bottom: 1px solid #eaeaea; color: #4a5568;">${company || "No especificada"}</td>
+            <td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eaeaea; color: #0F1D33;">Empresa:</td>
+            <td style="padding: 8px; border-bottom: 1px solid #eaeaea; color: #475467;">${company || "No especificada"}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eaeaea; color: #0F1D33;">Cargo:</td>
+            <td style="padding: 8px; border-bottom: 1px solid #eaeaea; color: #475467;">${role || "No especificado"}</td>
           </tr>
         </table>
         
-        <div style="margin-top: 20px; background-color: #f9f9f9; padding: 15px; border-radius: 6px; border-left: 4px solid #00D1FF;">
-          <h3 style="color: #0b2240; margin-top: 0; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Mensaje:</h3>
-          <p style="color: #4a5568; font-size: 14px; white-space: pre-wrap; line-height: 1.6; margin-bottom: 0;">${message}</p>
+        <div style="margin-top: 20px; background-color: #f9f9f9; padding: 15px; border-radius: 6px; border-left: 4px solid #C9A05C;">
+          <h3 style="color: #0F1D33; margin-top: 0; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Mensaje:</h3>
+          <p style="color: #475467; font-size: 14px; white-space: pre-wrap; line-height: 1.6; margin-bottom: 0;">${message}</p>
         </div>
         
         <hr style="border: 0; border-top: 1px solid #eaeaea; margin: 25px 0 15px 0;" />

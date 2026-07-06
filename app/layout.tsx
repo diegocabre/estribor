@@ -1,18 +1,48 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import { Open_Sans, Plus_Jakarta_Sans, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import WhatsAppWidget from "@/components/WhatsAppWidget";
 
-const roboto = Roboto({
-  weight: ["300", "400", "500", "700"],
+const openSans = Open_Sans({
+  weight: ["300", "400", "500", "600", "700"],
   subsets: ["latin"],
-  variable: "--font-roboto",
+  variable: "--font-open-sans",
+  display: "swap",
+});
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  weight: ["300", "400", "500", "600", "700", "800"],
+  subsets: ["latin"],
+  variable: "--font-plus-jakarta",
+  display: "swap",
+});
+
+const cormorantGaramond = Cormorant_Garamond({
+  weight: ["300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+  variable: "--font-cormorant",
+  style: ["normal", "italic"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Estribor Consultores | Soluciones Integrales de Gestión",
-  description: "Seguridad y salud en el trabajo, cumplimiento normativo, asesorías técnicas y gestión organizacional en Chile. Comprometidos con ambientes laborales seguros, eficientes y sostenibles.",
+  title: "Estribor Consultores | Seguridad, Gestión y Sostenibilidad",
+  description: "Consultora boutique especializada en Gestión de Personas, Seguridad y Salud en el Trabajo, y Sostenibilidad Organizacional en Chile. Navega con seguridad hacia la excelencia operacional.",
+  keywords: [
+    "recursos humanos chile",
+    "reclutamiento y selección",
+    "seguridad y salud en el trabajo",
+    "ley karin chile",
+    "sostenibilidad organizacional",
+    "indicadores esg",
+    "evaluaciones de desempeño",
+    "hunting ejecutivo",
+    "auditoría sst",
+    "acuicultura chile"
+  ],
+  authors: [{ name: "Estribor Consultores" }],
 };
 
 export default function RootLayout({
@@ -23,15 +53,17 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${roboto.variable} h-full antialiased scroll-smooth`}
+      className={`${openSans.variable} ${plusJakartaSans.variable} ${cormorantGaramond.variable} h-full antialiased scroll-smooth`}
     >
-      <body className="min-h-full flex flex-col font-sans bg-[#F4F5F6] text-[#001F42]">
+      <body className="min-h-full flex flex-col font-sans bg-[#F4F5F6] text-[#0F1D33]">
         <Header />
         <main className="flex-1">
           {children}
         </main>
         <Footer />
+        <WhatsAppWidget />
       </body>
     </html>
   );
 }
+

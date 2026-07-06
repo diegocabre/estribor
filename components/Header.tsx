@@ -25,6 +25,8 @@ export default function Header() {
     { name: "Servicios", href: "/servicios" },
     { name: "Misión y Visión", href: "/mision-vision" },
     { name: "Equipo", href: "/equipo" },
+    { name: "Blog", href: "/blog" },
+    { name: "Portal Empleo", href: "/vacantes" },
   ];
 
   return (

@@ -1,139 +1,136 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ShieldAlert, Scale, Settings, Users, ArrowRight } from "lucide-react";
+import { Users2, ShieldCheck, Leaf, Check } from "lucide-react";
 
 export default function Servicios() {
-  const services = [
+  const axes = [
+    {
+      title: "Gestión de Personas",
+      description: "Alineamos el talento humano con los objetivos del negocio a través de metodologías ágiles y de probada efectividad.",
+      icon: Users2,
+      color: "border-brand-blue-light/20 hover:border-brand-blue-light/50",
+      iconColor: "text-brand-blue-light bg-brand-blue-light/10",
+      list: [
+        "Reclutamiento y Selección",
+        "Outsourcing",
+        "Hunting Ejecutivo",
+        "Desarrollo Organizacional",
+        "Evaluaciones | Assessment",
+        "Capacitación",
+        "Cultura y Comunicaciones",
+        "Liderazgo",
+      ],
+    },
     {
       title: "Seguridad y Salud en el Trabajo",
-      description: "Implementamos sistemas de gestión preventivos para evitar accidentes laborales y enfermedades profesionales, asegurando el cumplimiento de la ley y protegiendo el activo más valioso: tu equipo.",
-      icon: ShieldAlert,
-      iconColor: "text-brand-electric",
-      iconBg: "bg-brand-electric/10",
-      anim: {
-        hover: { scale: 1.1, rotate: [0, -10, 10, -10, 10, 0] }
-      }
+      description: "Construimos culturas preventivas y sistemas de gestión de excelencia para mitigar riesgos operacionales.",
+      icon: ShieldCheck,
+      color: "border-brand-gold/20 hover:border-brand-gold/50",
+      iconColor: "text-brand-gold bg-brand-gold/10",
+      list: [
+        "Diagnósticos y Línea Base",
+        "Auditorías de Cumplimiento",
+        "Diseño e Implementación de Sistemas de Gestión",
+        "Cumplimiento Normativo (DS44, IRL, RIOHS, Ley Karin)",
+        "Cultura Preventiva",
+        "Capacitación en Seguridad Ocupacional",
+      ],
     },
     {
-      title: "Cumplimiento Normativo",
-      description: "Asesoramos a tu empresa para cumplir a cabalidad con el marco regulatorio vigente, previniendo multas, paralizaciones e infracciones laborales o ambientales.",
-      icon: Scale,
-      iconColor: "text-brand-navy",
-      iconBg: "bg-brand-navy/10",
-      anim: {
-        hover: { rotate: [0, -12, 12, -6, 6, 0] }
-      }
+      title: "Sostenibilidad Organizacional",
+      description: "Integramos la sostenibilidad y la gobernanza en el ADN corporativo para la viabilidad de largo plazo.",
+      icon: Leaf,
+      color: "border-emerald-500/20 hover:border-emerald-500/50",
+      iconColor: "text-emerald-600 bg-emerald-500/10",
+      list: [
+        "Análisis de Materialidad",
+        "Gestión de Riesgos Ambientales y Sociales",
+        "Cumplimiento Regulatorio y Reportabilidad",
+        "Reportes de Sostenibilidad (GRI y otros estándares)",
+        "Sostenibilidad y Gestión Organizacional",
+        "Diseño de Estrategias e Indicadores ESG",
+        "Medición de Huella Hídrica y de Carbono",
+      ],
     },
-    {
-      title: "Asesorías Técnicas",
-      description: "Desarrollamos evaluaciones técnicas rigurosas y estudios especializados para optimizar procesos industriales, de construcción y operacionales.",
-      icon: Settings,
-      iconColor: "text-brand-blue-med",
-      iconBg: "bg-brand-blue-med/10",
-      anim: {
-        hover: { rotate: 360 }
-      }
-    },
-    {
-      title: "Gestión Organizacional",
-      description: "Mejoramos la eficiencia y el clima interno mediante la consultoría en estructura organizacional, liderazgo, y diseño de procesos eficaces.",
-      icon: Users,
-      iconColor: "text-brand-gray",
-      iconBg: "bg-brand-gray/10",
-      anim: {
-        hover: { scale: [1, 1.15, 1, 1.1, 1] }
-      }
-    }
   ];
 
   return (
-    <section id="servicios" className="py-20 bg-white relative overflow-hidden">
-      {/* Background visual detail */}
-      <div className="absolute right-0 bottom-0 w-80 h-80 bg-brand-bg rounded-full blur-3xl opacity-60"></div>
+    <section id="servicios-home" className="py-24 bg-white relative overflow-hidden">
+      {/* Decorative bg gradient */}
+      <div className="absolute right-0 bottom-0 w-[400px] h-[400px] bg-brand-bg rounded-full blur-3xl opacity-50 pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Title */}
+        
+        {/* Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            className="text-brand-electric text-xs font-bold tracking-widest uppercase mb-3"
-          >
-            Servicios Profesionales
-          </motion.h2>
-
-          <motion.h3
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-4"
-          >
-            Soluciones Integrales para Impulsar tu Organización
-          </motion.h3>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ delay: 0.2 }}
-            className="text-base sm:text-lg text-brand-gray font-light"
-          >
-            Acompañamos a empresas de diversos sectores en su camino al crecimiento y cumplimiento normativo, reduciendo riesgos operativos.
-          </motion.p>
+          <span className="text-brand-gold text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
+            Áreas de Especialización
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-4">
+            Nuestros Servicios
+          </h2>
+          <p className="text-base text-brand-gray-dark font-light leading-relaxed">
+            Brindamos soluciones integrales y adaptadas a los desafíos de industrias productivas, extractivas y de servicios.
+          </p>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {services.map((service, index) => {
-            const Icon = service.icon;
+        {/* Services Columns */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {axes.map((axis, index) => {
+            const Icon = axis.icon;
             return (
               <motion.div
-                key={service.title}
+                key={axis.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -8 }}
-                className="group relative bg-white border border-brand-gray/10 rounded-xl p-6 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-300 hover:border-brand-electric/30 flex flex-col justify-between"
+                className={`bg-white border rounded-2xl p-8 shadow-sm flex flex-col justify-between hover:shadow-xl transition-all duration-300 ${axis.color}`}
               >
                 <div>
-                  {/* Icon Container */}
-                  <div className={`w-14 h-14 rounded-lg ${service.iconBg} flex items-center justify-center mb-6 transition-all duration-300 group-hover:bg-brand-electric`}>
-                    <motion.div
-                      whileHover={service.anim.hover}
-                      transition={{ type: "spring", stiffness: 150, damping: 10 }}
-                      className={`${service.iconColor} group-hover:text-white transition-colors duration-300`}
-                    >
-                      <Icon className="h-7 w-7" />
-                    </motion.div>
+                  {/* Header info */}
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${axis.iconColor}`}>
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <h3 className="text-xl font-bold text-brand-navy leading-tight">{axis.title}</h3>
                   </div>
 
-                  {/* Title */}
-                  <h4 className="text-xl font-bold text-brand-navy mb-3 group-hover:text-brand-electric transition-colors duration-300">
-                    {service.title}
-                  </h4>
-
-                  {/* Description */}
-                  <p className="text-sm text-brand-gray font-light leading-relaxed mb-6">
-                    {service.description}
+                  <p className="text-sm text-brand-gray-dark font-light leading-relaxed mb-6">
+                    {axis.description}
                   </p>
+
+                  <hr className="border-brand-gray/10 my-4" />
+
+                  {/* Specific items list */}
+                  <ul className="space-y-3">
+                    {axis.list.map((item) => (
+                      <li key={item} className="flex items-start gap-3 text-sm text-brand-navy">
+                        <span className="w-5 h-5 rounded-full bg-brand-gold/10 text-brand-gold flex items-center justify-center shrink-0 mt-0.5">
+                          <Check className="h-3 w-3" strokeWidth={3} />
+                        </span>
+                        <span className="font-light leading-snug">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
 
-                {/* Learn More link */}
-                <a
-                  href="#contacto"
-                  className="inline-flex items-center gap-2 text-xs font-bold text-brand-electric hover:text-brand-blue-med transition-colors duration-200 mt-auto pt-2"
-                >
-                  Saber más
-                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </a>
+                {/* Contact trigger link */}
+                <div className="mt-8 pt-6 border-t border-brand-gray/5">
+                  <a
+                    href="#agenda"
+                    className="inline-flex items-center justify-center w-full bg-brand-navy hover:bg-brand-blue-med text-white text-sm font-semibold py-3 px-4 rounded-xl transition-colors shadow-sm"
+                  >
+                    Solicitar Propuesta
+                  </a>
+                </div>
+
               </motion.div>
             );
           })}
         </div>
+
       </div>
     </section>
   );

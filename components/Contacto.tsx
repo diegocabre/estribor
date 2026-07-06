@@ -10,6 +10,7 @@ export default function Contacto() {
     email: "",
     phone: "",
     company: "",
+    role: "",
     message: "",
   });
 
@@ -39,6 +40,7 @@ export default function Contacto() {
           email: "",
           phone: "",
           company: "",
+          role: "",
           message: "",
         });
         if (data.warning) {
@@ -210,7 +212,7 @@ export default function Contacto() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                     <div className="flex flex-col">
                       <label
                         htmlFor="phone"
@@ -233,7 +235,7 @@ export default function Contacto() {
                         htmlFor="company"
                         className="text-xs font-bold text-brand-navy mb-2 uppercase tracking-wide"
                       >
-                        Empresa / Organización
+                        Empresa
                       </label>
                       <input
                         type="text"
@@ -242,7 +244,24 @@ export default function Contacto() {
                         value={formData.company}
                         onChange={handleChange}
                         className="border border-brand-gray/20 rounded-md px-4 py-3 text-sm focus:outline-none focus:border-brand-electric transition-colors bg-brand-bg/30 text-brand-navy font-sans"
-                        placeholder="Ej. Constructora Andina"
+                        placeholder="Ej. Estribor SpA"
+                      />
+                    </div>
+                    <div className="flex flex-col">
+                      <label
+                        htmlFor="role"
+                        className="text-xs font-bold text-brand-navy mb-2 uppercase tracking-wide"
+                      >
+                        Cargo
+                      </label>
+                      <input
+                        type="text"
+                        name="role"
+                        id="role"
+                        value={formData.role}
+                        onChange={handleChange}
+                        className="border border-brand-gray/20 rounded-md px-4 py-3 text-sm focus:outline-none focus:border-brand-electric transition-colors bg-brand-bg/30 text-brand-navy font-sans"
+                        placeholder="Ej. Subgerente RRHH"
                       />
                     </div>
                   </div>

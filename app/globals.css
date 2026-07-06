@@ -6,12 +6,18 @@
 }
 
 @theme {
-  --font-sans: var(--font-roboto), system-ui, sans-serif;
+  --font-sans: var(--font-open-sans), system-ui, sans-serif;
+  --font-titles: var(--font-plus-jakarta), system-ui, sans-serif;
+  --font-slogan: var(--font-cormorant), serif;
   
-  --color-brand-navy: #001F42;
-  --color-brand-gray: #7D7E80;
-  --color-brand-electric: #0072B1;
-  --color-brand-blue-med: #004071;
+  --color-brand-navy: #0F1D33;
+  --color-brand-blue-light: #4A7FA5;
+  --color-brand-electric: #4A7FA5;
+  --color-brand-gold: #C9A05C;
+  --color-brand-white: #FFFFFF;
+  --color-brand-gray: #B0B8C4;
+  --color-brand-gray-dark: #475467;
+  --color-brand-blue-med: #1F3654;
   --color-brand-bg: #F4F5F6;
   
   --animate-compass-pulse: compass-pulse 3s ease-in-out infinite;
@@ -24,7 +30,7 @@
     50% {
       transform: scale(1.02);
       opacity: 1;
-      filter: drop-shadow(0 0 15px rgba(0, 114, 177, 0.4));
+      filter: drop-shadow(0 0 15px rgba(201, 160, 92, 0.4));
     }
   }
 }
@@ -34,3 +40,21 @@ body {
   color: var(--color-brand-navy);
   font-family: var(--font-sans);
 }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-titles);
+}
+
+.slogan-italic {
+  font-family: var(--font-slogan);
+  font-style: italic;
+}
+
+/* Custom fade-in and premium transitions */
+.hover-premium {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hover-premium:hover {
+  transform: translateY(-2px);
+}
+

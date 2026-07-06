@@ -27,35 +27,35 @@ export default function Hero() {
             className="lg:col-span-7 flex flex-col justify-center text-center lg:text-left order-2 lg:order-1"
           >
             <div className="inline-flex items-center justify-center lg:justify-start gap-2 mb-4">
-              <span className="bg-brand-electric/10 text-brand-electric text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full border border-brand-electric/20">
+              <span className="bg-brand-gold/10 text-brand-gold text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full border border-brand-gold/20">
                 Consultoría Estratégica
               </span>
             </div>
 
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-brand-navy leading-tight mb-6">
               Navega con Seguridad hacia la{" "}
-              <span className="text-brand-electric bg-gradient-to-r from-brand-electric to-brand-blue-med bg-clip-text text-transparent">
+              <span className="text-brand-gold bg-gradient-to-r from-brand-gold to-brand-blue-light bg-clip-text text-transparent">
                 Excelencia Operacional
               </span>
             </h1>
 
-            <p className="text-base sm:text-lg lg:text-xl text-brand-gray mb-8 max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
-              En <strong className="font-semibold text-brand-navy">Estribor Consultores</strong> brindamos soluciones integrales de gestión empresarial, promoviendo ambientes laborales seguros, eficientes y sostenibles en todo Chile.
+            <p className="text-base sm:text-lg lg:text-xl text-brand-gray-dark mb-8 max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
+              Acompañamos a empresas en el diseño e implementación de soluciones estratégicas que fortalecen su gestión, desarrollan sus equipos y promueven operaciones más seguras, eficientes y sostenibles.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
               <a
-                href="/servicios"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-electric hover:bg-brand-blue-med text-white px-8 py-4 rounded-md font-bold transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                href="#agenda"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-gold hover:bg-brand-gold/90 text-brand-navy px-8 py-4 rounded-md font-bold transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
               >
-                Nuestros Servicios
+                Solicitar una reunión
                 <ArrowRight className="h-5 w-5" />
               </a>
               <a
-                href="/contacto"
+                href="/servicios"
                 className="w-full sm:w-auto inline-flex items-center justify-center border-2 border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white px-8 py-4 rounded-md font-bold transition-all duration-300"
               >
-                Hablemos
+                Conocer nuestros servicios
               </a>
             </div>
           </motion.div>
@@ -72,18 +72,18 @@ export default function Hero() {
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-0 border-2 border-dashed border-brand-electric/30 rounded-full"
+                className="absolute inset-0 border-2 border-dashed border-brand-gold/30 rounded-full"
               ></motion.div>
 
               {/* Inner compass ring rotating the other way */}
               <motion.div
                 animate={{ rotate: -360 }}
                 transition={{ duration: 65, repeat: Infinity, ease: "linear" }}
-                className="absolute w-[85%] h-[85%] border border-brand-blue-med/20 rounded-full"
+                className="absolute w-[85%] h-[85%] border border-brand-blue-light/20 rounded-full"
               ></motion.div>
 
               {/* Glowing Background */}
-              <div className="absolute w-3/4 h-3/4 bg-gradient-to-tr from-brand-electric/25 to-white/10 rounded-full blur-2xl animate-compass-pulse"></div>
+              <div className="absolute w-3/4 h-3/4 bg-gradient-to-tr from-brand-gold/25 to-white/10 rounded-full blur-2xl animate-compass-pulse"></div>
 
               {/* Main Brand Image */}
               <div className="relative w-3/4 h-3/4 select-none drop-shadow-[0_10px_20px_rgba(0,31,66,0.15)]">

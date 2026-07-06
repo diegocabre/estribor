@@ -15,13 +15,12 @@ export default function Footer() {
           {/* Logo & Slogan (5 columns) */}
           <div className="md:col-span-5 flex flex-col items-center md:items-start text-center md:text-left">
             <div className="flex items-center gap-3 mb-4 cursor-pointer" onClick={scrollToTop}>
-              <div className="relative h-12 w-12 bg-white/10 rounded-full p-1 border border-white/20">
+              <div className="relative h-12 w-12 overflow-hidden transition-transform duration-300 hover:scale-105">
                 <Image
                   src="/logo.png"
                   alt="Estribor Logo"
-                  width={40}
-                  height={40}
-                  className="object-contain filter brightness-0 invert"
+                  fill
+                  className="object-contain"
                 />
               </div>
               <div className="flex flex-col text-left">
@@ -41,25 +40,40 @@ export default function Footer() {
           {/* Quick links (4 columns) */}
           <div className="md:col-span-4 flex flex-col items-center md:items-start">
             <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Navegación</h3>
-            <ul className="space-y-2 text-center md:text-left text-sm">
+            <ul className="grid grid-cols-2 gap-x-8 gap-y-2 text-center md:text-left text-sm">
               <li>
-                <a href="/servicios" className="hover:text-brand-electric transition-colors">
-                  Nuestros Servicios
+                <a href="/servicios" className="hover:text-brand-gold transition-colors">
+                  Servicios
                 </a>
               </li>
               <li>
-                <a href="/mision-vision" className="hover:text-brand-electric transition-colors">
+                <a href="/mision-vision" className="hover:text-brand-gold transition-colors">
                   Misión y Visión
                 </a>
               </li>
               <li>
-                <a href="/equipo" className="hover:text-brand-electric transition-colors">
-                  Nuestro Equipo
+                <a href="/equipo" className="hover:text-brand-gold transition-colors">
+                  Equipo
                 </a>
               </li>
               <li>
-                <a href="/contacto" className="hover:text-brand-electric transition-colors">
+                <a href="/blog" className="hover:text-brand-gold transition-colors">
+                  Blog
+                </a>
+              </li>
+              <li>
+                <a href="/vacantes" className="hover:text-brand-gold transition-colors">
+                  Portal Empleo
+                </a>
+              </li>
+              <li>
+                <a href="/contacto" className="hover:text-brand-gold transition-colors">
                   Contacto
+                </a>
+              </li>
+              <li>
+                <a href="/vacantes/admin" className="hover:text-brand-gold transition-colors text-white/40">
+                  Acceso Admin
                 </a>
               </li>
             </ul>
@@ -70,8 +84,10 @@ export default function Footer() {
             <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Conéctate</h3>
             <div className="flex items-center gap-4 mb-6">
               <a
-                href="#"
-                className="w-10 h-10 rounded-full bg-white/5 hover:bg-brand-electric text-white flex items-center justify-center transition-colors"
+                href="https://www.linkedin.com/company/estribor-consultores"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-white/5 hover:bg-brand-gold text-white flex items-center justify-center transition-colors"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="h-5 w-5" />
