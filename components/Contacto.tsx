@@ -93,10 +93,10 @@ export default function Contacto() {
                   <div>
                     <h3 className="text-sm font-bold text-brand-navy">Teléfono</h3>
                     <a
-                      href="tel:+56987654321"
+                      href="tel:+56941676239"
                       className="text-sm text-brand-gray hover:text-brand-electric transition-colors"
                     >
-                      +56 9 8765 4321
+                      +56 9 4167 6239
                     </a>
                   </div>
                 </div>
@@ -108,10 +108,10 @@ export default function Contacto() {
                   <div>
                     <h3 className="text-sm font-bold text-brand-navy">Correo Electrónico</h3>
                     <a
-                      href="mailto:contacto@estribor.cl"
+                      href="mailto:cialvearv@gmail.com"
                       className="text-sm text-brand-gray hover:text-brand-electric transition-colors"
                     >
-                      contacto@estribor.cl
+                      cialvearv@gmail.com
                     </a>
                   </div>
                 </div>
@@ -123,7 +123,7 @@ export default function Contacto() {
                   <div>
                     <h3 className="text-sm font-bold text-brand-navy">Ubicación</h3>
                     <p className="text-sm text-brand-gray">
-                      Santiago, Chile. Cobertura a nivel nacional.
+                      Puerto Varas, Chile. Cobertura a nivel nacional.
                     </p>
                   </div>
                 </div>

@@ -4,10 +4,12 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -62,19 +64,30 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-sm font-medium text-brand-navy hover:text-brand-electric transition-colors duration-200 relative group py-2"
-              >
-                {item.name}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-electric transition-all duration-300 group-hover:w-full"></span>
-              </a>
-            ))}
+            {navItems.map((item) => {
+              const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+              return (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className={`text-sm font-medium transition-colors duration-200 relative group py-2 ${
+                    isActive ? "text-brand-electric" : "text-brand-navy hover:text-brand-electric"
+                  }`}
+                >
+                  {item.name}
+                  <span className={`absolute bottom-0 left-0 h-0.5 bg-brand-electric transition-all duration-300 ${
+                    isActive ? "w-full" : "w-0 group-hover:w-full"
+                  }`}></span>
+                </a>
+              );
+            })}
             <a
               href="/contacto"
-              className="bg-brand-electric hover:bg-brand-blue-med text-white px-5 py-2.5 rounded-md text-sm font-semibold tracking-wide transition-all duration-300 shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
+              className={`px-5 py-2.5 rounded-md text-sm font-semibold tracking-wide transition-all duration-300 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 ${
+                pathname === "/contacto"
+                  ? "bg-brand-blue-med text-white"
+                  : "bg-brand-electric hover:bg-brand-blue-med text-white"
+              }`}
             >
               Contáctanos
             </a>
@@ -104,19 +117,26 @@ export default function Header() {
             className="md:hidden bg-white border-t border-brand-gray/10 shadow-lg overflow-hidden"
           >
             <div className="px-4 pt-2 pb-6 space-y-1">
-              {navItems.map((item, index) => (
-                <motion.a
-                  initial={{ opacity: 0, x: -15 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.05 }}
-                  key={item.name}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block px-3 py-3 rounded-md text-base font-medium text-brand-navy hover:bg-brand-bg hover:text-brand-electric transition-all"
-                >
-                  {item.name}
-                </motion.a>
-              ))}
+              {navItems.map((item, index) => {
+                const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+                return (
+                  <motion.a
+                    initial={{ opacity: 0, x: -15 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`block px-3 py-3 rounded-md text-base font-medium transition-all ${
+                      isActive
+                        ? "bg-brand-electric/10 text-brand-electric font-semibold border-l-4 border-brand-electric pl-2.5"
+                        : "text-brand-navy hover:bg-brand-bg hover:text-brand-electric"
+                    }`}
+                  >
+                    {item.name}
+                  </motion.a>
+                );
+              })}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
