@@ -15,6 +15,19 @@ export default function AdminPage() {
   const [actionLoading, setActionLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   
+  // Forgot password & Recovery states
+  const [forgotMode, setForgotMode] = useState(false);
+  const [recoveryEmail, setRecoveryEmail] = useState("");
+  const [recoverySuccessMsg, setRecoverySuccessMsg] = useState("");
+  const [isRecovering, setIsRecovering] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  
+  // Internal change password states
+  const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
+  const [changePasswordSuccessMsg, setChangePasswordSuccessMsg] = useState("");
+  const [changePasswordErrorMsg, setChangePasswordErrorMsg] = useState("");
+
   // Dashboard states
   const [jobs, setJobs] = useState<Job[]>([]);
   const [applications, setApplications] = useState<JobApplication[]>([]);
@@ -49,7 +62,10 @@ export default function AdminPage() {
     checkSession();
 
     // Listen for auth state changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "PASSWORD_RECOVERY") {
+        setIsRecovering(true);
+      }
       setIsAuthenticated(!!session);
       if (session) {
         fetchData();
@@ -137,6 +153,88 @@ export default function AdminPage() {
     setPassword("");
     setJobs([]);
     setApplications([]);
+  };
+
+  const handleForgotPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setActionLoading(true);
+    setErrorMsg("");
+    setRecoverySuccessMsg("");
+
+    const { error } = await supabase.auth.resetPasswordForEmail(recoveryEmail, {
+      redirectTo: `${window.location.origin}/vacantes/admin`,
+    });
+
+    if (error) {
+      setErrorMsg(error.message || "Error al enviar el correo de recuperación.");
+    } else {
+      setRecoverySuccessMsg("Correo de recuperación enviado con éxito. Revisa tu bandeja de entrada.");
+    }
+    setActionLoading(false);
+  };
+
+  const handleUpdatePassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newPassword !== confirmNewPassword) {
+      setErrorMsg("Las contraseñas no coinciden.");
+      return;
+    }
+    if (newPassword.length < 6) {
+      setErrorMsg("La contraseña debe tener al menos 6 caracteres.");
+      return;
+    }
+    setActionLoading(true);
+    setErrorMsg("");
+
+    const { error } = await supabase.auth.updateUser({
+      password: newPassword,
+    });
+
+    if (error) {
+      setErrorMsg(error.message || "Error al actualizar la contraseña.");
+    } else {
+      alert("Contraseña restablecida con éxito. Por favor inicia sesión con tu nueva contraseña.");
+      await supabase.auth.signOut();
+      setIsRecovering(false);
+      setIsAuthenticated(false);
+      setNewPassword("");
+      setConfirmNewPassword("");
+      setEmail("");
+      setPassword("");
+    }
+    setActionLoading(false);
+  };
+
+  const handleChangePasswordInternal = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newPassword !== confirmNewPassword) {
+      setChangePasswordErrorMsg("Las contraseñas no coinciden.");
+      return;
+    }
+    if (newPassword.length < 6) {
+      setChangePasswordErrorMsg("La contraseña debe tener al menos 6 caracteres.");
+      return;
+    }
+    setActionLoading(true);
+    setChangePasswordErrorMsg("");
+    setChangePasswordSuccessMsg("");
+
+    const { error } = await supabase.auth.updateUser({
+      password: newPassword,
+    });
+
+    if (error) {
+      setChangePasswordErrorMsg(error.message || "Error al actualizar la contraseña.");
+    } else {
+      setChangePasswordSuccessMsg("Contraseña actualizada con éxito.");
+      setNewPassword("");
+      setConfirmNewPassword("");
+      setTimeout(() => {
+        setShowChangePasswordModal(false);
+        setChangePasswordSuccessMsg("");
+      }, 2000);
+    }
+    setActionLoading(false);
   };
 
   const handleOpenCreateModal = () => {
@@ -267,7 +365,141 @@ export default function AdminPage() {
     );
   }
 
+  if (isRecovering) {
+    return (
+      <div className="pt-32 pb-24 flex items-center justify-center min-h-screen bg-brand-bg px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white border border-brand-gray/10 p-8 rounded-3xl shadow-xl max-w-md w-full text-center relative overflow-hidden"
+        >
+          <div className="absolute top-0 left-0 right-0 h-1.5 bg-brand-gold"></div>
+          
+          <div className="w-12 h-12 rounded-xl bg-brand-navy/5 text-brand-navy flex items-center justify-center mx-auto mb-6">
+            <Lock className="h-6 w-6" />
+          </div>
+
+          <h2 className="text-xl font-bold text-brand-navy mb-2 font-titles">Establecer Nueva Contraseña</h2>
+          <p className="text-xs text-brand-gray-dark font-light mb-6">
+            Por favor ingresa tu nueva contraseña corporativa.
+          </p>
+
+          <form onSubmit={handleUpdatePassword} className="space-y-4 text-left">
+            <div className="flex flex-col">
+              <label className="text-[10px] font-bold text-brand-navy uppercase mb-1.5">Nueva Contraseña</label>
+              <input
+                type="password"
+                required
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                placeholder="Mínimo 6 caracteres"
+                className="w-full px-4 py-2.5 border border-brand-gray/20 rounded-xl bg-brand-bg/50 text-brand-navy text-xs focus:outline-none focus:border-brand-gold transition-colors"
+              />
+            </div>
+
+            <div className="flex flex-col">
+              <label className="text-[10px] font-bold text-brand-navy uppercase mb-1.5">Confirmar Nueva Contraseña</label>
+              <input
+                type="password"
+                required
+                value={confirmNewPassword}
+                onChange={(e) => setConfirmNewPassword(e.target.value)}
+                placeholder="Repite la contraseña"
+                className="w-full px-4 py-2.5 border border-brand-gray/20 rounded-xl bg-brand-bg/50 text-brand-navy text-xs focus:outline-none focus:border-brand-gold transition-colors"
+              />
+            </div>
+
+            {errorMsg && (
+              <p className="text-[11px] font-semibold text-rose-600 bg-rose-50 border border-rose-100 p-2 rounded-lg text-center">
+                {errorMsg}
+              </p>
+            )}
+
+            <button
+              type="submit"
+              disabled={actionLoading}
+              className="w-full bg-brand-navy hover:bg-brand-blue-med disabled:bg-brand-navy/60 text-white font-bold py-3 rounded-xl text-xs transition-colors shadow-sm flex items-center justify-center gap-1.5"
+            >
+              {actionLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+              Actualizar Contraseña
+            </button>
+          </form>
+        </motion.div>
+      </div>
+    );
+  }
+
   if (!isAuthenticated) {
+    if (forgotMode) {
+      return (
+        <div className="pt-32 pb-24 flex items-center justify-center min-h-screen bg-brand-bg px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-white border border-brand-gray/10 p-8 rounded-3xl shadow-xl max-w-md w-full text-center relative overflow-hidden"
+          >
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-brand-gold"></div>
+            
+            <div className="w-12 h-12 rounded-xl bg-brand-navy/5 text-brand-navy flex items-center justify-center mx-auto mb-6">
+              <Lock className="h-6 w-6" />
+            </div>
+
+            <h2 className="text-xl font-bold text-brand-navy mb-2 font-titles">Recuperar Contraseña</h2>
+            <p className="text-xs text-brand-gray-dark font-light mb-6">
+              Ingresa tu correo corporativo y te enviaremos un enlace para restablecer tu contraseña.
+            </p>
+
+            <form onSubmit={handleForgotPassword} className="space-y-4 text-left">
+              <div className="flex flex-col">
+                <label className="text-[10px] font-bold text-brand-navy uppercase mb-1.5">Correo Electrónico</label>
+                <input
+                  type="email"
+                  required
+                  value={recoveryEmail}
+                  onChange={(e) => setRecoveryEmail(e.target.value)}
+                  placeholder="consultor@estribor.cl"
+                  className="w-full px-4 py-2.5 border border-brand-gray/20 rounded-xl bg-brand-bg/50 text-brand-navy text-xs focus:outline-none focus:border-brand-gold transition-colors"
+                />
+              </div>
+
+              {errorMsg && (
+                <p className="text-[11px] font-semibold text-rose-600 bg-rose-50 border border-rose-100 p-2 rounded-lg text-center">
+                  {errorMsg}
+                </p>
+              )}
+
+              {recoverySuccessMsg && (
+                <p className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-100 p-2 rounded-lg text-center">
+                  {recoverySuccessMsg}
+                </p>
+              )}
+
+              <button
+                type="submit"
+                disabled={actionLoading}
+                className="w-full bg-brand-navy hover:bg-brand-blue-med disabled:bg-brand-navy/60 text-white font-bold py-3 rounded-xl text-xs transition-colors shadow-sm flex items-center justify-center gap-1.5"
+              >
+                {actionLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+                Enviar Enlace de Recuperación
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setForgotMode(false);
+                  setErrorMsg("");
+                  setRecoverySuccessMsg("");
+                }}
+                className="w-full text-center text-xs font-semibold text-brand-navy/60 hover:text-brand-navy transition-colors mt-2"
+              >
+                Volver al Inicio de Sesión
+              </button>
+            </form>
+          </motion.div>
+        </div>
+      );
+    }
+
     return (
       <div className="pt-32 pb-24 flex items-center justify-center min-h-screen bg-brand-bg px-4">
         <motion.div
@@ -300,7 +532,20 @@ export default function AdminPage() {
             </div>
 
             <div className="flex flex-col">
-              <label className="text-[10px] font-bold text-brand-navy uppercase mb-1.5">Contraseña</label>
+              <div className="flex justify-between items-center mb-1.5">
+                <label className="text-[10px] font-bold text-brand-navy uppercase">Contraseña</label>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setForgotMode(true);
+                    setErrorMsg("");
+                    setRecoverySuccessMsg("");
+                  }}
+                  className="text-[10px] font-semibold text-brand-gold hover:text-brand-gold/80 transition-colors"
+                >
+                  ¿Olvidó su contraseña?
+                </button>
+              </div>
               <input
                 type="password"
                 required
@@ -346,10 +591,23 @@ export default function AdminPage() {
             <Link
               href="/vacantes"
               target="_blank"
-              className="px-4 py-2.5 border border-brand-navy text-brand-navy rounded-xl text-xs font-bold hover:bg-brand-navy hover:text-white transition-colors"
+              className="px-4 py-2.5 border border-brand-navy text-brand-navy rounded-xl text-xs font-bold hover:bg-brand-navy hover:text-white transition-colors flex items-center justify-center"
             >
               Ver Portal Público
             </Link>
+            <button
+              onClick={() => {
+                setChangePasswordErrorMsg("");
+                setChangePasswordSuccessMsg("");
+                setNewPassword("");
+                setConfirmNewPassword("");
+                setShowChangePasswordModal(true);
+              }}
+              className="px-4 py-2.5 border border-brand-navy text-brand-navy hover:bg-brand-bg rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors"
+            >
+              <Lock className="h-4 w-4" />
+              Cambiar Clave
+            </button>
             <button
               onClick={handleLogout}
               className="px-4 py-2.5 bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors"
@@ -693,6 +951,80 @@ export default function AdminPage() {
                   >
                     {actionLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
                     {editingJob ? "Guardar Cambios" : "Publicar Vacante"}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </motion.div>
+        </div>
+      )}
+
+      {/* Change Password Modal */}
+      {showChangePasswordModal && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-white rounded-3xl max-w-md w-full shadow-2xl relative border-t-8 border-brand-gold overflow-hidden"
+          >
+            <div className="p-8">
+              <h2 className="text-2xl font-bold text-brand-navy mb-6 font-titles flex items-center gap-2">
+                <Lock className="h-6 w-6 text-brand-gold" />
+                Cambiar Contraseña
+              </h2>
+
+              <form onSubmit={handleChangePasswordInternal} className="space-y-4">
+                <div className="flex flex-col">
+                  <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Nueva Contraseña *</label>
+                  <input
+                    type="password"
+                    required
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    placeholder="Mínimo 6 caracteres"
+                    className="border border-brand-gray/20 rounded-lg px-3 py-2 text-xs bg-brand-bg/30 text-brand-navy focus:outline-none focus:border-brand-gold"
+                  />
+                </div>
+
+                <div className="flex flex-col">
+                  <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Confirmar Nueva Contraseña *</label>
+                  <input
+                    type="password"
+                    required
+                    value={confirmNewPassword}
+                    onChange={(e) => setConfirmNewPassword(e.target.value)}
+                    placeholder="Repita la nueva contraseña"
+                    className="border border-brand-gray/20 rounded-lg px-3 py-2 text-xs bg-brand-bg/30 text-brand-navy focus:outline-none focus:border-brand-gold"
+                  />
+                </div>
+
+                {changePasswordErrorMsg && (
+                  <p className="text-[11px] font-semibold text-rose-600 bg-rose-50 border border-rose-100 p-2 rounded-lg text-center">
+                    {changePasswordErrorMsg}
+                  </p>
+                )}
+
+                {changePasswordSuccessMsg && (
+                  <p className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-100 p-2 rounded-lg text-center">
+                    {changePasswordSuccessMsg}
+                  </p>
+                )}
+
+                <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-brand-gray/10">
+                  <button
+                    type="button"
+                    onClick={() => setShowChangePasswordModal(false)}
+                    className="px-4 py-2 border border-brand-gray/20 rounded-xl text-xs hover:bg-brand-bg text-brand-navy font-bold transition-colors"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={actionLoading}
+                    className="bg-brand-navy hover:bg-brand-blue-med text-white text-xs font-bold py-2.5 px-6 rounded-xl transition-colors shadow-sm flex items-center justify-center gap-1.5"
+                  >
+                    {actionLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+                    Actualizar
                   </button>
                 </div>
               </form>
