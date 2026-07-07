@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, Clock, CheckCircle2, Video, ArrowRight, Loader2 } from "lucide-react";
 
@@ -13,19 +13,92 @@ export default function AgendaReunion() {
   const [company, setCompany] = useState("");
   const [objective, setObjective] = useState("Consultoría General");
   const [status, setStatus] = useState<"date-select" | "form-fill" | "submitting" | "success">("date-select");
+  const [bookedSlots, setBookedSlots] = useState<Array<{ date: string; time: string }>>([]);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const dates = [
-    { dayName: "Lun", dayNum: "06", fullDate: "Lunes, 6 de Julio de 2026" },
-    { dayName: "Mar", dayNum: "07", fullDate: "Martes, 7 de Julio de 2026" },
-    { dayName: "Mié", dayNum: "08", fullDate: "Miércoles, 8 de Julio de 2026" },
-    { dayName: "Jue", dayNum: "09", fullDate: "Jueves, 9 de Julio de 2026" },
-    { dayName: "Vie", dayNum: "10", fullDate: "Viernes, 10 de Julio de 2026" },
+    { dayName: "Lun", dayNum: "06", fullDate: "Lunes, 6 de Julio de 2026", dateStr: "2026-07-06" },
+    { dayName: "Mar", dayNum: "07", fullDate: "Martes, 7 de Julio de 2026", dateStr: "2026-07-07" },
+    { dayName: "Mié", dayNum: "08", fullDate: "Miércoles, 8 de Julio de 2026", dateStr: "2026-07-08" },
+    { dayName: "Jue", dayNum: "09", fullDate: "Jueves, 9 de Julio de 2026", dateStr: "2026-07-09" },
+    { dayName: "Vie", dayNum: "10", fullDate: "Viernes, 10 de Julio de 2026", dateStr: "2026-07-10" },
   ];
 
   const timeSlots = ["09:00", "10:30", "12:00", "14:30", "16:00", "17:30"];
 
+  // Helper variables for filtering past slots relative to local user time
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  const todayStr = `${year}-${month}-${day}`;
+
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        const response = await fetch("/api/agenda");
+        const data = await response.json();
+        if (data.success && data.bookings) {
+          setBookedSlots(data.bookings);
+        }
+      } catch (err) {
+        console.error("Error al cargar las reservas:", err);
+      }
+    };
+    fetchBookings();
+  }, []);
+
+  const isDateInPast = (dateStr: string, fullDateName: string) => {
+    if (dateStr < todayStr) return true;
+    
+    // Check if all slots for this day are either in the past or booked
+    const allSlotsUnavailable = timeSlots.every((time) => {
+      const isBooked = bookedSlots.some(
+        (slot) => slot.date === fullDateName && slot.time === time
+      );
+      if (isBooked) return true;
+
+      if (dateStr === todayStr) {
+        const [slotHour, slotMin] = time.split(":").map(Number);
+        const currentHour = now.getHours();
+        const currentMin = now.getMinutes();
+        if (slotHour < currentHour) return true;
+        if (slotHour === currentHour && slotMin <= currentMin) return true;
+      }
+      return false;
+    });
+
+    return allSlotsUnavailable;
+  };
+
+  const isTimeInPast = (timeStr: string) => {
+    // 1. Check if already booked
+    const isBooked = bookedSlots.some(
+      (slot) => slot.date === selectedDate && slot.time === timeStr
+    );
+    if (isBooked) return true;
+
+    // 2. Check if in the past
+    const dateObj = dates.find((d) => d.fullDate === selectedDate);
+    if (!dateObj) return false;
+    
+    if (dateObj.dateStr < todayStr) return true;
+    if (dateObj.dateStr > todayStr) return false;
+    
+    // If it's today, compare hours and minutes
+    const [slotHour, slotMin] = timeStr.split(":").map(Number);
+    const currentHour = now.getHours();
+    const currentMin = now.getMinutes();
+    
+    if (slotHour < currentHour) return true;
+    if (slotHour === currentHour && slotMin <= currentMin) return true;
+    
+    return false;
+  };
+
   const handleNext = () => {
     if (selectedDate && selectedTime) {
+      setErrorMsg("");
       setStatus("form-fill");
     }
   };
@@ -37,25 +110,52 @@ export default function AgendaReunion() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("submitting");
+    setErrorMsg("");
 
-    // Simulate API delay
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const response = await fetch("/api/agenda", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          date: selectedDate,
+          time: selectedTime,
+          duration,
+          name,
+          email,
+          company,
+          objective,
+        }),
+      });
 
-    // Save booking request in localStorage
-    const newBooking = {
-      date: selectedDate,
-      time: selectedTime,
-      duration,
-      name,
-      email,
-      company,
-      objective,
-      createdAt: new Date().toISOString(),
-    };
-    const currentBookings = JSON.parse(localStorage.getItem("estribor_bookings") || "[]");
-    localStorage.setItem("estribor_bookings", JSON.stringify([newBooking, ...currentBookings]));
+      const data = await response.json();
 
-    setStatus("success");
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || "No se pudo realizar el agendamiento.");
+      }
+
+      // Save booking request in localStorage
+      const newBooking = {
+        date: selectedDate,
+        time: selectedTime,
+        duration,
+        name,
+        email,
+        company,
+        objective,
+        createdAt: new Date().toISOString(),
+      };
+      const currentBookings = JSON.parse(localStorage.getItem("estribor_bookings") || "[]");
+      localStorage.setItem("estribor_bookings", JSON.stringify([newBooking, ...currentBookings]));
+
+      // Update locally booked slots immediately
+      setBookedSlots((prev) => [...prev, { date: selectedDate, time: selectedTime }]);
+      setStatus("success");
+    } catch (err: any) {
+      setErrorMsg(err.message || "Error al intentar realizar el agendamiento.");
+      setStatus("form-fill");
+    }
   };
 
   const resetBooking = () => {
@@ -64,6 +164,7 @@ export default function AgendaReunion() {
     setName("");
     setEmail("");
     setCompany("");
+    setErrorMsg("");
     setStatus("date-select");
   };
 
@@ -162,21 +263,30 @@ export default function AgendaReunion() {
                   <div>
                     <h4 className="text-sm font-bold text-brand-navy uppercase tracking-wider mb-3">2. Selecciona Fecha</h4>
                     <div className="grid grid-cols-5 gap-2">
-                      {dates.map((d) => (
-                        <button
-                          key={d.fullDate}
-                          type="button"
-                          onClick={() => setSelectedDate(d.fullDate)}
-                          className={`flex flex-col items-center justify-center p-2.5 rounded-xl border transition-all ${
-                            selectedDate === d.fullDate
-                              ? "bg-brand-gold text-brand-navy border-brand-gold font-bold scale-105"
-                              : "border-brand-gray/20 hover:border-brand-gold/50 text-brand-navy bg-brand-bg/20"
-                          }`}
-                        >
-                          <span className="text-[10px] font-medium opacity-75">{d.dayName}</span>
-                          <span className="text-base font-bold leading-none mt-1">{d.dayNum}</span>
-                        </button>
-                      ))}
+                      {dates.map((d) => {
+                        const inPast = isDateInPast(d.dateStr, d.fullDate);
+                        return (
+                          <button
+                            key={d.fullDate}
+                            type="button"
+                            disabled={inPast}
+                            onClick={() => {
+                              setSelectedDate(d.fullDate);
+                              setSelectedTime(""); // Reset selected time when date changes
+                            }}
+                            className={`flex flex-col items-center justify-center p-2.5 rounded-xl border transition-all ${
+                              inPast
+                                ? "opacity-35 cursor-not-allowed border-brand-gray/10 bg-brand-bg/5 text-brand-navy/30"
+                                : selectedDate === d.fullDate
+                                ? "bg-brand-gold text-brand-navy border-brand-gold font-bold scale-105"
+                                : "border-brand-gray/20 hover:border-brand-gold/50 text-brand-navy bg-brand-bg/20"
+                            }`}
+                          >
+                            <span className="text-[10px] font-medium opacity-75">{d.dayName}</span>
+                            <span className="text-base font-bold leading-none mt-1">{d.dayNum}</span>
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
 
@@ -187,20 +297,26 @@ export default function AgendaReunion() {
                     >
                       <h4 className="text-sm font-bold text-brand-navy uppercase tracking-wider mb-3">3. Selecciona Hora</h4>
                       <div className="grid grid-cols-3 gap-2">
-                        {timeSlots.map((time) => (
-                          <button
-                            key={time}
-                            type="button"
-                            onClick={() => setSelectedTime(time)}
-                            className={`py-2 px-3 text-xs font-semibold rounded-lg border transition-all ${
-                              selectedTime === time
-                                ? "bg-brand-navy text-white border-brand-navy"
-                                : "border-brand-gray/20 hover:border-brand-navy/50 text-brand-navy bg-brand-bg/10"
-                            }`}
-                          >
-                            {time} hrs
-                          </button>
-                        ))}
+                        {timeSlots.map((time) => {
+                          const inPast = isTimeInPast(time);
+                          return (
+                            <button
+                              key={time}
+                              type="button"
+                              disabled={inPast}
+                              onClick={() => setSelectedTime(time)}
+                              className={`py-2 px-3 text-xs font-semibold rounded-lg border transition-all ${
+                                inPast
+                                  ? "opacity-35 cursor-not-allowed border-brand-gray/10 bg-brand-bg/5 text-brand-navy/30"
+                                  : selectedTime === time
+                                  ? "bg-brand-navy text-white border-brand-navy"
+                                  : "border-brand-gray/20 hover:border-brand-navy/50 text-brand-navy bg-brand-bg/10"
+                              }`}
+                            >
+                              {time} hrs
+                            </button>
+                          );
+                        })}
                       </div>
                     </motion.div>
                   )}
@@ -283,6 +399,12 @@ export default function AgendaReunion() {
                       </select>
                     </div>
                   </div>
+
+                  {errorMsg && (
+                    <p className="text-[11px] font-semibold text-rose-600 bg-rose-50 border border-rose-100 p-2.5 rounded-lg text-center mt-4">
+                      {errorMsg}
+                    </p>
+                  )}
 
                   <div className="flex gap-3 mt-6">
                     <button
