@@ -113,6 +113,7 @@ export default function AgendaReunion() {
     setErrorMsg("");
 
     try {
+      const dateObj = dates.find((d) => d.fullDate === selectedDate);
       const response = await fetch("/api/agenda", {
         method: "POST",
         headers: {
@@ -120,6 +121,7 @@ export default function AgendaReunion() {
         },
         body: JSON.stringify({
           date: selectedDate,
+          dateStr: dateObj ? dateObj.dateStr : "",
           time: selectedTime,
           duration,
           name,
