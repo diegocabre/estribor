@@ -45,9 +45,10 @@ export default function Header() {
           <a href="/" className="flex items-center gap-3" onClick={() => setMobileMenuOpen(false)}>
             <div className="relative h-12 w-12 sm:h-14 sm:w-14 overflow-hidden transition-transform duration-300 hover:scale-105">
               <Image
-                src="/logo.png"
+                src="/logo_transparent.png"
                 alt="Estribor Logo"
                 fill
+                sizes="(max-width: 640px) 48px, 56px"
                 priority
                 className="object-contain"
               />

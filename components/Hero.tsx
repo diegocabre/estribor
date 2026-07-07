@@ -88,9 +88,10 @@ export default function Hero() {
               {/* Main Brand Image */}
               <div className="relative w-3/4 h-3/4 select-none drop-shadow-[0_10px_20px_rgba(0,31,66,0.15)]">
                 <Image
-                  src="/logo.png"
+                  src="/logo_transparent.png"
                   alt="Rosa de los Vientos - Estribor"
                   fill
+                  sizes="(max-width: 640px) 240px, (max-width: 1024px) 300px, 400px"
                   priority
                   className="object-contain"
                 />

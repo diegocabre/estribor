@@ -17,10 +17,11 @@ export default function Footer() {
             <div className="flex items-center gap-3 mb-4 cursor-pointer" onClick={scrollToTop}>
               <div className="relative h-12 w-12 overflow-hidden transition-transform duration-300 hover:scale-105">
                 <Image
-                  src="/logo.png"
+                  src="/logo_transparent.png"
                   alt="Estribor Logo"
                   fill
-                  className="object-contain"
+                  sizes="48px"
+                  className="object-contain brightness-0 invert"
                 />
               </div>
               <div className="flex flex-col text-left">
