@@ -16,13 +16,8 @@ export default function AgendaReunion() {
   const [bookedSlots, setBookedSlots] = useState<Array<{ date: string; time: string }>>([]);
   const [errorMsg, setErrorMsg] = useState("");
 
-  const dates = [
-    { dayName: "Lun", dayNum: "06", fullDate: "Lunes, 6 de Julio de 2026", dateStr: "2026-07-06" },
-    { dayName: "Mar", dayNum: "07", fullDate: "Martes, 7 de Julio de 2026", dateStr: "2026-07-07" },
-    { dayName: "Mié", dayNum: "08", fullDate: "Miércoles, 8 de Julio de 2026", dateStr: "2026-07-08" },
-    { dayName: "Jue", dayNum: "09", fullDate: "Jueves, 9 de Julio de 2026", dateStr: "2026-07-09" },
-    { dayName: "Vie", dayNum: "10", fullDate: "Viernes, 10 de Julio de 2026", dateStr: "2026-07-10" },
-  ];
+  const [dates, setDates] = useState<Array<{ dayName: string; dayNum: string; fullDate: string; dateStr: string }>>([]);
+  const [mounted, setMounted] = useState(false);
 
   const timeSlots = ["09:00", "10:30", "12:00", "14:30", "16:00", "17:30"];
 
@@ -32,6 +27,81 @@ export default function AgendaReunion() {
   const month = String(now.getMonth() + 1).padStart(2, "0");
   const day = String(now.getDate()).padStart(2, "0");
   const todayStr = `${year}-${month}-${day}`;
+
+  useEffect(() => {
+    setMounted(true);
+    
+    const generatedDates = [];
+    const localNow = new Date();
+    
+    // Check if the last slot for today is already in the past (17:30)
+    const currentHour = localNow.getHours();
+    const currentMin = localNow.getMinutes();
+    const isTodayPast = currentHour > 17 || (currentHour === 17 && currentMin >= 30);
+    
+    let current = new Date(localNow);
+    if (isTodayPast) {
+      current.setDate(current.getDate() + 1);
+    }
+    
+    const dayNames = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+    const fullDayNames = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+    const monthNames = [
+      "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+      "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+    ];
+
+    while (generatedDates.length < 5) {
+      const dayOfWeek = current.getDay();
+      // Skip weekends (Saturday = 6, Sunday = 0)
+      if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+        const dayName = dayNames[dayOfWeek];
+        const dayNum = String(current.getDate()).padStart(2, "0");
+        const y = current.getFullYear();
+        const m = String(current.getMonth() + 1).padStart(2, "0");
+        const dateStr = `${y}-${m}-${dayNum}`;
+        const fullDate = `${fullDayNames[dayOfWeek]}, ${current.getDate()} de ${monthNames[current.getMonth()]} de ${y}`;
+        
+        generatedDates.push({ dayName, dayNum, fullDate, dateStr });
+      }
+      current.setDate(current.getDate() + 1);
+    }
+    
+    setDates(generatedDates);
+  }, []);
+
+  const getMonthHeader = () => {
+    if (dates.length === 0) return "";
+    
+    const monthNames = [
+      "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+      "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+    ];
+    
+    const monthsSet = new Set<string>();
+    const yearsSet = new Set<string>();
+    
+    dates.forEach((d) => {
+      const parts = d.dateStr.split("-");
+      if (parts.length === 3) {
+        const yStr = parts[0];
+        const mStr = parts[1];
+        const monthIndex = parseInt(mStr, 10) - 1;
+        if (monthNames[monthIndex]) {
+          monthsSet.add(monthNames[monthIndex]);
+        }
+        yearsSet.add(yStr);
+      }
+    });
+    
+    const monthsArray = Array.from(monthsSet);
+    const yearsArray = Array.from(yearsSet);
+    
+    const monthsLabel = monthsArray.join(" - ");
+    const yearsLabel = yearsArray.join(" / ");
+    
+    return `${monthsLabel} ${yearsLabel}`;
+  };
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -263,32 +333,45 @@ export default function AgendaReunion() {
                   </div>
 
                   <div>
-                    <h4 className="text-sm font-bold text-brand-navy uppercase tracking-wider mb-3">2. Selecciona Fecha</h4>
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-3">
+                      <h4 className="text-sm font-bold text-brand-navy uppercase tracking-wider">2. Selecciona Fecha</h4>
+                      {mounted && dates.length > 0 && (
+                        <span className="text-xs font-semibold text-brand-gold/90 italic">
+                          {getMonthHeader()}
+                        </span>
+                      )}
+                    </div>
                     <div className="grid grid-cols-5 gap-2">
-                      {dates.map((d) => {
-                        const inPast = isDateInPast(d.dateStr, d.fullDate);
-                        return (
-                          <button
-                            key={d.fullDate}
-                            type="button"
-                            disabled={inPast}
-                            onClick={() => {
-                              setSelectedDate(d.fullDate);
-                              setSelectedTime(""); // Reset selected time when date changes
-                            }}
-                            className={`flex flex-col items-center justify-center p-2.5 rounded-xl border transition-all ${
-                              inPast
-                                ? "opacity-35 cursor-not-allowed border-brand-gray/10 bg-brand-bg/5 text-brand-navy/30"
-                                : selectedDate === d.fullDate
-                                ? "bg-brand-gold text-brand-navy border-brand-gold font-bold scale-105"
-                                : "border-brand-gray/20 hover:border-brand-gold/50 text-brand-navy bg-brand-bg/20"
-                            }`}
-                          >
-                            <span className="text-[10px] font-medium opacity-75">{d.dayName}</span>
-                            <span className="text-base font-bold leading-none mt-1">{d.dayNum}</span>
-                          </button>
-                        );
-                      })}
+                      {!mounted || dates.length === 0 ? (
+                        <div className="col-span-5 flex justify-center py-4">
+                          <Loader2 className="h-6 w-6 text-brand-gold animate-spin" />
+                        </div>
+                      ) : (
+                        dates.map((d) => {
+                          const inPast = isDateInPast(d.dateStr, d.fullDate);
+                          return (
+                            <button
+                              key={d.fullDate}
+                              type="button"
+                              disabled={inPast}
+                              onClick={() => {
+                                setSelectedDate(d.fullDate);
+                                setSelectedTime(""); // Reset selected time when date changes
+                              }}
+                              className={`flex flex-col items-center justify-center p-2.5 rounded-xl border transition-all ${
+                                inPast
+                                  ? "opacity-35 cursor-not-allowed border-brand-gray/10 bg-brand-bg/5 text-brand-navy/30"
+                                  : selectedDate === d.fullDate
+                                  ? "bg-brand-gold text-brand-navy border-brand-gold font-bold scale-105"
+                                  : "border-brand-gray/20 hover:border-brand-gold/50 text-brand-navy bg-brand-bg/20"
+                              }`}
+                            >
+                              <span className="text-[10px] font-medium opacity-75">{d.dayName}</span>
+                              <span className="text-base font-bold leading-none mt-1">{d.dayNum}</span>
+                            </button>
+                          );
+                        })
+                      )}
                     </div>
                   </div>
 
