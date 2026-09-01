@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -42,7 +42,11 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo & Brand Name */}
-          <a href="/" className="flex items-center gap-3" onClick={() => setMobileMenuOpen(false)}>
+          <a
+            href="/"
+            className="flex items-center gap-3"
+            onClick={() => setMobileMenuOpen(false)}
+          >
             <div className="relative h-12 w-12 sm:h-14 sm:w-14 overflow-hidden transition-transform duration-300 hover:scale-105">
               <Image
                 src="/logo_transparent.png"
@@ -53,32 +57,30 @@ export default function Header() {
                 className="object-contain"
               />
             </div>
-            <div className="flex flex-col justify-center">
-              <span className="text-xl sm:text-2xl font-bold tracking-wider text-brand-navy leading-none font-sans">
-                ESTRIBOR
-              </span>
-              <span className="text-[10px] sm:text-xs font-semibold tracking-widest text-brand-gray leading-none mt-1">
-                CONSULTORES
-              </span>
-            </div>
           </a>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             {navItems.map((item) => {
-              const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+              const isActive =
+                pathname === item.href ||
+                (item.href !== "/" && pathname.startsWith(item.href));
               return (
                 <a
                   key={item.name}
                   href={item.href}
                   className={`text-sm font-medium transition-colors duration-200 relative group py-2 ${
-                    isActive ? "text-brand-electric" : "text-brand-navy hover:text-brand-electric"
+                    isActive
+                      ? "text-brand-electric"
+                      : "text-brand-navy hover:text-brand-electric"
                   }`}
                 >
                   {item.name}
-                  <span className={`absolute bottom-0 left-0 h-0.5 bg-brand-electric transition-all duration-300 ${
-                    isActive ? "w-full" : "w-0 group-hover:w-full"
-                  }`}></span>
+                  <span
+                    className={`absolute bottom-0 left-0 h-0.5 bg-brand-electric transition-all duration-300 ${
+                      isActive ? "w-full" : "w-0 group-hover:w-full"
+                    }`}
+                  ></span>
                 </a>
               );
             })}
@@ -101,7 +103,11 @@ export default function Header() {
               className="text-brand-navy hover:text-brand-electric focus:outline-none p-2 transition-colors duration-200"
               aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? <X className="h-6 w-6 animate-pulse" /> : <Menu className="h-6 w-6" />}
+              {mobileMenuOpen ? (
+                <X className="h-6 w-6 animate-pulse" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </button>
           </div>
         </div>
@@ -119,7 +125,9 @@ export default function Header() {
           >
             <div className="px-4 pt-2 pb-6 space-y-1">
               {navItems.map((item, index) => {
-                const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+                const isActive =
+                  pathname === item.href ||
+                  (item.href !== "/" && pathname.startsWith(item.href));
                 return (
                   <motion.a
                     initial={{ opacity: 0, x: -15 }}
