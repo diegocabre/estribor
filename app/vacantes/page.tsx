@@ -1,11 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { Job, initialJobs } from "@/components/jobsData";
 import { supabase } from "@/lib/supabase";
-import { Search, MapPin, Briefcase, Building, Send, ChevronRight, Loader2, CheckCircle2, Lock } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  Briefcase,
+  Building,
+  CheckCircle2,
+  ChevronRight,
+  Loader2,
+  Lock,
+  MapPin,
+  Search,
+  Send,
+} from "lucide-react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export default function VacantesPage() {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -26,7 +36,9 @@ export default function VacantesPage() {
   const [spontArea, setSpontArea] = useState("Gestión de Personas");
   const [spontCv, setSpontCv] = useState<File | null>(null);
   const [spontCvName, setSpontCvName] = useState("");
-  const [spontStatus, setSpontStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [spontStatus, setSpontStatus] = useState<
+    "idle" | "submitting" | "success" | "error"
+  >("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
   const fetchJobs = async () => {
@@ -49,12 +61,14 @@ export default function VacantesPage() {
         functions: j.functions,
         confidential: j.confidential,
         active: j.active,
-        createdAt: j.created_at
+        createdAt: j.created_at,
       }));
       // Sort so active jobs are on top, closed jobs at the bottom, both ordered by date
       mappedJobs.sort((a, b) => {
         if (a.active === b.active) {
-          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+          return (
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
         }
         return a.active ? -1 : 1;
       });
@@ -63,7 +77,9 @@ export default function VacantesPage() {
       console.warn("Utilizando datos iniciales de vacantes.");
       const initialSorted = [...initialJobs].sort((a, b) => {
         if (a.active === b.active) {
-          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+          return (
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
         }
         return a.active ? -1 : 1;
       });
@@ -78,21 +94,28 @@ export default function VacantesPage() {
 
   // Extract unique filter options
   const areas = ["Todos", ...Array.from(new Set(jobs.map((j) => j.area)))];
-  const locations = ["Todos", ...Array.from(new Set(jobs.map((j) => j.location)))];
+  const locations = [
+    "Todos",
+    ...Array.from(new Set(jobs.map((j) => j.location))),
+  ];
   const types = ["Todos", ...Array.from(new Set(jobs.map((j) => j.type)))];
 
   // Filtering logic
   const filteredJobs = jobs.filter((job) => {
-    const matchesSearch = job.title.toLowerCase().includes(search.toLowerCase()) || 
-                          job.description.toLowerCase().includes(search.toLowerCase());
+    const matchesSearch =
+      job.title.toLowerCase().includes(search.toLowerCase()) ||
+      job.description.toLowerCase().includes(search.toLowerCase());
     const matchesArea = selectedArea === "Todos" || job.area === selectedArea;
-    const matchesLoc = selectedLocation === "Todos" || job.location === selectedLocation;
+    const matchesLoc =
+      selectedLocation === "Todos" || job.location === selectedLocation;
     const matchesType = selectedType === "Todos" || job.type === selectedType;
-    const matchesStatus = 
-      selectedStatus === "Todos" || 
-      (selectedStatus === "Activas" && job.active) || 
+    const matchesStatus =
+      selectedStatus === "Todos" ||
+      (selectedStatus === "Activas" && job.active) ||
       (selectedStatus === "Cerradas" && !job.active);
-    return matchesSearch && matchesArea && matchesLoc && matchesType && matchesStatus;
+    return (
+      matchesSearch && matchesArea && matchesLoc && matchesType && matchesStatus
+    );
   });
 
   const handleSpontaneousSubmit = async (e: React.FormEvent) => {
@@ -102,7 +125,7 @@ export default function VacantesPage() {
 
     try {
       let cvUrl = "";
-      
+
       if (!spontCv) {
         throw new Error("Por favor, adjunta tu CV en formato PDF.");
       }
@@ -115,22 +138,26 @@ export default function VacantesPage() {
         .eq("rut", spontRut);
 
       if (checkError) {
-        throw new Error(`Error al verificar postulación previa: ${checkError.message}`);
+        throw new Error(
+          `Error al verificar postulación previa: ${checkError.message}`,
+        );
       }
 
       if (existingApp && existingApp.length > 0) {
-        throw new Error("Ya te has registrado en nuestra postulación espontánea con este RUT. Tu perfil ya está en nuestra base de datos.");
+        throw new Error(
+          "Ya te has registrado en nuestra postulación espontánea con este RUT. Tu perfil ya está en nuestra base de datos.",
+        );
       }
 
       // 1. Upload CV to Supabase Storage Bucket
       const fileExt = spontCv.name.split(".").pop();
       const fileName = `spontaneous-${Date.now()}.${fileExt}`;
-      
+
       const { data: uploadData, error: uploadError } = await supabase.storage
         .from("cvs")
         .upload(fileName, spontCv, {
           cacheControl: "3600",
-          upsert: false
+          upsert: false,
         });
 
       if (uploadError) {
@@ -141,7 +168,7 @@ export default function VacantesPage() {
       const { data: urlData } = supabase.storage
         .from("cvs")
         .getPublicUrl(fileName);
-      
+
       cvUrl = urlData.publicUrl;
 
       // 3. Insert Application into Database
@@ -158,12 +185,14 @@ export default function VacantesPage() {
             city: spontCity,
             salary_expectation: spontSalary,
             availability: "Inmediata",
-            cv_url: cvUrl
-          }
+            cv_url: cvUrl,
+          },
         ]);
 
       if (insertError) {
-        throw new Error(`Error al guardar la postulación: ${insertError.message}`);
+        throw new Error(
+          `Error al guardar la postulación: ${insertError.message}`,
+        );
       }
 
       setSpontStatus("success");
@@ -178,7 +207,9 @@ export default function VacantesPage() {
     } catch (err: any) {
       console.error(err);
       setSpontStatus("error");
-      setErrorMsg(err.message || "Ocurrió un error inesperado al enviar la postulación.");
+      setErrorMsg(
+        err.message || "Ocurrió un error inesperado al enviar la postulación.",
+      );
     }
   };
 
@@ -194,19 +225,40 @@ export default function VacantesPage() {
       {/* Header Banner */}
       <div className="bg-brand-navy text-white py-16 mb-12 relative overflow-hidden">
         <div className="absolute right-0 bottom-0 translate-x-1/4 translate-y-1/4 w-96 h-96 bg-brand-gold/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
+          <div className="max-w-3xl">
             <span className="text-brand-gold text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
-              Desarrollo Profesional
+              Portal de Empleo & Hunting Estratégico
             </span>
-            <h1 className="text-3xl sm:text-5xl font-bold tracking-tight mb-4 font-titles">
-              Trabaja con Nuestros Clientes
+            <h1 className="text-3xl sm:text-5xl font-bold tracking-tight mb-4 font-titles leading-tight">
+              Define el Rumbo de tu Carrera{" "}
+              <span className="text-brand-gold bg-gradient-to-r from-brand-gold to-brand-blue-light bg-clip-text text-transparent">
+                Impulsa tu Talento en Empresas Líderes
+              </span>
             </h1>
-            <p className="text-sm sm:text-base text-brand-gray max-w-xl font-light leading-relaxed">
-              Administramos procesos de selección y reclutamiento estratégico para empresas líderes de la industria y producción en todo Chile.
+            <p className="text-sm sm:text-base text-brand-gray max-w-2xl font-light leading-relaxed mb-6">
+              Acompañamos a profesionales de excelencia en su desarrollo
+              laboral. Postula a nuestros procesos de selección exclusivos o
+              regístrate en nuestra base de talentos para acceder a nuevas
+              oportunidades estratégicas en todo Chile.
             </p>
+            <div className="flex flex-wrap gap-3">
+              <a
+                href="#vacantes-lista"
+                className="inline-flex items-center gap-2 bg-brand-gold hover:bg-brand-gold/90 text-brand-navy font-bold px-5 py-2.5 rounded-xl text-xs transition-all shadow-sm"
+              >
+                <span>Ver Convocatorias</span>
+              </a>
+              <a
+                href="#espontanea"
+                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold px-5 py-2.5 rounded-xl text-xs transition-all border border-white/20"
+              >
+                <span>Postulación Espontánea</span>
+              </a>
+            </div>
           </div>
-          <div className="shrink-0">
+
+          <div className="shrink-0 self-start md:self-center">
             <Link
               href="/vacantes/admin"
               className="inline-flex items-center gap-2 text-xs text-brand-gold hover:text-white bg-white/5 hover:bg-white/10 border border-brand-gold/30 hover:border-brand-gold px-4 py-2.5 rounded-xl font-semibold transition-all shadow-sm"
@@ -218,12 +270,13 @@ export default function VacantesPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div
+        id="vacantes-lista"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-28"
+      >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
           {/* Main Job Search & List Area (8 columns) */}
           <div className="lg:col-span-8 space-y-6">
-            
             {/* Search and Filters Panel */}
             <div className="bg-white border border-brand-gray/10 p-6 rounded-2xl shadow-sm space-y-4">
               <div className="relative">
@@ -240,49 +293,63 @@ export default function VacantesPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
                 {/* Area filter */}
                 <div className="flex flex-col">
-                  <label className="text-[10px] font-bold text-brand-navy uppercase mb-1.5">Área de Trabajo</label>
+                  <label className="text-[10px] font-bold text-brand-navy uppercase mb-1.5">
+                    Área de Trabajo
+                  </label>
                   <select
                     value={selectedArea}
                     onChange={(e) => setSelectedArea(e.target.value)}
                     className="border border-brand-gray/20 rounded-xl px-3 py-2.5 text-xs bg-brand-bg/10 text-brand-navy focus:outline-none focus:border-brand-gold cursor-pointer"
                   >
                     {areas.map((a) => (
-                      <option key={a} value={a}>{a}</option>
+                      <option key={a} value={a}>
+                        {a}
+                      </option>
                     ))}
                   </select>
                 </div>
 
                 {/* Location Filter */}
                 <div className="flex flex-col">
-                  <label className="text-[10px] font-bold text-brand-navy uppercase mb-1.5">Ubicación</label>
+                  <label className="text-[10px] font-bold text-brand-navy uppercase mb-1.5">
+                    Ubicación
+                  </label>
                   <select
                     value={selectedLocation}
                     onChange={(e) => setSelectedLocation(e.target.value)}
                     className="border border-brand-gray/20 rounded-xl px-3 py-2.5 text-xs bg-brand-bg/10 text-brand-navy focus:outline-none focus:border-brand-gold cursor-pointer"
                   >
                     {locations.map((l) => (
-                      <option key={l} value={l}>{l}</option>
+                      <option key={l} value={l}>
+                        {l}
+                      </option>
                     ))}
                   </select>
                 </div>
 
                 {/* Type Filter */}
                 <div className="flex flex-col">
-                  <label className="text-[10px] font-bold text-brand-navy uppercase mb-1.5">Tipo de Cargo</label>
+                  <label className="text-[10px] font-bold text-brand-navy uppercase mb-1.5">
+                    Tipo de Cargo
+                  </label>
                   <select
                     value={selectedType}
                     onChange={(e) => setSelectedType(e.target.value)}
                     className="border border-brand-gray/20 rounded-xl px-3 py-2.5 text-xs bg-brand-bg/10 text-brand-navy focus:outline-none focus:border-brand-gold cursor-pointer"
                   >
                     {types.map((t) => (
-                      <option key={t} value={t}>{t}</option>
+                      <option key={t} value={t}>
+                        {t}
+                      </option>
                     ))}
                   </select>
                 </div>
 
                 {/* Status Filter */}
                 <div className="flex flex-col">
-                  <label className="text-[10px] font-bold text-brand-navy uppercase mb-1.5">Estado</label>
+                  <label className="text-[10px] font-bold text-brand-navy uppercase mb-1.5">
+                    Estado
+                  </label>
                   <select
                     value={selectedStatus}
                     onChange={(e) => setSelectedStatus(e.target.value)}
@@ -301,7 +368,9 @@ export default function VacantesPage() {
               {loading ? (
                 <div className="text-center py-16 bg-white border border-brand-gray/10 rounded-2xl">
                   <Loader2 className="h-10 w-10 text-brand-gold animate-spin mx-auto mb-4" />
-                  <p className="text-xs text-brand-gray-dark">Cargando vacantes en tiempo real...</p>
+                  <p className="text-xs text-brand-gray-dark">
+                    Cargando vacantes en tiempo real...
+                  </p>
                 </div>
               ) : filteredJobs.length > 0 ? (
                 filteredJobs.map((job) => (
@@ -339,7 +408,9 @@ export default function VacantesPage() {
                         )}
                       </div>
 
-                      <h3 className={`text-xl font-bold ${job.active ? "text-brand-navy" : "text-slate-800"}`}>
+                      <h3
+                        className={`text-xl font-bold ${job.active ? "text-brand-navy" : "text-slate-800"}`}
+                      >
                         {job.title}
                       </h3>
 
@@ -363,7 +434,9 @@ export default function VacantesPage() {
                           : "bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 shadow-sm"
                       }`}
                     >
-                      <span>{job.active ? "Postular / Detalle" : "Ver Proceso"}</span>
+                      <span>
+                        {job.active ? "Postular / Detalle" : "Ver Proceso"}
+                      </span>
                       <ChevronRight className="h-4 w-4" />
                     </Link>
                   </div>
@@ -371,18 +444,29 @@ export default function VacantesPage() {
               ) : (
                 <div className="text-center py-16 bg-white border border-brand-gray/10 rounded-2xl">
                   <Building className="h-12 w-12 text-brand-gray mx-auto mb-4" />
-                  <h3 className="text-lg font-bold text-brand-navy">No encontramos vacantes</h3>
-                  <p className="text-sm text-brand-gray-dark font-light">Intenta ajustando los filtros de búsqueda.</p>
+                  <h3 className="text-lg font-bold text-brand-navy">
+                    No encontramos vacantes
+                  </h3>
+                  <p className="text-sm text-brand-gray-dark font-light">
+                    Intenta ajustando los filtros de búsqueda.
+                  </p>
                 </div>
               )}
             </div>
           </div>
 
           {/* Spontaneous Application Form (4 columns) */}
-          <div id="espontanea" className="lg:col-span-4 bg-white border border-brand-gray/10 p-6 sm:p-8 rounded-2xl shadow-sm scroll-mt-28">
-            <h3 className="text-lg font-bold text-brand-navy mb-3">Postulación Espontánea</h3>
+          <div
+            id="espontanea"
+            className="lg:col-span-4 bg-white border border-brand-gray/10 p-6 sm:p-8 rounded-2xl shadow-sm scroll-mt-28"
+          >
+            <h3 className="text-lg font-bold text-brand-navy mb-3">
+              Postulación Espontánea
+            </h3>
             <p className="text-xs text-brand-gray-dark font-light leading-relaxed mb-6">
-              ¿No encontraste un cargo afín a tu perfil? Déjanos tu currículum para sumarte a nuestra base de datos. Nos pondremos en contacto contigo cuando surjan búsquedas alineadas a tu experiencia.
+              ¿No encontraste un cargo afín a tu perfil? Déjanos tu currículum
+              para sumarte a nuestra base de datos. Nos pondremos en contacto
+              contigo cuando surjan búsquedas alineadas a tu experiencia.
             </p>
 
             <AnimatePresence mode="wait">
@@ -394,9 +478,12 @@ export default function VacantesPage() {
                   className="text-center py-8"
                 >
                   <CheckCircle2 className="h-12 w-12 text-emerald-500 mx-auto mb-4" />
-                  <h4 className="font-bold text-brand-navy mb-2">¡Ingreso Exitoso!</h4>
+                  <h4 className="font-bold text-brand-navy mb-2">
+                    ¡Ingreso Exitoso!
+                  </h4>
                   <p className="text-xs text-brand-gray-dark font-light max-w-xs mx-auto mb-6 leading-relaxed">
-                    Hemos incorporado tu CV a nuestra base de datos de selección estratégica en Supabase.
+                    Hemos incorporado tu CV a nuestra base de datos de selección
+                    estratégica en Supabase.
                   </p>
                   <button
                     onClick={() => setSpontStatus("idle")}
@@ -411,7 +498,9 @@ export default function VacantesPage() {
                   className="space-y-4"
                 >
                   <div className="flex flex-col">
-                    <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Nombre Completo *</label>
+                    <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">
+                      Nombre Completo *
+                    </label>
                     <input
                       type="text"
                       required
@@ -423,7 +512,9 @@ export default function VacantesPage() {
                   </div>
 
                   <div className="flex flex-col">
-                    <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">RUT *</label>
+                    <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">
+                      RUT *
+                    </label>
                     <input
                       type="text"
                       required
@@ -436,7 +527,9 @@ export default function VacantesPage() {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="flex flex-col">
-                      <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Correo Electrónico *</label>
+                      <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">
+                        Correo Electrónico *
+                      </label>
                       <input
                         type="email"
                         required
@@ -448,7 +541,9 @@ export default function VacantesPage() {
                     </div>
 
                     <div className="flex flex-col">
-                      <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Teléfono *</label>
+                      <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">
+                        Teléfono *
+                      </label>
                       <input
                         type="tel"
                         required
@@ -462,7 +557,9 @@ export default function VacantesPage() {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="flex flex-col">
-                      <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Ciudad *</label>
+                      <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">
+                        Ciudad *
+                      </label>
                       <input
                         type="text"
                         required
@@ -474,7 +571,9 @@ export default function VacantesPage() {
                     </div>
 
                     <div className="flex flex-col">
-                      <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Pretensión Renta (CLP) *</label>
+                      <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">
+                        Pretensión Renta (CLP) *
+                      </label>
                       <input
                         type="text"
                         required
@@ -487,22 +586,36 @@ export default function VacantesPage() {
                   </div>
 
                   <div className="flex flex-col">
-                    <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Área de Interés *</label>
+                    <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">
+                      Área de Interés *
+                    </label>
                     <select
                       value={spontArea}
                       onChange={(e) => setSpontArea(e.target.value)}
                       className="border border-brand-gray/20 rounded-lg px-3 py-2 text-xs bg-brand-bg/30 text-brand-navy focus:outline-none focus:border-brand-gold transition-colors cursor-pointer"
                     >
-                      <option value="Gestión de Personas">Gestión de Personas / DO / Reclutamiento</option>
-                      <option value="Seguridad y Salud en el Trabajo">Seguridad y Salud en el Trabajo (SST)</option>
-                      <option value="Sostenibilidad Organizacional">Sostenibilidad Organizacional / ESG</option>
-                      <option value="Operaciones / Producción">Operaciones / Producción</option>
-                      <option value="Administración / Finanzas">Administración / Finanzas</option>
+                      <option value="Gestión de Personas">
+                        Gestión de Personas / DO / Reclutamiento
+                      </option>
+                      <option value="Seguridad y Salud en el Trabajo">
+                        Seguridad y Salud en el Trabajo (SST)
+                      </option>
+                      <option value="Sostenibilidad Organizacional">
+                        Sostenibilidad Organizacional / ESG
+                      </option>
+                      <option value="Operaciones / Producción">
+                        Operaciones / Producción
+                      </option>
+                      <option value="Administración / Finanzas">
+                        Administración / Finanzas
+                      </option>
                     </select>
                   </div>
 
                   <div className="flex flex-col">
-                    <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Adjuntar CV (PDF) *</label>
+                    <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">
+                      Adjuntar CV (PDF) *
+                    </label>
                     <div className="relative border border-dashed border-brand-gray/30 rounded-lg p-4 bg-brand-bg/20 flex flex-col items-center justify-center cursor-pointer hover:bg-brand-bg/40 transition-colors">
                       <input
                         type="file"
@@ -544,7 +657,6 @@ export default function VacantesPage() {
               )}
             </AnimatePresence>
           </div>
-
         </div>
       </div>
     </div>
