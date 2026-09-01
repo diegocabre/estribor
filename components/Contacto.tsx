@@ -1,8 +1,9 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Phone, Mail, MapPin, Send, CheckCircle2, Loader2 } from "lucide-react";
+import LegalFormConsent from "@/components/LegalFormConsent";
 
 export default function Contacto() {
   const [formData, setFormData] = useState({
@@ -14,13 +15,22 @@ export default function Contacto() {
     message: "",
   });
 
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
+  const [marketingAccepted, setMarketingAccepted] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus("loading");
     setErrorMessage(null);
+
+    if (!privacyAccepted) {
+      setStatus("error");
+      setErrorMessage("Por favor, acepta la Política de Privacidad para poder enviar tu mensaje.");
+      return;
+    }
+
+    setStatus("loading");
 
     try {
       const response = await fetch("/api/contacto", {
@@ -28,7 +38,11 @@ export default function Contacto() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          privacyAccepted,
+          marketingAccepted,
+        }),
       });
 
       const data = await response.json();
@@ -43,6 +57,8 @@ export default function Contacto() {
           role: "",
           message: "",
         });
+        setPrivacyAccepted(false);
+        setMarketingAccepted(false);
         if (data.warning) {
           console.warn("Advertencia de Resend:", data.warning);
         }
@@ -285,6 +301,15 @@ export default function Contacto() {
                     ></textarea>
                   </div>
 
+                  {/* Componente de Consentimiento Legal Ley de Datos */}
+                  <LegalFormConsent
+                    privacyAccepted={privacyAccepted}
+                    onPrivacyChange={setPrivacyAccepted}
+                    marketingAccepted={marketingAccepted}
+                    onMarketingChange={setMarketingAccepted}
+                    showMarketingOption={true}
+                  />
+
                   {status === "error" && errorMessage && (
                     <motion.div
                       initial={{ opacity: 0, y: -10 }}
@@ -298,7 +323,7 @@ export default function Contacto() {
                   <button
                     type="submit"
                     disabled={status === "loading"}
-                    className="w-full bg-brand-electric hover:bg-brand-blue-med disabled:bg-brand-electric/50 text-white font-bold py-4 rounded-md transition-colors shadow-md hover:shadow-lg flex items-center justify-center gap-2 transform hover:-translate-y-0.5 duration-200"
+                    className="w-full bg-brand-electric hover:bg-brand-blue-med disabled:bg-brand-electric/50 text-white font-bold py-4 rounded-md transition-colors shadow-md hover:shadow-lg flex items-center justify-center gap-2 transform hover:-translate-y-0.5 duration-200 cursor-pointer"
                   >
                     {status === "loading" ? (
                       <>

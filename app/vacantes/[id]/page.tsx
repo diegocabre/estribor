@@ -27,6 +27,7 @@ export default function VacanteDetailPage({ params }: PageProps) {
   const [cvFile, setCvFile] = useState<File | null>(null);
   const [cvName, setCvName] = useState("");
   const [linkedin, setLinkedin] = useState("");
+  const [privacyConsent, setPrivacyConsent] = useState(false);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [copied, setCopied] = useState(false);
@@ -126,6 +127,10 @@ export default function VacanteDetailPage({ params }: PageProps) {
     setErrorMsg("");
 
     try {
+      if (!privacyConsent) {
+        throw new Error("Debes autorizar el tratamiento de tus datos personales conforme a la Política de Privacidad.");
+      }
+
       let cvUrl = "";
 
       if (!cvFile) {
@@ -187,6 +192,7 @@ export default function VacanteDetailPage({ params }: PageProps) {
       setCvFile(null);
       setCvName("");
       setLinkedin("");
+      setPrivacyConsent(false);
     } catch (err: any) {
       console.error(err);
       setStatus("error");
@@ -468,6 +474,24 @@ export default function VacanteDetailPage({ params }: PageProps) {
                         {cvName || "Subir archivo PDF"}
                       </span>
                     </div>
+                  </div>
+
+                  <div className="flex items-start gap-2 pt-1 text-left">
+                    <input
+                      type="checkbox"
+                      id="privacy-consent-job"
+                      required
+                      checked={privacyConsent}
+                      onChange={(e) => setPrivacyConsent(e.target.checked)}
+                      className="mt-0.5 h-3.5 w-3.5 rounded border-brand-gray/30 text-brand-navy accent-brand-navy cursor-pointer"
+                    />
+                    <label htmlFor="privacy-consent-job" className="text-[10px] text-brand-gray-dark cursor-pointer leading-tight">
+                      Autorizo el tratamiento de mis antecedentes y CV para fines exclusivos de este proceso de selección conforme a la{" "}
+                      <Link href="/privacidad" target="_blank" className="text-brand-electric underline font-semibold hover:text-brand-navy">
+                        Política de Privacidad
+                      </Link>
+                      . <span className="text-rose-500 font-bold">*</span>
+                    </label>
                   </div>
 
                   {status === "error" && errorMsg && (

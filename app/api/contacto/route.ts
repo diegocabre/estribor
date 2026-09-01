@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 
 // Helper function to send email via Resend REST API
 async function sendEmail({
@@ -42,12 +42,20 @@ async function sendEmail({
 
 export async function POST(request: NextRequest) {
   try {
-    const { name, email, phone, company, role, message } = await request.json();
+    const { name, email, phone, company, role, message, privacyAccepted, marketingAccepted } = await request.json();
 
     // Validar campos requeridos
     if (!name || !email || !message) {
       return NextResponse.json(
         { success: false, error: "Nombre, correo y mensaje son requeridos." },
+        { status: 400 }
+      );
+    }
+
+    // Validar consentimiento de privacidad conforme a la ley chilena
+    if (!privacyAccepted) {
+      return NextResponse.json(
+        { success: false, error: "Debe aceptar la Política de Privacidad para enviar su consulta." },
         { status: 400 }
       );
     }
@@ -103,6 +111,14 @@ export async function POST(request: NextRequest) {
             <td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eaeaea; color: #0F1D33;">Cargo:</td>
             <td style="padding: 8px; border-bottom: 1px solid #eaeaea; color: #475467;">${role || "No especificado"}</td>
           </tr>
+          <tr>
+            <td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eaeaea; color: #0F1D33;">Consentimiento Ley de Datos:</td>
+            <td style="padding: 8px; border-bottom: 1px solid #eaeaea; color: #16a34a; font-weight: bold;">Aceptado (${new Date().toLocaleString("es-CL", { timeZone: "America/Santiago" })})</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eaeaea; color: #0F1D33;">Autorización Marketing:</td>
+            <td style="padding: 8px; border-bottom: 1px solid #eaeaea; color: #475467;">${marketingAccepted ? "Sí, autoriza recibir información comercial" : "No"}</td>
+          </tr>
         </table>
         
         <div style="margin-top: 20px; background-color: #f9f9f9; padding: 15px; border-radius: 6px; border-left: 4px solid #C9A05C;">
@@ -156,8 +172,6 @@ export async function POST(request: NextRequest) {
     }
 
     if (notificationSent && !welcomeSent) {
-      // El correo de notificación al administrador funcionó, pero el de bienvenida falló.
-      // En modo sandbox, esto es normal si el correo del remitente es ajeno.
       return NextResponse.json({
         success: true,
         warning: "El mensaje fue recibido correctamente, pero el correo de bienvenida no pudo entregarse debido a restricciones del sandbox de Resend.",
@@ -165,7 +179,6 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Si falló el correo de notificación principal, consideramos la acción fallida.
     return NextResponse.json(
       {
         success: false,

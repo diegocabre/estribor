@@ -1,6 +1,7 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { Linkedin, Mail, ArrowUp } from "lucide-react";
 
 export default function Footer() {
@@ -43,39 +44,39 @@ export default function Footer() {
             <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Navegación</h3>
             <ul className="grid grid-cols-2 gap-x-8 gap-y-2 text-center md:text-left text-sm">
               <li>
-                <a href="/servicios" className="hover:text-brand-gold transition-colors">
+                <Link href="/servicios" className="hover:text-brand-gold transition-colors">
                   Servicios
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/mision-vision" className="hover:text-brand-gold transition-colors">
+                <Link href="/mision-vision" className="hover:text-brand-gold transition-colors">
                   Misión y Visión
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/equipo" className="hover:text-brand-gold transition-colors">
+                <Link href="/equipo" className="hover:text-brand-gold transition-colors">
                   Equipo
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/blog" className="hover:text-brand-gold transition-colors">
+                <Link href="/blog" className="hover:text-brand-gold transition-colors">
                   Blog
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/vacantes" className="hover:text-brand-gold transition-colors">
+                <Link href="/vacantes" className="hover:text-brand-gold transition-colors">
                   Portal Empleo
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/contacto" className="hover:text-brand-gold transition-colors">
+                <Link href="/contacto" className="hover:text-brand-gold transition-colors">
                   Contacto
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/vacantes/admin" className="hover:text-brand-gold transition-colors text-white/40">
+                <Link href="/vacantes/admin" className="hover:text-brand-gold transition-colors text-white/40">
                   Acceso Admin
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -118,14 +119,18 @@ export default function Footer() {
           <p>
             &copy; {new Date().getFullYear()} Estribor Consultores. Todos los derechos reservados.
           </p>
-          <div className="flex gap-4">
-            <a href="#" className="hover:text-white transition-colors">
-              Políticas de Privacidad
-            </a>
+          <div className="flex flex-wrap items-center justify-center sm:justify-end gap-3 text-xs">
+            <Link href="/privacidad" className="hover:text-brand-gold transition-colors">
+              Política de Privacidad
+            </Link>
             <span>&middot;</span>
-            <a href="#" className="hover:text-white transition-colors">
-              Términos de Servicio
-            </a>
+            <Link href="/terminos" className="hover:text-brand-gold transition-colors">
+              Términos y Condiciones
+            </Link>
+            <span>&middot;</span>
+            <Link href="/privacidad#cookies" className="hover:text-brand-gold transition-colors">
+              Cookies
+            </Link>
           </div>
         </div>
       </div>

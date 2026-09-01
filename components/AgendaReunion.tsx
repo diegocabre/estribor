@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, Clock, CheckCircle2, Video, ArrowRight, Loader2 } from "lucide-react";
+import Link from "next/link";
 
 export default function AgendaReunion() {
   const [selectedDate, setSelectedDate] = useState<string>("");
@@ -12,6 +13,7 @@ export default function AgendaReunion() {
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
   const [objective, setObjective] = useState("Consultoría General");
+  const [privacyConsent, setPrivacyConsent] = useState(false);
   const [status, setStatus] = useState<"date-select" | "form-fill" | "submitting" | "success">("date-select");
   const [bookedSlots, setBookedSlots] = useState<Array<{ date: string; time: string }>>([]);
   const [errorMsg, setErrorMsg] = useState("");
@@ -179,8 +181,14 @@ export default function AgendaReunion() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus("submitting");
     setErrorMsg("");
+
+    if (!privacyConsent) {
+      setErrorMsg("Debes aceptar la Política de Privacidad para confirmar tu reserva.");
+      return;
+    }
+
+    setStatus("submitting");
 
     try {
       const dateObj = dates.find((d) => d.fullDate === selectedDate);
@@ -236,6 +244,7 @@ export default function AgendaReunion() {
     setName("");
     setEmail("");
     setCompany("");
+    setPrivacyConsent(false);
     setErrorMsg("");
     setStatus("date-select");
   };
@@ -483,6 +492,24 @@ export default function AgendaReunion() {
                         <option value="Reclutamiento de Vacantes">Reclutamiento de Vacantes</option>
                       </select>
                     </div>
+                  </div>
+
+                  <div className="flex items-start gap-2 pt-1 text-left">
+                    <input
+                      type="checkbox"
+                      id="privacy-consent-agenda"
+                      required
+                      checked={privacyConsent}
+                      onChange={(e) => setPrivacyConsent(e.target.checked)}
+                      className="mt-0.5 h-3.5 w-3.5 rounded border-brand-gray/30 text-brand-navy accent-brand-navy cursor-pointer"
+                    />
+                    <label htmlFor="privacy-consent-agenda" className="text-[10px] text-brand-gray-dark cursor-pointer leading-tight">
+                      He leído y acepto la{" "}
+                      <Link href="/privacidad" target="_blank" className="text-brand-electric underline font-semibold hover:text-brand-navy">
+                        Política de Privacidad
+                      </Link>
+                      . <span className="text-rose-500 font-bold">*</span>
+                    </label>
                   </div>
 
                   {errorMsg && (

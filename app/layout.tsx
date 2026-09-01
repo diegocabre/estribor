@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Open_Sans, Plus_Jakarta_Sans, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
+import CookieBanner from "@/components/CookieBanner";
 
 const openSans = Open_Sans({
   weight: ["300", "400", "500", "600", "700"],
@@ -62,8 +63,8 @@ export default function RootLayout({
         </main>
         <Footer />
         <WhatsAppWidget />
+        <CookieBanner />
       </body>
     </html>
   );
 }
-
