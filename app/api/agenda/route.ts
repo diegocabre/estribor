@@ -266,7 +266,7 @@ export async function POST(request: NextRequest) {
         <hr style="border: 0; border-top: 1px solid #eaeaea; margin: 20px 0;" />
         <div style="text-align: center; color: #718096; font-size: 12px; line-height: 1.5;">
           <p style="margin: 0 0 5px 0;">Estribor Consultores — Puerto Varas, Chile</p>
-          <p style="margin: 0;">Contacto: <a href="mailto:cialvearv@gmail.com" style="color: #4A7FA5; text-decoration: none;">cialvearv@gmail.com</a> | Web: <a href="https://estribor.cl" style="color: #4A7FA5; text-decoration: none;">estribor.cl</a></p>
+          <p style="margin: 0;">Contacto: <a href="mailto:contacto@estriborconsultores.cl" style="color: #4A7FA5; text-decoration: none;">contacto@estriborconsultores.cl</a> | Web: <a href="https://estriborconsultores.cl" style="color: #4A7FA5; text-decoration: none;">estriborconsultores.cl</a></p>
         </div>
       </div>
     `;
@@ -337,8 +337,9 @@ export async function POST(request: NextRequest) {
       });
 
       // 2. Send notification to Admin
+      const adminRecipient = process.env.NOTIFICATION_RECIPIENT_EMAIL || "contacto@estriborconsultores.cl";
       await sendEmail({
-        to: "cialvearv@gmail.com",
+        to: adminRecipient,
         subject: `[Nueva Reunión] ${name} - ${date} a las ${time}`,
         html: adminEmailHtml
       });

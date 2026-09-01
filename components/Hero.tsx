@@ -45,17 +45,11 @@ export default function Hero() {
 
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
               <a
-                href="#agenda"
+                href="#contacto"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-gold hover:bg-brand-gold/90 text-brand-navy px-8 py-4 rounded-md font-bold transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
               >
-                Solicitar una reunión
+                Solicitar una reunión o cotización
                 <ArrowRight className="h-5 w-5" />
-              </a>
-              <a
-                href="/servicios"
-                className="w-full sm:w-auto inline-flex items-center justify-center border-2 border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white px-8 py-4 rounded-md font-bold transition-all duration-300"
-              >
-                Conocer nuestros servicios
               </a>
             </div>
           </motion.div>
@@ -88,7 +82,7 @@ export default function Hero() {
               {/* Main Brand Image */}
               <div className="relative w-3/4 h-3/4 select-none drop-shadow-[0_10px_20px_rgba(0,31,66,0.15)]">
                 <Image
-                  src="/logo_transparent.png"
+                  src="/logo_icon.png"
                   alt="Rosa de los Vientos - Estribor"
                   fill
                   sizes="(max-width: 640px) 240px, (max-width: 1024px) 300px, 400px"

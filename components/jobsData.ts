@@ -67,5 +67,18 @@ export const initialJobs: Job[] = [
     confidential: false,
     active: true,
     createdAt: "2026-06-25T11:30:00Z"
+  },
+  {
+    id: "job-4",
+    title: "Subgerente de Operaciones y Procesos Industriales",
+    area: "Gestión de Personas",
+    location: "Puerto Varas",
+    type: "Full-time",
+    description: "Proceso de hunting ejecutivo para liderar la operación de planta de procesos industriales en la Región de Los Lagos.",
+    requirements: "Ingeniero Civil Industrial, Químico o afín con 8+ años de experiencia.",
+    functions: "Liderazgo de equipos multidisciplinarios, optimización de KPI operacionales y gestión presupuestaria.",
+    confidential: false,
+    active: false,
+    createdAt: "2026-05-15T08:00:00Z"
   }
 ];

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -18,7 +18,7 @@ export default function Footer() {
             <div className="flex items-center gap-3 mb-4 cursor-pointer" onClick={scrollToTop}>
               <div className="relative h-12 w-12 overflow-hidden transition-transform duration-300 hover:scale-105">
                 <Image
-                  src="/logo_transparent.png"
+                  src="/logo_icon.png"
                   alt="Estribor Logo"
                   fill
                   sizes="48px"
@@ -73,11 +73,6 @@ export default function Footer() {
                   Contacto
                 </Link>
               </li>
-              <li>
-                <Link href="/vacantes/admin" className="hover:text-brand-gold transition-colors text-white/40">
-                  Acceso Admin
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -95,7 +90,7 @@ export default function Footer() {
                 <Linkedin className="h-5 w-5" />
               </a>
               <a
-                href="mailto:cialvearv@gmail.com"
+                href="mailto:contacto@estriborconsultores.cl"
                 className="w-10 h-10 rounded-full bg-white/5 hover:bg-brand-electric text-white flex items-center justify-center transition-colors"
                 aria-label="Correo"
               >

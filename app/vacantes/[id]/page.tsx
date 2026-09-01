@@ -241,8 +241,23 @@ export default function VacanteDetailPage({ params }: PageProps) {
           
           {/* Vacancy Details (7 columns) */}
           <div className="lg:col-span-7 bg-white border border-brand-gray/10 p-6 sm:p-10 rounded-3xl shadow-sm space-y-8 relative overflow-hidden">
-            {/* Gold side bar */}
-            <div className="absolute top-0 bottom-0 left-0 w-1.5 bg-brand-gold"></div>
+            {/* Side accent bar */}
+            <div className={`absolute top-0 bottom-0 left-0 w-1.5 ${job.active ? "bg-brand-gold" : "bg-emerald-500"}`}></div>
+
+            {/* Closed Process Banner */}
+            {!job.active && (
+              <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl flex items-center gap-3.5 mb-2">
+                <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center shrink-0 text-emerald-600">
+                  <CheckCircle2 className="h-5 w-5" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-emerald-950">Proceso de Selección Cerrado con Éxito</h3>
+                  <p className="text-xs text-emerald-800 font-light leading-relaxed">
+                    Esta convocatoria de talento ha concluido satisfactoriamente y la vacante ya fue cubierta.
+                  </p>
+                </div>
+              </div>
+            )}
 
             {/* Info header */}
             <div className="space-y-4">
@@ -250,6 +265,19 @@ export default function VacanteDetailPage({ params }: PageProps) {
                 <span className="text-[10px] font-bold text-brand-navy bg-brand-gold/15 px-3 py-1 rounded-full uppercase tracking-wider">
                   {job.area}
                 </span>
+
+                {job.active ? (
+                  <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full uppercase tracking-wider flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Convocatoria Abierta
+                  </span>
+                ) : (
+                  <span className="text-[10px] font-bold text-emerald-900 bg-emerald-100 border border-emerald-300 px-2.5 py-1 rounded-full uppercase tracking-wider flex items-center gap-1.5 shadow-xs">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                    Proceso Cerrado con Éxito
+                  </span>
+                )}
+
                 {job.confidential ? (
                   <span className="text-[10px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-full flex items-center gap-1 uppercase tracking-wider">
                     <Lock className="h-3 w-3" />
@@ -322,204 +350,253 @@ export default function VacanteDetailPage({ params }: PageProps) {
             </div>
           </div>
 
-          {/* Application Form (5 columns) */}
+          {/* Application Column (5 columns) */}
           <div className="lg:col-span-5 bg-white border border-brand-gray/10 p-6 sm:p-8 rounded-3xl shadow-sm relative">
-            <h2 className="text-xl font-bold text-brand-navy mb-4 font-titles">Postular a la vacante</h2>
-            
-            <AnimatePresence mode="wait">
-              {status === "success" ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="text-center py-10"
-                >
-                  <CheckCircle2 className="h-16 w-16 text-emerald-500 mx-auto mb-6" />
-                  <h3 className="text-xl font-bold text-brand-navy mb-2">¡Postulación Enviada!</h3>
-                  <p className="text-xs text-brand-gray-dark font-light max-w-sm mx-auto mb-6 leading-relaxed">
-                    Agradecemos tu interés. Tus antecedentes han sido guardados con éxito en la base de datos de Supabase para la vacante <strong className="font-semibold text-brand-navy">{job.title}</strong>. Los consultores a cargo revisarán tu CV a la brevedad.
+            {!job.active ? (
+              <div className="text-center py-4">
+                <div className="w-16 h-16 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center mx-auto mb-4 text-emerald-600 shadow-xs">
+                  <CheckCircle2 className="h-8 w-8" />
+                </div>
+
+                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100 border border-emerald-200 px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">
+                  Búsqueda Finalizada
+                </span>
+
+                <h2 className="text-xl font-bold text-brand-navy mb-3 font-titles">
+                  Proceso Cerrado con Éxito
+                </h2>
+
+                <p className="text-xs text-brand-gray-dark font-light leading-relaxed mb-6">
+                  Agradecemos el gran interés de todos los postulantes. Esta búsqueda ha finalizado con la contratación exitosa del candidato seleccionado y ya no recibe nuevas postulaciones.
+                </p>
+
+                <div className="p-4 rounded-2xl bg-brand-bg/60 border border-brand-gray/15 text-left mb-6 space-y-2">
+                  <h4 className="text-xs font-bold text-brand-navy flex items-center gap-1.5">
+                    <Award className="h-4 w-4 text-brand-gold" />
+                    ¿Quieres ser considerado en futuras búsquedas?
+                  </h4>
+                  <p className="text-xs text-brand-gray-dark font-light leading-relaxed">
+                    Súmate a nuestra base de talentos enviando tus antecedentes en la postulación espontánea o revisa otras convocatorias vigentes.
                   </p>
+                </div>
+
+                <div className="space-y-3">
                   <Link
                     href="/vacantes"
-                    className="inline-flex bg-brand-navy hover:bg-brand-blue-med text-white text-xs font-bold py-3 px-6 rounded-xl transition-colors"
+                    className="w-full inline-flex items-center justify-center bg-brand-navy hover:bg-brand-blue-med text-white text-xs font-bold py-3.5 px-6 rounded-xl transition-all shadow-md gap-2"
                   >
-                    Ver Otras Vacantes
+                    <span>Ver Convocatorias Abiertas</span>
+                    <ArrowLeft className="h-4 w-4 rotate-180" />
                   </Link>
-                </motion.div>
-              ) : (
-                <motion.form
-                  onSubmit={handleSubmit}
-                  className="space-y-4"
-                >
-                  <div className="flex flex-col">
-                    <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Nombre Completo *</label>
-                    <input
-                      type="text"
-                      required
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
-                      placeholder="Ej. Camila Alvear"
-                      className="border border-brand-gray/20 rounded-lg px-3 py-2 text-xs bg-brand-bg/30 text-brand-navy focus:outline-none focus:border-brand-gold transition-colors"
-                    />
-                  </div>
 
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="flex flex-col">
-                      <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">RUT *</label>
-                      <input
-                        type="text"
-                        required
-                        value={rut}
-                        onChange={(e) => setRut(e.target.value)}
-                        placeholder="12.345.678-9"
-                        className="border border-brand-gray/20 rounded-lg px-3 py-2 text-xs bg-brand-bg/30 text-brand-navy focus:outline-none focus:border-brand-gold transition-colors"
-                      />
-                    </div>
-                    <div className="flex flex-col">
-                      <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Teléfono *</label>
-                      <input
-                        type="tel"
-                        required
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        placeholder="Ej. +56 9 1234 5678"
-                        className="border border-brand-gray/20 rounded-lg px-3 py-2 text-xs bg-brand-bg/30 text-brand-navy focus:outline-none focus:border-brand-gold transition-colors"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="flex flex-col">
-                      <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Correo Electrónico *</label>
-                      <input
-                        type="email"
-                        required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="ejemplo@correo.com"
-                        className="border border-brand-gray/20 rounded-lg px-3 py-2 text-xs bg-brand-bg/30 text-brand-navy focus:outline-none focus:border-brand-gold transition-colors"
-                      />
-                    </div>
-                    <div className="flex flex-col">
-                      <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Ciudad *</label>
-                      <input
-                        type="text"
-                        required
-                        value={city}
-                        onChange={(e) => setCity(e.target.value)}
-                        placeholder="Ej. Puerto Montt"
-                        className="border border-brand-gray/20 rounded-lg px-3 py-2 text-xs bg-brand-bg/30 text-brand-navy focus:outline-none focus:border-brand-gold transition-colors"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col">
-                    <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Cargo al que Postula</label>
-                    <input
-                      type="text"
-                      readOnly
-                      value={job.title}
-                      className="border border-brand-gray/15 rounded-lg px-3 py-2 text-xs bg-brand-bg/60 text-brand-navy/60 font-semibold focus:outline-none cursor-not-allowed"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="flex flex-col">
-                      <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Pretensión de Renta (CLP) *</label>
-                      <input
-                        type="text"
-                        required
-                        value={salary}
-                        onChange={(e) => setSalary(e.target.value)}
-                        placeholder="Ej. 1.800.000"
-                        className="border border-brand-gray/20 rounded-lg px-3 py-2 text-xs bg-brand-bg/30 text-brand-navy focus:outline-none focus:border-brand-gold transition-colors"
-                      />
-                    </div>
-                    <div className="flex flex-col">
-                      <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Disponibilidad *</label>
-                      <select
-                        value={availability}
-                        onChange={(e) => setAvailability(e.target.value)}
-                        className="border border-brand-gray/20 rounded-lg px-3 py-2 text-xs bg-brand-bg/30 text-brand-navy focus:outline-none focus:border-brand-gold transition-colors cursor-pointer"
-                      >
-                        <option value="Inmediata">Inmediata</option>
-                        <option value="15 días">Aviso 15 días</option>
-                        <option value="30 días">Aviso 30 días</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col">
-                    <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Perfil de LinkedIn (Opcional)</label>
-                    <input
-                      type="url"
-                      value={linkedin}
-                      onChange={(e) => setLinkedin(e.target.value)}
-                      placeholder="https://linkedin.com/in/nombre"
-                      className="border border-brand-gray/20 rounded-lg px-3 py-2 text-xs bg-brand-bg/30 text-brand-navy focus:outline-none focus:border-brand-gold transition-colors"
-                    />
-                  </div>
-
-                  <div className="flex flex-col">
-                    <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Adjuntar CV (PDF) *</label>
-                    <div className="relative border border-dashed border-brand-gray/30 rounded-lg p-3 bg-brand-bg/25 flex flex-col items-center justify-center cursor-pointer hover:bg-brand-bg/50 transition-colors">
-                      <input
-                        type="file"
-                        accept=".pdf"
-                        required
-                        onChange={handleFileChange}
-                        className="absolute inset-0 opacity-0 cursor-pointer"
-                      />
-                      <span className="text-[10px] text-brand-gray-dark font-medium select-none">
-                        {cvName || "Subir archivo PDF"}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-2 pt-1 text-left">
-                    <input
-                      type="checkbox"
-                      id="privacy-consent-job"
-                      required
-                      checked={privacyConsent}
-                      onChange={(e) => setPrivacyConsent(e.target.checked)}
-                      className="mt-0.5 h-3.5 w-3.5 rounded border-brand-gray/30 text-brand-navy accent-brand-navy cursor-pointer"
-                    />
-                    <label htmlFor="privacy-consent-job" className="text-[10px] text-brand-gray-dark cursor-pointer leading-tight">
-                      Autorizo el tratamiento de mis antecedentes y CV para fines exclusivos de este proceso de selección conforme a la{" "}
-                      <Link href="/privacidad" target="_blank" className="text-brand-electric underline font-semibold hover:text-brand-navy">
-                        Política de Privacidad
-                      </Link>
-                      . <span className="text-rose-500 font-bold">*</span>
-                    </label>
-                  </div>
-
-                  {status === "error" && errorMsg && (
-                    <p className="text-[11px] font-semibold text-rose-700 bg-rose-50 border border-rose-100 p-2 rounded-lg text-center">
-                      {errorMsg}
-                    </p>
-                  )}
-
-                  <button
-                    type="submit"
-                    disabled={status === "submitting"}
-                    className="w-full bg-brand-navy hover:bg-brand-blue-med disabled:bg-brand-navy/60 text-white font-bold py-3.5 rounded-xl text-xs transition-colors flex items-center justify-center gap-2 shadow-sm mt-2"
+                  <Link
+                    href="/vacantes#espontanea"
+                    className="w-full inline-flex items-center justify-center bg-white hover:bg-slate-50 text-brand-navy border border-brand-gray/30 text-xs font-bold py-3.5 px-6 rounded-xl transition-all gap-2"
                   >
-                    {status === "submitting" ? (
-                      <>
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                        Enviando Postulación...
-                      </>
-                    ) : (
-                      <>
-                        <Send className="h-4 w-4" />
-                        Enviar Postulación
-                      </>
-                    )}
-                  </button>
-                </motion.form>
-              )}
-            </AnimatePresence>
+                    <span>Postulación Espontánea (Enviar CV)</span>
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <>
+                <h2 className="text-xl font-bold text-brand-navy mb-4 font-titles">Postular a la vacante</h2>
+                
+                <AnimatePresence mode="wait">
+                  {status === "success" ? (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="text-center py-10"
+                    >
+                      <CheckCircle2 className="h-16 w-16 text-emerald-500 mx-auto mb-6" />
+                      <h3 className="text-xl font-bold text-brand-navy mb-2">¡Postulación Enviada!</h3>
+                      <p className="text-xs text-brand-gray-dark font-light max-w-sm mx-auto mb-6 leading-relaxed">
+                        Agradecemos tu interés. Tus antecedentes han sido guardados con éxito en la base de datos de Supabase para la vacante <strong className="font-semibold text-brand-navy">{job.title}</strong>. Los consultores a cargo revisarán tu CV a la brevedad.
+                      </p>
+                      <Link
+                        href="/vacantes"
+                        className="inline-flex bg-brand-navy hover:bg-brand-blue-med text-white text-xs font-bold py-3 px-6 rounded-xl transition-colors"
+                      >
+                        Ver Otras Vacantes
+                      </Link>
+                    </motion.div>
+                  ) : (
+                    <motion.form
+                      onSubmit={handleSubmit}
+                      className="space-y-4"
+                    >
+                      <div className="flex flex-col">
+                        <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Nombre Completo *</label>
+                        <input
+                          type="text"
+                          required
+                          value={fullName}
+                          onChange={(e) => setFullName(e.target.value)}
+                          placeholder="Ej. Camila Alvear"
+                          className="border border-brand-gray/20 rounded-lg px-3 py-2 text-xs bg-brand-bg/30 text-brand-navy focus:outline-none focus:border-brand-gold transition-colors"
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="flex flex-col">
+                          <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">RUT *</label>
+                          <input
+                            type="text"
+                            required
+                            value={rut}
+                            onChange={(e) => setRut(e.target.value)}
+                            placeholder="12.345.678-9"
+                            className="border border-brand-gray/20 rounded-lg px-3 py-2 text-xs bg-brand-bg/30 text-brand-navy focus:outline-none focus:border-brand-gold transition-colors"
+                          />
+                        </div>
+                        <div className="flex flex-col">
+                          <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Teléfono *</label>
+                          <input
+                            type="tel"
+                            required
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                            placeholder="Ej. +56 9 1234 5678"
+                            className="border border-brand-gray/20 rounded-lg px-3 py-2 text-xs bg-brand-bg/30 text-brand-navy focus:outline-none focus:border-brand-gold transition-colors"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="flex flex-col">
+                          <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Correo Electrónico *</label>
+                          <input
+                            type="email"
+                            required
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="ejemplo@correo.com"
+                            className="border border-brand-gray/20 rounded-lg px-3 py-2 text-xs bg-brand-bg/30 text-brand-navy focus:outline-none focus:border-brand-gold transition-colors"
+                          />
+                        </div>
+                        <div className="flex flex-col">
+                          <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Ciudad *</label>
+                          <input
+                            type="text"
+                            required
+                            value={city}
+                            onChange={(e) => setCity(e.target.value)}
+                            placeholder="Ej. Puerto Montt"
+                            className="border border-brand-gray/20 rounded-lg px-3 py-2 text-xs bg-brand-bg/30 text-brand-navy focus:outline-none focus:border-brand-gold transition-colors"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col">
+                        <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Cargo al que Postula</label>
+                        <input
+                          type="text"
+                          readOnly
+                          value={job.title}
+                          className="border border-brand-gray/15 rounded-lg px-3 py-2 text-xs bg-brand-bg/60 text-brand-navy/60 font-semibold focus:outline-none cursor-not-allowed"
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="flex flex-col">
+                          <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Pretensión de Renta (CLP) *</label>
+                          <input
+                            type="text"
+                            required
+                            value={salary}
+                            onChange={(e) => setSalary(e.target.value)}
+                            placeholder="Ej. 1.800.000"
+                            className="border border-brand-gray/20 rounded-lg px-3 py-2 text-xs bg-brand-bg/30 text-brand-navy focus:outline-none focus:border-brand-gold transition-colors"
+                          />
+                        </div>
+                        <div className="flex flex-col">
+                          <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Disponibilidad *</label>
+                          <select
+                            value={availability}
+                            onChange={(e) => setAvailability(e.target.value)}
+                            className="border border-brand-gray/20 rounded-lg px-3 py-2 text-xs bg-brand-bg/30 text-brand-navy focus:outline-none focus:border-brand-gold transition-colors cursor-pointer"
+                          >
+                            <option value="Inmediata">Inmediata</option>
+                            <option value="15 días">Aviso 15 días</option>
+                            <option value="30 días">Aviso 30 días</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col">
+                        <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Perfil de LinkedIn (Opcional)</label>
+                        <input
+                          type="url"
+                          value={linkedin}
+                          onChange={(e) => setLinkedin(e.target.value)}
+                          placeholder="https://linkedin.com/in/nombre"
+                          className="border border-brand-gray/20 rounded-lg px-3 py-2 text-xs bg-brand-bg/30 text-brand-navy focus:outline-none focus:border-brand-gold transition-colors"
+                        />
+                      </div>
+
+                      <div className="flex flex-col">
+                        <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Adjuntar CV (PDF) *</label>
+                        <div className="relative border border-dashed border-brand-gray/30 rounded-lg p-3 bg-brand-bg/25 flex flex-col items-center justify-center cursor-pointer hover:bg-brand-bg/50 transition-colors">
+                          <input
+                            type="file"
+                            accept=".pdf"
+                            required
+                            onChange={handleFileChange}
+                            className="absolute inset-0 opacity-0 cursor-pointer"
+                          />
+                          <span className="text-[10px] text-brand-gray-dark font-medium select-none">
+                            {cvName || "Subir archivo PDF"}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-start gap-2 pt-1 text-left">
+                        <input
+                          type="checkbox"
+                          id="privacy-consent-job"
+                          required
+                          checked={privacyConsent}
+                          onChange={(e) => setPrivacyConsent(e.target.checked)}
+                          className="mt-0.5 h-3.5 w-3.5 rounded border-brand-gray/30 text-brand-navy accent-brand-navy cursor-pointer"
+                        />
+                        <label htmlFor="privacy-consent-job" className="text-[10px] text-brand-gray-dark cursor-pointer leading-tight">
+                          Autorizo el tratamiento de mis antecedentes y CV para fines exclusivos de este proceso de selección conforme a la{" "}
+                          <Link href="/privacidad" target="_blank" className="text-brand-electric underline font-semibold hover:text-brand-navy">
+                            Política de Privacidad
+                          </Link>
+                          . <span className="text-rose-500 font-bold">*</span>
+                        </label>
+                      </div>
+
+                      {status === "error" && errorMsg && (
+                        <p className="text-[11px] font-semibold text-rose-700 bg-rose-50 border border-rose-100 p-2 rounded-lg text-center">
+                          {errorMsg}
+                        </p>
+                      )}
+
+                      <button
+                        type="submit"
+                        disabled={status === "submitting"}
+                        className="w-full bg-brand-navy hover:bg-brand-blue-med disabled:bg-brand-navy/60 text-white font-bold py-3.5 rounded-xl text-xs transition-colors flex items-center justify-center gap-2 shadow-sm mt-2"
+                      >
+                        {status === "submitting" ? (
+                          <>
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                            Enviando Postulación...
+                          </>
+                        ) : (
+                          <>
+                            <Send className="h-4 w-4" />
+                            Enviar Postulación
+                          </>
+                        )}
+                      </button>
+                    </motion.form>
+                  )}
+                </AnimatePresence>
+              </>
+            )}
           </div>
 
         </div>

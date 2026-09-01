@@ -36,23 +36,28 @@ export default function Header() {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? "bg-white/95 backdrop-blur-md shadow-md py-2 border-b border-brand-gray/10"
-          : "bg-transparent py-4"
+          : "bg-white shadow-sm border-b border-brand-gray/10 py-3"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo & Brand Name */}
+        <div className="flex items-center justify-between min-h-[72px] md:min-h-[88px]">
+          {/* Logo */}
           <a
             href="/"
-            className="flex items-center gap-3"
+            className="flex items-center focus:outline-none group py-1"
             onClick={() => setMobileMenuOpen(false)}
+            aria-label="Ir al inicio"
           >
-            <div className="relative h-12 w-12 sm:h-14 sm:w-14 overflow-hidden transition-transform duration-300 hover:scale-105">
+            <div className={`relative transition-all duration-300 overflow-hidden hover:scale-105 ${
+              scrolled
+                ? "w-16 h-16 md:w-20 md:h-20"
+                : "w-20 h-20 md:w-24 md:h-24"
+            }`}>
               <Image
-                src="/logo_transparent.png"
+                src="/logo_icon.png"
                 alt="Estribor Logo"
                 fill
-                sizes="(max-width: 640px) 48px, 56px"
+                sizes="(max-width: 640px) 80px, 96px"
                 priority
                 className="object-contain"
               />
@@ -69,7 +74,7 @@ export default function Header() {
                 <a
                   key={item.name}
                   href={item.href}
-                  className={`text-sm font-medium transition-colors duration-200 relative group py-2 ${
+                  className={`text-base font-semibold transition-colors duration-200 relative group py-2 ${
                     isActive
                       ? "text-brand-electric"
                       : "text-brand-navy hover:text-brand-electric"
@@ -86,7 +91,7 @@ export default function Header() {
             })}
             <a
               href="/contacto"
-              className={`px-5 py-2.5 rounded-md text-sm font-semibold tracking-wide transition-all duration-300 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 ${
+              className={`px-6 py-2.5 rounded-lg text-sm font-bold tracking-wide transition-all duration-300 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 ${
                 pathname === "/contacto"
                   ? "bg-brand-blue-med text-white"
                   : "bg-brand-electric hover:bg-brand-blue-med text-white"
@@ -104,9 +109,9 @@ export default function Header() {
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? (
-                <X className="h-6 w-6 animate-pulse" />
+                <X className="h-7 w-7" />
               ) : (
-                <Menu className="h-6 w-6" />
+                <Menu className="h-7 w-7" />
               )}
             </button>
           </div>
