@@ -1,10 +1,12 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Open_Sans, Plus_Jakarta_Sans, Cormorant_Garamond } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
 import CookieBanner from "@/components/CookieBanner";
+import MicrosoftClarity from "@/components/MicrosoftClarity";
 
 const openSans = Open_Sans({
   weight: ["300", "400", "500", "600", "700"],
@@ -29,6 +31,9 @@ const cormorantGaramond = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://www.estriborconsultores.cl"
+  ),
   title: "Estribor Consultores | Seguridad, Gestión y Sostenibilidad",
   description: "Consultora boutique especializada en Gestión de Personas, Seguridad y Salud en el Trabajo, y Sostenibilidad Organizacional en Chile. Navega con seguridad hacia la excelencia operacional.",
   keywords: [
@@ -44,6 +49,9 @@ export const metadata: Metadata = {
     "acuicultura chile"
   ],
   authors: [{ name: "Estribor Consultores" }],
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+  },
 };
 
 export default function RootLayout({
@@ -64,6 +72,8 @@ export default function RootLayout({
         <Footer />
         <WhatsAppWidget />
         <CookieBanner />
+        <MicrosoftClarity />
+        <SpeedInsights />
       </body>
     </html>
   );
