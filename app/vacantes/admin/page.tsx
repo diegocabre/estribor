@@ -1,9 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Job, JobApplication } from "@/components/jobsData";
 import { supabase } from "@/lib/supabase";
-import { Lock, Plus, Edit2, Archive, CheckCircle2, XCircle, Trash2, LogOut, Download, Users, Loader2, FolderKanban, Check, X, Tag } from "lucide-react";
+import {
+  Lock, Plus, Edit2, Archive, CheckCircle2, XCircle, Trash2, LogOut,
+  Download, Users, Loader2, FolderKanban, Check, X, Tag,
+  FileSpreadsheet, Filter, RotateCcw, Search, Calendar, MapPin, Briefcase
+} from "lucide-react";
+import * as XLSX from "xlsx";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -49,6 +54,14 @@ export default function AdminPage() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [applications, setApplications] = useState<JobApplication[]>([]);
   const [activeTab, setActiveTab] = useState<"jobs" | "apps">("jobs");
+
+  // Application Filter states
+  const [filterPeriod, setFilterPeriod] = useState<string>("all");
+  const [filterDateFrom, setFilterDateFrom] = useState<string>("");
+  const [filterDateTo, setFilterDateTo] = useState<string>("");
+  const [filterJob, setFilterJob] = useState<string>("all");
+  const [filterCity, setFilterCity] = useState<string>("all");
+  const [filterSearch, setFilterSearch] = useState<string>("");
   
   // Form modal states
   const [showModal, setShowModal] = useState(false);
@@ -138,10 +151,24 @@ export default function AdminPage() {
     }
 
     // 3. Fetch all applications
-    const { data: appsData, error: appsError } = await supabase
+    let appsData: any[] | null = null;
+    let appsError: any = null;
+
+    const res1 = await supabase
       .from("applications")
       .select("*")
       .order("applied_at", { ascending: false });
+
+    if (res1.error) {
+      const res2 = await supabase
+        .from("applications")
+        .select("*")
+        .order("created_at", { ascending: false });
+      appsData = res2.data;
+      appsError = res2.error;
+    } else {
+      appsData = res1.data;
+    }
 
     if (!appsError && appsData) {
       const mapped = appsData.map((a: any) => ({
@@ -154,10 +181,10 @@ export default function AdminPage() {
         phone: a.phone,
         city: a.city,
         salaryExpectation: a.salary_expectation,
-        availability: a.availability,
+        availability: a.availability || "Inmediata",
         cvFileName: a.cv_url,
         linkedinProfile: a.linkedin_profile,
-        appliedAt: a.applied_at
+        appliedAt: a.applied_at || a.created_at || ""
       }));
       setApplications(mapped);
     }
@@ -477,6 +504,196 @@ export default function AdminPage() {
     }
   };
 
+  const formatDateChile = (isoString?: string) => {
+    if (!isoString) return "No registrada";
+    try {
+      const d = new Date(isoString);
+      if (isNaN(d.getTime())) return isoString;
+      const day = String(d.getDate()).padStart(2, "0");
+      const month = String(d.getMonth() + 1).padStart(2, "0");
+      const year = d.getFullYear();
+      const hours = String(d.getHours()).padStart(2, "0");
+      const minutes = String(d.getMinutes()).padStart(2, "0");
+      return `${day}/${month}/${year} ${hours}:${minutes}`;
+    } catch {
+      return isoString;
+    }
+  };
+
+  const handlePeriodPreset = (preset: string) => {
+    setFilterPeriod(preset);
+    const now = new Date();
+    const formatYMD = (d: Date) => {
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    };
+
+    if (preset === "all") {
+      setFilterDateFrom("");
+      setFilterDateTo("");
+    } else if (preset === "today") {
+      const todayStr = formatYMD(now);
+      setFilterDateFrom(todayStr);
+      setFilterDateTo(todayStr);
+    } else if (preset === "7d") {
+      const past = new Date();
+      past.setDate(now.getDate() - 7);
+      setFilterDateFrom(formatYMD(past));
+      setFilterDateTo(formatYMD(now));
+    } else if (preset === "30d") {
+      const past = new Date();
+      past.setDate(now.getDate() - 30);
+      setFilterDateFrom(formatYMD(past));
+      setFilterDateTo(formatYMD(now));
+    } else if (preset === "this_month") {
+      const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+      setFilterDateFrom(formatYMD(firstDay));
+      setFilterDateTo(formatYMD(now));
+    }
+  };
+
+  const handleResetFilters = () => {
+    setFilterPeriod("all");
+    setFilterDateFrom("");
+    setFilterDateTo("");
+    setFilterJob("all");
+    setFilterCity("all");
+    setFilterSearch("");
+  };
+
+  const hasActiveFilters =
+    filterPeriod !== "all" ||
+    !!filterDateFrom ||
+    !!filterDateTo ||
+    filterJob !== "all" ||
+    filterCity !== "all" ||
+    !!filterSearch.trim();
+
+  // Unique job titles from both applications and registered jobs
+  const availableJobs = useMemo(() => {
+    const set = new Set<string>();
+    applications.forEach((a) => {
+      if (a.jobTitle) set.add(a.jobTitle);
+    });
+    jobs.forEach((j) => {
+      if (j.title) set.add(j.title);
+    });
+    return Array.from(set).sort((a, b) => a.localeCompare(b));
+  }, [applications, jobs]);
+
+  // Unique cities from applications
+  const availableCities = useMemo(() => {
+    const set = new Set<string>();
+    applications.forEach((a) => {
+      if (a.city && a.city.trim()) {
+        set.add(a.city.trim());
+      }
+    });
+    return Array.from(set).sort((a, b) => a.localeCompare(b));
+  }, [applications]);
+
+  // Filtered applications based on active criteria
+  const filteredApplications = useMemo(() => {
+    return applications.filter((app) => {
+      // 1. Period / Date Filter
+      if (filterDateFrom || filterDateTo) {
+        if (!app.appliedAt) return false;
+        const appDate = new Date(app.appliedAt);
+        if (isNaN(appDate.getTime())) return false;
+
+        if (filterDateFrom) {
+          const fromParts = filterDateFrom.split("-").map(Number);
+          const fromDate = new Date(fromParts[0], fromParts[1] - 1, fromParts[2], 0, 0, 0, 0);
+          if (appDate < fromDate) return false;
+        }
+
+        if (filterDateTo) {
+          const toParts = filterDateTo.split("-").map(Number);
+          const toDate = new Date(toParts[0], toParts[1] - 1, toParts[2], 23, 59, 59, 999);
+          if (appDate > toDate) return false;
+        }
+      }
+
+      // 2. Job / Cargo Filter
+      if (filterJob !== "all") {
+        if (app.jobTitle !== filterJob) return false;
+      }
+
+      // 3. City Filter
+      if (filterCity !== "all") {
+        if ((app.city || "").trim().toLowerCase() !== filterCity.trim().toLowerCase()) return false;
+      }
+
+      // 4. Text search (Name, RUT, Email, Phone, Job or City)
+      if (filterSearch.trim()) {
+        const q = filterSearch.trim().toLowerCase();
+        const n = (app.fullName || "").toLowerCase();
+        const r = (app.rut || "").toLowerCase();
+        const e = (app.email || "").toLowerCase();
+        const p = (app.phone || "").toLowerCase();
+        const j = (app.jobTitle || "").toLowerCase();
+        const c = (app.city || "").toLowerCase();
+        if (!n.includes(q) && !r.includes(q) && !e.includes(q) && !p.includes(q) && !j.includes(q) && !c.includes(q)) {
+          return false;
+        }
+      }
+
+      return true;
+    });
+  }, [applications, filterDateFrom, filterDateTo, filterJob, filterCity, filterSearch]);
+
+  const handleExportExcel = () => {
+    if (filteredApplications.length === 0) {
+      alert("No hay postulaciones para exportar con los filtros seleccionados.");
+      return;
+    }
+
+    const rows = filteredApplications.map((app) => {
+      return {
+        "Fecha de Postulación": formatDateChile(app.appliedAt),
+        "Nombre Completo": app.fullName || "",
+        "RUT": app.rut || "",
+        "Teléfono": app.phone || "",
+        "Correo Electrónico": app.email || "",
+        "Ciudad": app.city || "",
+        "Cargo al que Postula": app.jobTitle || "",
+        "Pretensión de Renta (CLP)": app.salaryExpectation || "",
+        "Disponibilidad": app.availability || "No especificada",
+        "Perfil de LinkedIn": app.linkedinProfile || "No indicado",
+        "Enlace CV (PDF)": app.cvFileName || "Sin archivo",
+        "Consentimiento Privacidad": "Aceptado"
+      };
+    });
+
+    const worksheet = XLSX.utils.json_to_sheet(rows);
+
+    // Configurar anchos óptimos de columnas
+    worksheet["!cols"] = [
+      { wch: 20 }, // Fecha de Postulación
+      { wch: 26 }, // Nombre Completo
+      { wch: 15 }, // RUT
+      { wch: 18 }, // Teléfono
+      { wch: 28 }, // Correo Electrónico
+      { wch: 18 }, // Ciudad
+      { wch: 34 }, // Cargo al que Postula
+      { wch: 24 }, // Pretensión de Renta (CLP)
+      { wch: 16 }, // Disponibilidad
+      { wch: 32 }, // Perfil de LinkedIn
+      { wch: 45 }, // Enlace CV (PDF)
+      { wch: 25 }  // Consentimiento Privacidad
+    ];
+
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Postulaciones");
+
+    const todayStr = new Date().toISOString().split("T")[0];
+    const fileName = `postulaciones_estribor_${todayStr}.xlsx`;
+
+    XLSX.writeFile(workbook, fileName);
+  };
+
   if (loadingAuth) {
     return (
       <div className="pt-32 pb-24 flex items-center justify-center min-h-screen bg-brand-bg">
@@ -755,7 +972,7 @@ export default function AdminPage() {
               activeTab === "apps" ? "text-brand-gold" : "text-brand-navy/60 hover:text-brand-navy"
             }`}
           >
-            Postulaciones Recibidas ({applications.length})
+            Postulaciones Recibidas ({hasActiveFilters ? `${filteredApplications.length}/${applications.length}` : applications.length})
             {activeTab === "apps" && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-gold"></span>}
           </button>
         </div>
@@ -866,8 +1083,185 @@ export default function AdminPage() {
             </div>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-6">
             
+            {/* Header Toolbar: Filters Summary & Excel Export Button */}
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-white p-5 rounded-2xl border border-brand-gray/10 shadow-sm">
+              <div>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-base font-bold text-brand-navy font-titles flex items-center gap-2">
+                    <Users className="h-5 w-5 text-brand-gold" />
+                    Postulaciones Recibidas
+                  </h2>
+                  <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-brand-bg text-brand-navy border border-brand-gray/20">
+                    {filteredApplications.length} de {applications.length}
+                  </span>
+                </div>
+                <p className="text-xs text-brand-gray-dark font-light mt-0.5">
+                  Filtra por período, vacante, cargo o ciudad y descarga la nómina completa en Excel con todos los datos.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-3">
+                {hasActiveFilters && (
+                  <button
+                    onClick={handleResetFilters}
+                    className="px-3.5 py-2.5 text-xs font-bold text-rose-600 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded-xl transition-colors flex items-center gap-1.5"
+                    title="Restablecer todos los filtros"
+                  >
+                    <RotateCcw className="h-3.5 w-3.5" />
+                    Limpiar Filtros
+                  </button>
+                )}
+
+                <button
+                  onClick={handleExportExcel}
+                  disabled={filteredApplications.length === 0}
+                  className="bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-600/40 disabled:cursor-not-allowed text-white font-bold py-2.5 px-4 rounded-xl text-xs flex items-center gap-2 transition-all shadow-sm shrink-0"
+                  title="Descargar las postulaciones seleccionadas en archivo Excel (.xlsx)"
+                >
+                  <FileSpreadsheet className="h-4 w-4" />
+                  <span>Descargar Excel ({filteredApplications.length})</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Filter Controls Card */}
+            <div className="bg-white p-5 rounded-2xl border border-brand-gray/10 shadow-sm space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-brand-gray/10 pb-3">
+                <span className="text-xs font-bold text-brand-navy uppercase tracking-wider flex items-center gap-1.5">
+                  <Filter className="h-3.5 w-3.5 text-brand-gold" />
+                  Filtros de Búsqueda
+                </span>
+                
+                {/* Period Quick Presets */}
+                <div className="flex items-center gap-1 overflow-x-auto pb-1 max-w-full">
+                  {[
+                    { id: "all", label: "Todo el período" },
+                    { id: "today", label: "Hoy" },
+                    { id: "7d", label: "Últimos 7 días" },
+                    { id: "30d", label: "Últimos 30 días" },
+                    { id: "this_month", label: "Este mes" },
+                  ].map((p) => (
+                    <button
+                      key={p.id}
+                      onClick={() => handlePeriodPreset(p.id)}
+                      className={`px-2.5 py-1 text-[11px] font-semibold rounded-lg transition-colors whitespace-nowrap ${
+                        filterPeriod === p.id
+                          ? "bg-brand-navy text-white"
+                          : "bg-brand-bg/60 text-brand-navy/70 hover:bg-brand-bg hover:text-brand-navy"
+                      }`}
+                    >
+                      {p.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3.5">
+                {/* Date range From - To (4 cols on lg) */}
+                <div className="lg:col-span-4 grid grid-cols-2 gap-2">
+                  <div className="flex flex-col">
+                    <label className="text-[10px] font-bold text-brand-navy uppercase mb-1 flex items-center gap-1">
+                      <Calendar className="h-3 w-3 text-brand-gold" />
+                      Desde
+                    </label>
+                    <input
+                      type="date"
+                      value={filterDateFrom}
+                      onChange={(e) => {
+                        setFilterDateFrom(e.target.value);
+                        setFilterPeriod("custom");
+                      }}
+                      className="border border-brand-gray/20 rounded-lg px-2.5 py-2 text-xs bg-brand-bg/40 text-brand-navy focus:outline-none focus:border-brand-gold transition-colors"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <label className="text-[10px] font-bold text-brand-navy uppercase mb-1 flex items-center gap-1">
+                      <Calendar className="h-3 w-3 text-brand-gold" />
+                      Hasta
+                    </label>
+                    <input
+                      type="date"
+                      value={filterDateTo}
+                      onChange={(e) => {
+                        setFilterDateTo(e.target.value);
+                        setFilterPeriod("custom");
+                      }}
+                      className="border border-brand-gray/20 rounded-lg px-2.5 py-2 text-xs bg-brand-bg/40 text-brand-navy focus:outline-none focus:border-brand-gold transition-colors"
+                    />
+                  </div>
+                </div>
+
+                {/* Vacante / Cargo selector (3 cols on lg) */}
+                <div className="lg:col-span-3 flex flex-col">
+                  <label className="text-[10px] font-bold text-brand-navy uppercase mb-1 flex items-center gap-1">
+                    <Briefcase className="h-3 w-3 text-brand-gold" />
+                    Vacante / Cargo
+                  </label>
+                  <select
+                    value={filterJob}
+                    onChange={(e) => setFilterJob(e.target.value)}
+                    className="border border-brand-gray/20 rounded-lg px-3 py-2 text-xs bg-brand-bg/40 text-brand-navy focus:outline-none focus:border-brand-gold transition-colors truncate"
+                  >
+                    <option value="all">Todos los cargos y vacantes</option>
+                    {availableJobs.map((j) => (
+                      <option key={j} value={j}>
+                        {j}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Ciudad selector (2 cols on lg) */}
+                <div className="lg:col-span-2 flex flex-col">
+                  <label className="text-[10px] font-bold text-brand-navy uppercase mb-1 flex items-center gap-1">
+                    <MapPin className="h-3 w-3 text-brand-gold" />
+                    Ciudad
+                  </label>
+                  <select
+                    value={filterCity}
+                    onChange={(e) => setFilterCity(e.target.value)}
+                    className="border border-brand-gray/20 rounded-lg px-3 py-2 text-xs bg-brand-bg/40 text-brand-navy focus:outline-none focus:border-brand-gold transition-colors truncate"
+                  >
+                    <option value="all">Todas las ciudades</option>
+                    {availableCities.map((c) => (
+                      <option key={c} value={c}>
+                        {c}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Search query (3 cols on lg) */}
+                <div className="lg:col-span-3 flex flex-col">
+                  <label className="text-[10px] font-bold text-brand-navy uppercase mb-1 flex items-center gap-1">
+                    <Search className="h-3 w-3 text-brand-gold" />
+                    Buscar
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={filterSearch}
+                      onChange={(e) => setFilterSearch(e.target.value)}
+                      placeholder="Nombre, RUT, correo..."
+                      className="w-full border border-brand-gray/20 rounded-lg pl-8 pr-7 py-2 text-xs bg-brand-bg/40 text-brand-navy placeholder:text-brand-gray-dark/60 focus:outline-none focus:border-brand-gold transition-colors"
+                    />
+                    <Search className="h-3.5 w-3.5 text-brand-gray-dark absolute left-2.5 top-1/2 -translate-y-1/2" />
+                    {filterSearch && (
+                      <button
+                        onClick={() => setFilterSearch("")}
+                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-brand-gray-dark hover:text-brand-navy"
+                        type="button"
+                      >
+                        <X className="h-3 w-3" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* Table wrapper */}
             <div className="bg-white border border-brand-gray/10 rounded-2xl shadow-sm overflow-x-auto">
               <table className="w-full text-left border-collapse text-xs">
@@ -878,22 +1272,28 @@ export default function AdminPage() {
                     <th className="p-4">Puesto al que Postula</th>
                     <th className="p-4">Contacto</th>
                     <th className="p-4">Pretensión</th>
+                    <th className="p-4">Disponibilidad</th>
                     <th className="p-4">F. Aplicación</th>
                     <th className="p-4">CV</th>
                     <th className="p-4 text-center">Acción</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-brand-gray/5 text-brand-navy font-light">
-                  {applications.map((app) => (
+                  {filteredApplications.map((app) => (
                     <tr key={app.id} className="hover:bg-brand-bg/20 transition-colors">
-                      <td className="p-4 font-bold">
-                        <div>{app.fullName}</div>
-                        <div className="text-[10px] text-brand-gray-dark mt-0.5">{app.city}</div>
-                      </td>
-                      <td className="p-4 font-mono">{app.rut}</td>
-                      <td className="p-4 font-semibold text-brand-navy">{app.jobTitle}</td>
                       <td className="p-4">
-                        <div>{app.email}</div>
+                        <div className="font-bold text-brand-navy">{app.fullName}</div>
+                        <div className="text-[10px] text-brand-gray-dark flex items-center gap-1 mt-0.5">
+                          <MapPin className="h-3 w-3 text-brand-gold shrink-0" />
+                          <span>{app.city || "Sin ciudad"}</span>
+                        </div>
+                      </td>
+                      <td className="p-4 font-mono font-medium">{app.rut}</td>
+                      <td className="p-4 font-semibold text-brand-navy max-w-[220px]">
+                        <div className="truncate" title={app.jobTitle}>{app.jobTitle}</div>
+                      </td>
+                      <td className="p-4">
+                        <div className="truncate max-w-[180px]" title={app.email}>{app.email}</div>
                         <div className="text-[10px] text-brand-gray-dark mt-0.5">{app.phone}</div>
                         {app.linkedinProfile && (
                           <a
@@ -906,15 +1306,22 @@ export default function AdminPage() {
                           </a>
                         )}
                       </td>
-                      <td className="p-4 font-semibold">{app.salaryExpectation}</td>
-                      <td className="p-4">{new Date(app.appliedAt).toLocaleDateString()}</td>
-                      <td className="p-4">
+                      <td className="p-4 font-semibold whitespace-nowrap">{app.salaryExpectation}</td>
+                      <td className="p-4 whitespace-nowrap">
+                        <span className="text-[10px] font-semibold bg-brand-bg px-2.5 py-1 rounded-full text-brand-navy border border-brand-gray/15">
+                          {app.availability || "Inmediata"}
+                        </span>
+                      </td>
+                      <td className="p-4 whitespace-nowrap text-brand-gray-dark text-[11px]">
+                        {formatDateChile(app.appliedAt)}
+                      </td>
+                      <td className="p-4 whitespace-nowrap">
                         {app.cvFileName ? (
                           <a
                             href={app.cvFileName}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="px-2.5 py-1 bg-brand-navy text-white rounded flex items-center gap-1 hover:bg-brand-blue-med transition-colors text-[9px] w-fit"
+                            className="px-2.5 py-1 bg-brand-navy text-white rounded flex items-center gap-1 hover:bg-brand-blue-med transition-colors text-[9px] w-fit font-bold"
                           >
                             <Download className="h-3 w-3" />
                             Ver CV
@@ -927,18 +1334,40 @@ export default function AdminPage() {
                         <button
                           onClick={() => handleDeleteApplication(app.id)}
                           className="p-1.5 hover:bg-rose-50 rounded-lg text-rose-600 transition-colors"
-                          title="Eliminar registro"
+                          title="Eliminar postulación"
                         >
                           <Trash2 className="h-4 w-4" />
                         </button>
                       </td>
                     </tr>
                   ))}
+
+                  {filteredApplications.length === 0 && applications.length > 0 && (
+                    <tr>
+                      <td colSpan={9} className="text-center p-12 text-brand-gray-dark font-light">
+                        <Filter className="h-10 w-10 text-brand-gray mx-auto mb-3 opacity-40" />
+                        <p className="font-semibold text-brand-navy text-sm mb-1">
+                          No se encontraron postulaciones con los filtros seleccionados
+                        </p>
+                        <p className="text-xs text-brand-gray-dark mb-4">
+                          Intenta ajustar el período de fechas, cargo o ciudad para ampliar los resultados.
+                        </p>
+                        <button
+                          onClick={handleResetFilters}
+                          className="px-4 py-2 bg-brand-navy text-white text-xs font-bold rounded-xl hover:bg-brand-blue-med transition-colors inline-flex items-center gap-1.5"
+                        >
+                          <RotateCcw className="h-3.5 w-3.5" />
+                          Restablecer Filtros
+                        </button>
+                      </td>
+                    </tr>
+                  )}
+
                   {applications.length === 0 && (
                     <tr>
-                      <td colSpan={8} className="text-center p-12 text-brand-gray-dark font-light">
+                      <td colSpan={9} className="text-center p-12 text-brand-gray-dark font-light">
                         <Users className="h-10 w-10 text-brand-gray mx-auto mb-3" />
-                        No se han recibido postulaciones en este período.
+                        No se han recibido postulaciones en la plataforma.
                       </td>
                     </tr>
                   )}
