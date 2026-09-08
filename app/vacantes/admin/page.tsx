@@ -3,9 +3,15 @@
 import { useState, useEffect } from "react";
 import { Job, JobApplication } from "@/components/jobsData";
 import { supabase } from "@/lib/supabase";
-import { Lock, Plus, Edit2, Archive, CheckCircle2, XCircle, Trash2, LogOut, Download, Users, Loader2 } from "lucide-react";
+import { Lock, Plus, Edit2, Archive, CheckCircle2, XCircle, Trash2, LogOut, Download, Users, Loader2, FolderKanban, Check, X, Tag } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+
+const DEFAULT_AREAS = [
+  "Gestión de Personas",
+  "Seguridad y Salud en el Trabajo",
+  "Sostenibilidad Organizacional"
+];
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -27,6 +33,17 @@ export default function AdminPage() {
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
   const [changePasswordSuccessMsg, setChangePasswordSuccessMsg] = useState("");
   const [changePasswordErrorMsg, setChangePasswordErrorMsg] = useState("");
+
+  // Areas states
+  const [areas, setAreas] = useState<{ id?: string; name: string }[]>(
+    DEFAULT_AREAS.map((name) => ({ name }))
+  );
+  const [isAddingArea, setIsAddingArea] = useState(false);
+  const [newAreaInput, setNewAreaInput] = useState("");
+  const [savingArea, setSavingArea] = useState(false);
+  const [deletingAreaName, setDeletingAreaName] = useState<string | null>(null);
+  const [showAreasManagerModal, setShowAreasManagerModal] = useState(false);
+  const [managerNewAreaInput, setManagerNewAreaInput] = useState("");
 
   // Dashboard states
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -78,7 +95,19 @@ export default function AdminPage() {
   }, []);
 
   const fetchData = async () => {
-    // 1. Fetch all jobs
+    // 1. Fetch all job areas from Supabase
+    let loadedAreas: { id?: string; name: string }[] = [];
+    const { data: areasData, error: areasError } = await supabase
+      .from("job_areas")
+      .select("*")
+      .order("name", { ascending: true });
+
+    if (!areasError && areasData && areasData.length > 0) {
+      loadedAreas = areasData;
+      setAreas(areasData);
+    }
+
+    // 2. Fetch all jobs
     const { data: jobsData, error: jobsError } = await supabase
       .from("jobs")
       .select("*")
@@ -99,9 +128,16 @@ export default function AdminPage() {
         createdAt: j.created_at
       }));
       setJobs(mapped);
+
+      // If job_areas was empty or failed, fallback to defaults + jobs areas
+      if (loadedAreas.length === 0) {
+        const jobAreas = mapped.map((j: any) => j.area).filter(Boolean);
+        const unique = Array.from(new Set([...DEFAULT_AREAS, ...jobAreas]));
+        setAreas(unique.map((name) => ({ name })));
+      }
     }
 
-    // 2. Fetch all applications
+    // 3. Fetch all applications
     const { data: appsData, error: appsError } = await supabase
       .from("applications")
       .select("*")
@@ -237,16 +273,95 @@ export default function AdminPage() {
     setActionLoading(false);
   };
 
+  const handleAddArea = async (nameToAdd: string) => {
+    const trimmed = nameToAdd.trim();
+    if (!trimmed) {
+      alert("Por favor ingresa un nombre para el área.");
+      return;
+    }
+    if (areas.some((a) => a.name.toLowerCase() === trimmed.toLowerCase())) {
+      alert("Esta área ya existe en la lista.");
+      setArea(trimmed);
+      setIsAddingArea(false);
+      setNewAreaInput("");
+      setManagerNewAreaInput("");
+      return;
+    }
+
+    setSavingArea(true);
+    try {
+      const { data, error } = await supabase
+        .from("job_areas")
+        .insert([{ name: trimmed }])
+        .select();
+
+      if (error) {
+        console.warn("Supabase insert on job_areas:", error.message);
+      }
+
+      const created = data && data[0] ? data[0] : { id: trimmed, name: trimmed };
+      setAreas((prev) => {
+        const next = [...prev.filter((a) => a.name.toLowerCase() !== trimmed.toLowerCase()), created];
+        return next.sort((a, b) => a.name.localeCompare(b.name));
+      });
+      setArea(trimmed);
+      setIsAddingArea(false);
+      setNewAreaInput("");
+      setManagerNewAreaInput("");
+    } catch (err: any) {
+      alert(`Error al guardar el área: ${err.message}`);
+    } finally {
+      setSavingArea(false);
+    }
+  };
+
+  const handleDeleteArea = async (areaToDelete: { id?: string; name: string }) => {
+    const jobsCount = jobs.filter((j) => j.area === areaToDelete.name).length;
+    let confirmMsg = `¿Estás seguro de que deseas eliminar el área "${areaToDelete.name}" de la base de datos?`;
+    if (jobsCount > 0) {
+      confirmMsg += `\n\nAtención: Existen ${jobsCount} vacante(s) asociada(s) a esta área. Dichas vacantes mantendrán su historial, pero el área ya no estará disponible para nuevas publicaciones.`;
+    }
+
+    if (!confirm(confirmMsg)) return;
+
+    setDeletingAreaName(areaToDelete.name);
+    try {
+      let query = supabase.from("job_areas").delete();
+      if (areaToDelete.id) {
+        query = query.eq("id", areaToDelete.id);
+      } else {
+        query = query.eq("name", areaToDelete.name);
+      }
+      const { error } = await query;
+      if (error) {
+        console.warn("Error deleting job_areas in Supabase:", error.message);
+      }
+
+      const updated = areas.filter((a) => a.name !== areaToDelete.name);
+      setAreas(updated);
+
+      if (area === areaToDelete.name) {
+        setArea(updated.length > 0 ? updated[0].name : "");
+      }
+    } catch (err: any) {
+      alert(`Error al eliminar el área: ${err.message}`);
+    } finally {
+      setDeletingAreaName(null);
+    }
+  };
+
   const handleOpenCreateModal = () => {
     setEditingJob(null);
     setTitle("");
-    setArea("Gestión de Personas");
+    setArea(areas.length > 0 ? areas[0].name : "Gestión de Personas");
     setLocation("");
     setType("Full-time");
     setDescription("");
     setRequirements("");
     setFunctions("");
     setConfidential(false);
+    setIsAddingArea(false);
+    setNewAreaInput("");
     setShowModal(true);
   };
 
@@ -254,12 +369,17 @@ export default function AdminPage() {
     setEditingJob(job);
     setTitle(job.title);
     setArea(job.area);
+    if (job.area && !areas.some((a) => a.name === job.area)) {
+      setAreas((prev) => [...prev, { name: job.area }].sort((a, b) => a.name.localeCompare(b.name)));
+    }
     setLocation(job.location);
     setType(job.type);
     setDescription(job.description);
     setRequirements(job.requirements);
     setFunctions(job.functions || "");
     setConfidential(job.confidential);
+    setIsAddingArea(false);
+    setNewAreaInput("");
     setShowModal(true);
   };
 
@@ -645,15 +765,25 @@ export default function AdminPage() {
           <div className="space-y-4">
             
             {/* Action Bar */}
-            <div className="flex justify-between items-center bg-white p-4 rounded-xl border border-brand-gray/10 shadow-sm">
+            <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3 bg-white p-4 rounded-xl border border-brand-gray/10 shadow-sm">
               <span className="text-xs text-brand-gray-dark font-medium">Búsquedas activas listas para reclutar.</span>
-              <button
-                onClick={handleOpenCreateModal}
-                className="bg-brand-gold hover:bg-brand-gold/90 text-brand-navy text-xs font-bold py-2.5 px-4 rounded-xl flex items-center gap-1.5 transition-colors shadow-sm"
-              >
-                <Plus className="h-4 w-4" />
-                Crear Vacante
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setShowAreasManagerModal(true)}
+                  className="px-3.5 py-2.5 border border-brand-navy/20 hover:border-brand-navy hover:bg-brand-bg text-brand-navy text-xs font-bold rounded-xl flex items-center gap-1.5 transition-colors"
+                  title="Gestionar lista de áreas disponibles"
+                >
+                  <FolderKanban className="h-4 w-4 text-brand-gold" />
+                  Gestionar Áreas ({areas.length})
+                </button>
+                <button
+                  onClick={handleOpenCreateModal}
+                  className="bg-brand-gold hover:bg-brand-gold/90 text-brand-navy text-xs font-bold py-2.5 px-4 rounded-xl flex items-center gap-1.5 transition-colors shadow-sm"
+                >
+                  <Plus className="h-4 w-4" />
+                  Crear Vacante
+                </button>
+              </div>
             </div>
 
             {/* Jobs Table */}
@@ -847,16 +977,114 @@ export default function AdminPage() {
                     />
                   </div>
                   <div className="flex flex-col">
-                    <label className="text-[10px] font-bold text-brand-navy uppercase mb-1">Área *</label>
-                    <select
-                      value={area}
-                      onChange={(e) => setArea(e.target.value)}
-                      className="border border-brand-gray/20 rounded-lg px-3 py-2 text-xs bg-brand-bg/30 text-brand-navy focus:outline-none focus:border-brand-gold"
-                    >
-                      <option value="Gestión de Personas">Gestión de Personas</option>
-                      <option value="Seguridad y Salud en el Trabajo">Seguridad y Salud en el Trabajo</option>
-                      <option value="Sostenibilidad Organizacional">Sostenibilidad Organizacional</option>
-                    </select>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="text-[10px] font-bold text-brand-navy uppercase">
+                        Área *
+                      </label>
+                      {!isAddingArea && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setIsAddingArea(true);
+                            setNewAreaInput("");
+                          }}
+                          className="text-[10px] font-semibold text-brand-gold hover:text-brand-navy flex items-center gap-1 transition-colors"
+                        >
+                          <Plus className="h-3 w-3" />
+                          Agregar nueva área
+                        </button>
+                      )}
+                    </div>
+
+                    {isAddingArea ? (
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-1.5">
+                          <input
+                            type="text"
+                            value={newAreaInput}
+                            onChange={(e) => setNewAreaInput(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter") {
+                                e.preventDefault();
+                                handleAddArea(newAreaInput);
+                              }
+                            }}
+                            placeholder="Ej. Finanzas y Control de Gestión"
+                            autoFocus
+                            className="border border-brand-gold rounded-lg px-3 py-2 text-xs bg-white text-brand-navy focus:outline-none focus:ring-1 focus:ring-brand-gold flex-1"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => handleAddArea(newAreaInput)}
+                            disabled={savingArea || !newAreaInput.trim()}
+                            className="bg-brand-navy hover:bg-brand-blue-med disabled:opacity-50 text-white p-2 rounded-lg text-xs font-bold transition-colors flex items-center justify-center"
+                            title="Guardar área en la BD"
+                          >
+                            {savingArea ? (
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : (
+                              <Check className="h-4 w-4" />
+                            )}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setIsAddingArea(false);
+                              setNewAreaInput("");
+                            }}
+                            className="border border-brand-gray/20 hover:bg-brand-bg text-brand-gray-dark p-2 rounded-lg text-xs transition-colors"
+                            title="Cancelar"
+                          >
+                            <X className="h-4 w-4" />
+                          </button>
+                        </div>
+                        <span className="text-[10px] text-brand-gray-dark font-light">
+                          Presiona Enter o el check para guardar en la BD.
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-1.5">
+                        <select
+                          value={area}
+                          onChange={(e) => {
+                            if (e.target.value === "__NEW__") {
+                              setIsAddingArea(true);
+                              setNewAreaInput("");
+                            } else {
+                              setArea(e.target.value);
+                            }
+                          }}
+                          className="border border-brand-gray/20 rounded-lg px-3 py-2 text-xs bg-brand-bg/30 text-brand-navy focus:outline-none focus:border-brand-gold flex-1 cursor-pointer"
+                        >
+                          {areas.map((a) => (
+                            <option key={a.id || a.name} value={a.name}>
+                              {a.name}
+                            </option>
+                          ))}
+                          <option value="__NEW__" className="text-brand-gold font-bold">
+                            + Otra área (escribir nueva)...
+                          </option>
+                        </select>
+                        {area && areas.some((a) => a.name === area) && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const target = areas.find((a) => a.name === area);
+                              if (target) handleDeleteArea(target);
+                            }}
+                            disabled={deletingAreaName === area || areas.length <= 1}
+                            className="p-2 border border-brand-gray/20 hover:border-rose-300 hover:bg-rose-50 text-brand-gray-dark hover:text-rose-600 rounded-lg text-xs transition-colors"
+                            title={`Eliminar área "${area}" de la lista y BD`}
+                          >
+                            {deletingAreaName === area ? (
+                              <Loader2 className="h-4 w-4 animate-spin text-rose-600" />
+                            ) : (
+                              <Trash2 className="h-4 w-4" />
+                            )}
+                          </button>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -1028,6 +1256,143 @@ export default function AdminPage() {
                   </button>
                 </div>
               </form>
+            </div>
+          </motion.div>
+        </div>
+      )}
+
+      {/* Areas Manager Modal */}
+      {showAreasManagerModal && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-white rounded-3xl max-w-lg w-full shadow-2xl relative border-t-8 border-brand-gold overflow-hidden max-h-[85vh] flex flex-col"
+          >
+            <div className="p-6 border-b border-brand-gray/10 flex items-center justify-between">
+              <h2 className="text-xl font-bold text-brand-navy font-titles flex items-center gap-2">
+                <FolderKanban className="h-5 w-5 text-brand-gold" />
+                Gestión de Áreas de Vacantes
+              </h2>
+              <button
+                type="button"
+                onClick={() => setShowAreasManagerModal(false)}
+                className="p-1.5 rounded-lg hover:bg-brand-bg text-brand-gray-dark transition-colors"
+                title="Cerrar"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <div className="p-6 overflow-y-auto space-y-6">
+              <div>
+                <label className="text-[10px] font-bold text-brand-navy uppercase mb-1.5 block">
+                  Agregar Nueva Área a la Base de Datos
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={managerNewAreaInput}
+                    onChange={(e) => setManagerNewAreaInput(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        if (managerNewAreaInput.trim()) {
+                          handleAddArea(managerNewAreaInput);
+                        }
+                      }
+                    }}
+                    placeholder="Ej. Finanzas y Control de Gestión"
+                    className="flex-1 border border-brand-gray/20 rounded-xl px-3.5 py-2.5 text-xs bg-brand-bg/30 text-brand-navy focus:outline-none focus:border-brand-gold transition-colors"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (managerNewAreaInput.trim()) {
+                        handleAddArea(managerNewAreaInput);
+                      }
+                    }}
+                    disabled={savingArea || !managerNewAreaInput.trim()}
+                    className="bg-brand-navy hover:bg-brand-blue-med disabled:opacity-50 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-colors shadow-sm flex items-center gap-1.5 whitespace-nowrap"
+                  >
+                    {savingArea ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <Plus className="h-4 w-4" />
+                    )}
+                    Agregar
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[10px] font-bold text-brand-navy uppercase">
+                    Áreas Registradas ({areas.length})
+                  </span>
+                  <span className="text-[10px] text-brand-gray-dark font-light">
+                    Disponibles en el formulario
+                  </span>
+                </div>
+
+                <div className="border border-brand-gray/10 rounded-2xl overflow-hidden divide-y divide-brand-gray/10">
+                  {areas.map((a) => {
+                    const jobsCount = jobs.filter((j) => j.area === a.name).length;
+                    const isDeleting = deletingAreaName === a.name;
+
+                    return (
+                      <div
+                        key={a.id || a.name}
+                        className="flex items-center justify-between p-3 hover:bg-brand-bg/30 transition-colors"
+                      >
+                        <div className="flex items-center gap-2 min-w-0 pr-2">
+                          <Tag className="h-3.5 w-3.5 text-brand-gold shrink-0" />
+                          <span className="text-xs font-bold text-brand-navy truncate">
+                            {a.name}
+                          </span>
+                          <span className="text-[10px] text-brand-gray-dark bg-brand-bg px-2 py-0.5 rounded-full shrink-0 font-medium">
+                            {jobsCount === 1 ? "1 vacante" : `${jobsCount} vacantes`}
+                          </span>
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteArea(a)}
+                          disabled={isDeleting || areas.length <= 1}
+                          className="p-1.5 text-brand-gray-dark hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors disabled:opacity-30"
+                          title={
+                            areas.length <= 1
+                              ? "Debe existir al menos una área"
+                              : `Eliminar "${a.name}" de la BD`
+                          }
+                        >
+                          {isDeleting ? (
+                            <Loader2 className="h-4 w-4 animate-spin text-rose-600" />
+                          ) : (
+                            <Trash2 className="h-4 w-4" />
+                          )}
+                        </button>
+                      </div>
+                    );
+                  })}
+
+                  {areas.length === 0 && (
+                    <div className="p-6 text-center text-xs text-brand-gray-dark font-light">
+                      No hay áreas registradas. Agrega una arriba.
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 border-t border-brand-gray/10 bg-brand-bg/30 flex justify-end">
+              <button
+                type="button"
+                onClick={() => setShowAreasManagerModal(false)}
+                className="px-5 py-2 bg-brand-navy hover:bg-brand-blue-med text-white text-xs font-bold rounded-xl transition-colors shadow-sm"
+              >
+                Listo
+              </button>
             </div>
           </motion.div>
         </div>
