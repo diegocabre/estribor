@@ -6,7 +6,8 @@ import { supabase } from "@/lib/supabase";
 import {
   Lock, Plus, Edit2, Archive, CheckCircle2, XCircle, Trash2, LogOut,
   Download, Users, Loader2, FolderKanban, Check, X, Tag,
-  FileSpreadsheet, Filter, RotateCcw, Search, Calendar, MapPin, Briefcase
+  FileSpreadsheet, Filter, RotateCcw, Search, Calendar, MapPin, Briefcase,
+  KeyRound, ShieldCheck, UserCheck
 } from "lucide-react";
 import * as XLSX from "xlsx";
 import Link from "next/link";
@@ -20,6 +21,8 @@ const DEFAULT_AREAS = [
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [mustChangePasswordOnLogin, setMustChangePasswordOnLogin] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loadingAuth, setLoadingAuth] = useState(true);
@@ -77,11 +80,26 @@ export default function AdminPage() {
   const [functions, setFunctions] = useState("");
   const [confidential, setConfidential] = useState(false);
 
+  // Role determination
+  const isRecruiter = useMemo(() => {
+    if (!currentUser) return false;
+    const role = currentUser.user_metadata?.role;
+    const userEmail = (currentUser.email || "").toLowerCase();
+    return role === "recruiter" || userEmail === "dayana@estriborconsultores.cl";
+  }, [currentUser]);
+
   // Check auth session on mount
   useEffect(() => {
     const checkSession = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       setIsAuthenticated(!!session);
+      const user = session?.user || null;
+      setCurrentUser(user);
+      if (user?.user_metadata?.must_change_password === true) {
+        setMustChangePasswordOnLogin(true);
+      } else {
+        setMustChangePasswordOnLogin(false);
+      }
       setLoadingAuth(false);
       
       if (session) {
@@ -97,6 +115,13 @@ export default function AdminPage() {
         setIsRecovering(true);
       }
       setIsAuthenticated(!!session);
+      const user = session?.user || null;
+      setCurrentUser(user);
+      if (user?.user_metadata?.must_change_password === true) {
+        setMustChangePasswordOnLogin(true);
+      } else {
+        setMustChangePasswordOnLogin(false);
+      }
       if (session) {
         fetchData();
       }
@@ -201,10 +226,20 @@ export default function AdminPage() {
     });
 
     if (error) {
-      setErrorMsg(error.message || "Credenciales inválidas. Por favor verifique.");
+      if (error.message.includes("Email not confirmed")) {
+        setErrorMsg("Tu cuenta fue registrada pero requiere confirmación de correo en Supabase.");
+      } else {
+        setErrorMsg(error.message || "Credenciales inválidas. Por favor verifique.");
+      }
     } else {
       setIsAuthenticated(true);
-      fetchData();
+      setCurrentUser(data.user);
+      if (data.user?.user_metadata?.must_change_password === true) {
+        setMustChangePasswordOnLogin(true);
+      } else {
+        setMustChangePasswordOnLogin(false);
+        fetchData();
+      }
     }
     setActionLoading(false);
   };
@@ -212,10 +247,57 @@ export default function AdminPage() {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     setIsAuthenticated(false);
+    setCurrentUser(null);
+    setMustChangePasswordOnLogin(false);
     setEmail("");
     setPassword("");
+    setNewPassword("");
+    setConfirmNewPassword("");
     setJobs([]);
     setApplications([]);
+  };
+
+  const handleFirstLoginPasswordChange = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newPassword !== confirmNewPassword) {
+      setErrorMsg("Las contraseñas no coinciden.");
+      return;
+    }
+    if (newPassword.length < 6) {
+      setErrorMsg("La contraseña debe tener al menos 6 caracteres.");
+      return;
+    }
+    if (newPassword === "Password.123") {
+      setErrorMsg("Por seguridad, debes elegir una contraseña distinta a la provisional.");
+      return;
+    }
+
+    setActionLoading(true);
+    setErrorMsg("");
+
+    try {
+      const { data, error } = await supabase.auth.updateUser({
+        password: newPassword,
+        data: {
+          ...currentUser?.user_metadata,
+          must_change_password: false,
+          password_updated_at: new Date().toISOString()
+        }
+      });
+
+      if (error) throw error;
+
+      setCurrentUser(data.user);
+      setMustChangePasswordOnLogin(false);
+      setNewPassword("");
+      setConfirmNewPassword("");
+      alert("¡Contraseña actualizada exitosamente! Bienvenida al panel de control.");
+      await fetchData();
+    } catch (err: any) {
+      setErrorMsg(err.message || "Error al actualizar la contraseña.");
+    } finally {
+      setActionLoading(false);
+    }
   };
 
   const handleForgotPassword = async (e: React.FormEvent) => {
@@ -343,6 +425,10 @@ export default function AdminPage() {
   };
 
   const handleDeleteArea = async (areaToDelete: { id?: string; name: string }) => {
+    if (isRecruiter) {
+      alert("Tu cuenta no tiene permisos para eliminar áreas.");
+      return;
+    }
     const jobsCount = jobs.filter((j) => j.area === areaToDelete.name).length;
     let confirmMsg = `¿Estás seguro de que deseas eliminar el área "${areaToDelete.name}" de la base de datos?`;
     if (jobsCount > 0) {
@@ -475,6 +561,10 @@ export default function AdminPage() {
   };
 
   const handleDeleteJob = async (id: string) => {
+    if (isRecruiter) {
+      alert("Tu cuenta no tiene permisos para eliminar vacantes.");
+      return;
+    }
     if (confirm("¿Estás seguro de que deseas eliminar esta vacante de la base de datos de forma permanente?")) {
       try {
         const { error } = await supabase
@@ -490,6 +580,10 @@ export default function AdminPage() {
   };
 
   const handleDeleteApplication = async (id: string) => {
+    if (isRecruiter) {
+      alert("Tu cuenta no tiene permisos para eliminar postulaciones.");
+      return;
+    }
     if (confirm("¿Estás seguro de que deseas eliminar permanentemente esta postulación de la base de datos?")) {
       try {
         const { error } = await supabase
@@ -913,6 +1007,83 @@ export default function AdminPage() {
     );
   }
 
+  if (mustChangePasswordOnLogin) {
+    return (
+      <div className="pt-32 pb-24 flex items-center justify-center min-h-screen bg-brand-bg px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white border border-brand-gray/10 p-8 rounded-3xl shadow-xl max-w-md w-full text-center relative overflow-hidden"
+        >
+          <div className="absolute top-0 left-0 right-0 h-1.5 bg-brand-gold"></div>
+          
+          <div className="w-14 h-14 rounded-2xl bg-amber-50 text-brand-gold flex items-center justify-center mx-auto mb-4 border border-amber-200">
+            <KeyRound className="h-7 w-7" />
+          </div>
+
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-amber-50 text-amber-800 border border-amber-200 mb-3">
+            <ShieldCheck className="h-3.5 w-3.5" />
+            Primer Inicio de Sesión
+          </div>
+
+          <h2 className="text-xl font-bold text-brand-navy mb-2 font-titles">Actualiza tu Contraseña</h2>
+          <p className="text-xs text-brand-gray-dark font-light mb-6">
+            Hola <strong className="text-brand-navy">{currentUser?.user_metadata?.full_name || currentUser?.email}</strong>. Por motivos de seguridad corporativa, debes cambiar tu contraseña provisional antes de acceder al panel de administración.
+          </p>
+
+          <form onSubmit={handleFirstLoginPasswordChange} className="space-y-4 text-left">
+            <div className="flex flex-col">
+              <label className="text-[10px] font-bold text-brand-navy uppercase mb-1.5">Nueva Contraseña *</label>
+              <input
+                type="password"
+                required
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                placeholder="Mínimo 6 caracteres"
+                className="w-full px-4 py-2.5 border border-brand-gray/20 rounded-xl bg-brand-bg/50 text-brand-navy text-xs focus:outline-none focus:border-brand-gold transition-colors"
+              />
+            </div>
+
+            <div className="flex flex-col">
+              <label className="text-[10px] font-bold text-brand-navy uppercase mb-1.5">Confirmar Nueva Contraseña *</label>
+              <input
+                type="password"
+                required
+                value={confirmNewPassword}
+                onChange={(e) => setConfirmNewPassword(e.target.value)}
+                placeholder="Repite la nueva contraseña"
+                className="w-full px-4 py-2.5 border border-brand-gray/20 rounded-xl bg-brand-bg/50 text-brand-navy text-xs focus:outline-none focus:border-brand-gold transition-colors"
+              />
+            </div>
+
+            {errorMsg && (
+              <p className="text-[11px] font-semibold text-rose-600 bg-rose-50 border border-rose-100 p-2.5 rounded-xl text-center">
+                {errorMsg}
+              </p>
+            )}
+
+            <button
+              type="submit"
+              disabled={actionLoading}
+              className="w-full bg-brand-navy hover:bg-brand-blue-med disabled:bg-brand-navy/60 text-white font-bold py-3 rounded-xl text-xs transition-colors shadow-sm flex items-center justify-center gap-1.5"
+            >
+              {actionLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+              Actualizar Contraseña e Ingresar
+            </button>
+
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="w-full text-center text-xs font-semibold text-brand-navy/60 hover:text-brand-navy transition-colors mt-2"
+            >
+              Cerrar Sesión
+            </button>
+          </form>
+        </motion.div>
+      </div>
+    );
+  }
+
   return (
     <div className="pt-24 pb-16 bg-brand-bg min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -920,8 +1091,25 @@ export default function AdminPage() {
         {/* Dashboard Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-brand-gray/10 pb-6 mb-8">
           <div>
-            <h1 className="text-3xl font-extrabold text-brand-navy font-titles">Panel de Control</h1>
-            <p className="text-xs text-brand-gray-dark font-light mt-1">Gestión administrativa de ofertas de empleo y selección de personal.</p>
+            <div className="flex items-center gap-3 flex-wrap">
+              <h1 className="text-3xl font-extrabold text-brand-navy font-titles">Panel de Control</h1>
+              {isRecruiter ? (
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-800 border border-amber-200">
+                  <UserCheck className="h-3.5 w-3.5 text-amber-600" />
+                  Reclutamiento y Selección
+                </span>
+              ) : (
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                  <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
+                  Administrador General
+                </span>
+              )}
+            </div>
+            <p className="text-xs text-brand-gray-dark font-light mt-1">
+              {isRecruiter
+                ? `Sesión iniciada como ${currentUser?.email || "Reclutador"} — Permisos: Creación de vacantes y revisión de candidatos.`
+                : `Gestión administrativa de ofertas de empleo y selección de personal.`}
+            </p>
           </div>
           
           <div className="flex gap-3">
@@ -985,14 +1173,16 @@ export default function AdminPage() {
             <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3 bg-white p-4 rounded-xl border border-brand-gray/10 shadow-sm">
               <span className="text-xs text-brand-gray-dark font-medium">Búsquedas activas listas para reclutar.</span>
               <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setShowAreasManagerModal(true)}
-                  className="px-3.5 py-2.5 border border-brand-navy/20 hover:border-brand-navy hover:bg-brand-bg text-brand-navy text-xs font-bold rounded-xl flex items-center gap-1.5 transition-colors"
-                  title="Gestionar lista de áreas disponibles"
-                >
-                  <FolderKanban className="h-4 w-4 text-brand-gold" />
-                  Gestionar Áreas ({areas.length})
-                </button>
+                {!isRecruiter && (
+                  <button
+                    onClick={() => setShowAreasManagerModal(true)}
+                    className="px-3.5 py-2.5 border border-brand-navy/20 hover:border-brand-navy hover:bg-brand-bg text-brand-navy text-xs font-bold rounded-xl flex items-center gap-1.5 transition-colors"
+                    title="Gestionar lista de áreas disponibles"
+                  >
+                    <FolderKanban className="h-4 w-4 text-brand-gold" />
+                    Gestionar Áreas ({areas.length})
+                  </button>
+                )}
                 <button
                   onClick={handleOpenCreateModal}
                   className="bg-brand-gold hover:bg-brand-gold/90 text-brand-navy text-xs font-bold py-2.5 px-4 rounded-xl flex items-center gap-1.5 transition-colors shadow-sm"
@@ -1060,13 +1250,15 @@ export default function AdminPage() {
                           >
                             <Edit2 className="h-4 w-4" />
                           </button>
-                          <button
-                            onClick={() => handleDeleteJob(job.id)}
-                            className="p-1.5 hover:bg-rose-50 rounded-lg text-rose-600 transition-colors"
-                            title="Eliminar vacante"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </button>
+                          {!isRecruiter && (
+                            <button
+                              onClick={() => handleDeleteJob(job.id)}
+                              className="p-1.5 hover:bg-rose-50 rounded-lg text-rose-600 transition-colors"
+                              title="Eliminar vacante"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </button>
+                          )}
                         </div>
                       </td>
                     </tr>
@@ -1331,13 +1523,19 @@ export default function AdminPage() {
                         )}
                       </td>
                       <td className="p-4 text-center">
-                        <button
-                          onClick={() => handleDeleteApplication(app.id)}
-                          className="p-1.5 hover:bg-rose-50 rounded-lg text-rose-600 transition-colors"
-                          title="Eliminar postulación"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </button>
+                        {!isRecruiter ? (
+                          <button
+                            onClick={() => handleDeleteApplication(app.id)}
+                            className="p-1.5 hover:bg-rose-50 rounded-lg text-rose-600 transition-colors"
+                            title="Eliminar postulación"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </button>
+                        ) : (
+                          <span className="text-[10px] text-brand-gray-dark/50 italic select-none">
+                            Registrada
+                          </span>
+                        )}
                       </td>
                     </tr>
                   ))}
@@ -1494,7 +1692,7 @@ export default function AdminPage() {
                             + Otra área (escribir nueva)...
                           </option>
                         </select>
-                        {area && areas.some((a) => a.name === area) && (
+                        {!isRecruiter && area && areas.some((a) => a.name === area) && (
                           <button
                             type="button"
                             onClick={() => {
