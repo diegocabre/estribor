@@ -15,7 +15,7 @@ export default function BlogPage() {
     : blogPosts.filter((post) => post.category === selectedCategory);
 
   return (
-    <div className="pt-24 pb-16 bg-brand-bg min-h-screen">
+    <div className="pt-28 md:pt-32 pb-16 bg-brand-bg min-h-screen">
       {/* Page Header */}
       <div className="bg-brand-navy text-white py-16 mb-12 relative overflow-hidden">
         <div className="absolute right-0 bottom-0 translate-x-1/4 translate-y-1/4 w-96 h-96 bg-brand-gold/10 rounded-full blur-3xl pointer-events-none"></div>

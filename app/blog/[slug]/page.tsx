@@ -42,7 +42,7 @@ export default function BlogPostPage({ params }: PageProps) {
   };
 
   return (
-    <div className="pt-24 pb-16 bg-brand-bg min-h-screen">
+    <div className="pt-36 md:pt-44 pb-16 bg-brand-bg min-h-screen">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Navigation Breadcrumbs & Back */}

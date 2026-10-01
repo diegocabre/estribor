@@ -58,7 +58,7 @@ export default function EquipoPage() {
   ];
 
   return (
-    <div className="pt-24 pb-16 bg-white overflow-hidden min-h-screen relative">
+    <div className="pt-36 md:pt-44 pb-16 bg-white overflow-hidden min-h-screen relative">
       {/* Decorative background grid */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#7D7E80/5_1px,transparent_1px),linear-gradient(to_bottom,#7D7E80/5_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none"></div>
 
@@ -71,7 +71,7 @@ export default function EquipoPage() {
           <h1 className="text-3xl sm:text-5xl font-bold text-brand-navy tracking-tight mb-6">
             Equipo Multidisciplinario
           </h1>
-          <p className="text-base sm:text-lg text-brand-gray font-light leading-relaxed">
+          <p className="text-base sm:text-lg text-brand-gray-dark font-light leading-relaxed">
             En <strong className="font-semibold text-brand-navy">Estribor Consultores</strong> no dependemos de individualidades, sino de la fuerza colectiva de nuestra red de consultores seniors con una sólida base técnica y legal.
           </p>
         </div>
