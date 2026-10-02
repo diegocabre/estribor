@@ -1,6 +1,4 @@
-"use client";
-
-import { motion } from "framer-motion";
+import Reveal from "@/components/ui/Reveal";
 import { Award, Sliders, Target, Heart, Factory, CheckCircle2 } from "lucide-react";
 
 export default function PorQueEstribor() {
@@ -46,7 +44,7 @@ export default function PorQueEstribor() {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-brand-gold text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
+          <span className="text-brand-gold-dark text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
             Nuestros Diferenciadores
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-4">
@@ -62,12 +60,10 @@ export default function PorQueEstribor() {
           {pillars.map((pillar, idx) => {
             const Icon = pillar.icon;
             return (
-              <motion.div
+              <Reveal
                 key={pillar.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.08, duration: 0.5 }}
+                from="translateY(0px)"
+                delay={idx * 0.08}
                 className="bg-white border border-brand-gray/10 p-8 rounded-2xl shadow-sm hover:shadow-md hover:border-brand-gold/30 transition-all duration-300 group flex flex-col justify-between"
               >
                 <div>
@@ -81,7 +77,7 @@ export default function PorQueEstribor() {
                     {pillar.description}
                   </p>
                 </div>
-              </motion.div>
+              </Reveal>
             );
           })}
         </div>

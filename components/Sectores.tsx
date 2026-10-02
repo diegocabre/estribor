@@ -1,6 +1,4 @@
-"use client";
-
-import { motion } from "framer-motion";
+import Reveal from "@/components/ui/Reveal";
 import { Anchor, Shield, Zap, HardHat, Soup, Briefcase } from "lucide-react";
 
 export default function Sectores() {
@@ -19,7 +17,7 @@ export default function Sectores() {
         
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-brand-gold text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
+          <span className="text-brand-gold-dark text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
             Presencia Multisectorial
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-4">
@@ -35,12 +33,10 @@ export default function Sectores() {
           {sectors.map((sector, idx) => {
             const Icon = sector.icon;
             return (
-              <motion.div
+              <Reveal
                 key={sector.name}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.08, duration: 0.4 }}
+                from="translateY(0px)"
+                delay={idx * 0.08}
                 className="bg-white p-6 rounded-2xl border border-brand-gray/10 shadow-sm hover:shadow-md hover:border-brand-blue-light/30 transition-all duration-300 group flex items-start gap-4"
               >
                 <div className="w-10 h-10 rounded-xl bg-brand-navy/5 text-brand-navy flex items-center justify-center shrink-0 group-hover:bg-brand-blue-light group-hover:text-white transition-all duration-300">
@@ -54,7 +50,7 @@ export default function Sectores() {
                     {sector.desc}
                   </p>
                 </div>
-              </motion.div>
+              </Reveal>
             );
           })}
         </div>

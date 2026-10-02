@@ -8,12 +8,13 @@
 @theme {
   --font-sans: var(--font-open-sans), system-ui, sans-serif;
   --font-titles: var(--font-plus-jakarta), system-ui, sans-serif;
-  --font-slogan: var(--font-cormorant), serif;
   
   --color-brand-navy: #0F1D33;
-  --color-brand-blue-light: #4A7FA5;
-  --color-brand-electric: #4A7FA5;
+  --color-brand-blue-light: #3F7096;
+  --color-brand-electric: #3F7096;
   --color-brand-gold: #C9A05C;
+  /* Dorado oscuro para texto pequeño sobre fondos claros (contraste AA ≥ 4.5:1). */
+  --color-brand-gold-dark: #7D5F28;
   --color-brand-white: #FFFFFF;
   --color-brand-gray: #B0B8C4;
   --color-brand-gray-dark: #475467;
@@ -21,7 +22,103 @@
   --color-brand-bg: #F4F5F6;
   
   --animate-compass-pulse: compass-pulse 3s ease-in-out infinite;
-  
+  /* Animaciones de entrada del Hero: CSS puro, no esperan a que hidrate React (mejor LCP). */
+  --animate-fade-up: fade-up 0.8s ease-out both;
+  --animate-zoom-in: zoom-in 1s ease-out both;
+  --animate-rotate-slow: rotate-cw 45s linear infinite;
+  --animate-rotate-slower-reverse: rotate-ccw 65s linear infinite;
+
+  /* Entradas de componentes interactivos (reemplazan a framer-motion en páginas públicas). */
+  --animate-fade-in: fade-in 0.3s ease-out both;
+  --animate-pop-in: pop-in 0.35s ease-out both;
+  --animate-scale-in: scale-in 0.3s ease-out both;
+  --animate-slide-in-left: slide-in-left 0.3s ease-out both;
+  --animate-slide-in-right: slide-in-right 0.3s ease-out both;
+  --animate-rise-in: rise-in 0.3s ease-out both;
+  --animate-drawer-in: drawer-in 0.25s ease-in-out both;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @keyframes pop-in {
+    from {
+      opacity: 0;
+      transform: translateY(50px) scale(0.95);
+    }
+  }
+
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+  }
+
+  @keyframes slide-in-left {
+    from {
+      opacity: 0;
+      transform: translateX(-15px);
+    }
+  }
+
+  @keyframes slide-in-right {
+    from {
+      opacity: 0;
+      transform: translateX(20px) scale(0.9);
+    }
+  }
+
+  @keyframes rise-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
+
+  @keyframes drawer-in {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes zoom-in {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes rotate-cw {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes rotate-ccw {
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+
   @keyframes compass-pulse {
     0%, 100% {
       transform: scale(1);
@@ -45,16 +142,63 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-titles);
 }
 
-.slogan-italic {
-  font-family: var(--font-slogan);
-  font-style: italic;
-}
-
 /* Custom fade-in and premium transitions */
 .hover-premium {
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .hover-premium:hover {
   transform: translateY(-2px);
+}
+
+/* Aparición al hacer scroll (components/ui/Reveal.tsx). Usa animation (no transition) para no
+   pisar el transition-all de hover de las tarjetas; fill-mode backwards deja que, al terminar,
+   manden las clases propias del elemento (p. ej. hover:-translate-y-1). */
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: var(--reveal-from, translateY(30px));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.reveal {
+  opacity: 0;
+}
+
+.reveal[data-visible="true"] {
+  opacity: 1;
+  animation: reveal-in 0.6s ease-out var(--reveal-delay, 0s) backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal[data-visible="true"] {
+    opacity: 1;
+    animation: none;
+  }
+
+  .animate-fade-up,
+  .animate-zoom-in,
+  .animate-fade-in,
+  .animate-pop-in,
+  .animate-scale-in,
+  .animate-slide-in-left,
+  .animate-slide-in-right,
+  .animate-rise-in,
+  .animate-drawer-in,
+  .animate-rotate-slow,
+  .animate-rotate-slower-reverse,
+  .animate-compass-pulse {
+    animation: none;
+  }
+}
+
+/* Foco visible y consistente para navegación con teclado. */
+:focus-visible {
+  outline: 2px solid var(--color-brand-gold);
+  outline-offset: 2px;
 }
 

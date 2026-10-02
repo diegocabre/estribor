@@ -1,6 +1,4 @@
-"use client";
-
-import { motion } from "framer-motion";
+import Reveal from "@/components/ui/Reveal";
 import { Users2, ShieldAlert, Leaf, ArrowRight } from "lucide-react";
 
 export default function QuienesSomos() {
@@ -35,7 +33,7 @@ export default function QuienesSomos() {
           
           {/* Text Column (5 cols) */}
           <div className="lg:col-span-5">
-            <span className="text-brand-gold text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
+            <span className="text-brand-gold-dark text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
               Trayectoria y Cercanía
             </span>
             <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-6">
@@ -55,7 +53,7 @@ export default function QuienesSomos() {
             </p>
             <a
               href="#agenda"
-              className="inline-flex items-center gap-2 text-brand-gold hover:text-brand-gold/80 font-bold text-sm transition-colors group"
+              className="inline-flex items-center gap-2 text-brand-gold-dark hover:text-brand-navy font-bold text-sm transition-colors group"
             >
               Agenda una asesoría con nosotros
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -67,12 +65,10 @@ export default function QuienesSomos() {
             {pillars.map((pillar, idx) => {
               const Icon = pillar.icon;
               return (
-                <motion.div
+                <Reveal
                   key={pillar.title}
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.15, duration: 0.5 }}
+                  from="translateX(30px)"
+                  delay={idx * 0.15}
                   className={`bg-gradient-to-r ${pillar.color} p-6 sm:p-8 rounded-2xl border flex flex-col sm:flex-row items-start gap-5 shadow-sm hover:shadow-md transition-all duration-300`}
                 >
                   <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center shadow-sm shrink-0">
@@ -82,7 +78,7 @@ export default function QuienesSomos() {
                     <h3 className="text-lg font-bold text-brand-navy mb-2">{pillar.title}</h3>
                     <p className="text-sm text-brand-gray-dark font-light leading-relaxed">{pillar.description}</p>
                   </div>
-                </motion.div>
+                </Reveal>
               );
             })}
           </div>

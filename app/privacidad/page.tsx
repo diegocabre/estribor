@@ -1,12 +1,14 @@
+import { pageMetadata } from "@/lib/seo";
 ﻿import React from "react";
 import Link from "next/link";
 import { legalConfig } from "@/lib/legalConfig";
 import { ShieldCheck, ArrowLeft, Lock, FileText, CheckCircle2, Cookie, Mail } from "lucide-react";
 
-export const metadata = {
-  title: `Política de Privacidad y Cookies | ${legalConfig.brandName}`,
+export const metadata = pageMetadata({
+  title: "Política de Privacidad y Cookies",
   description: "Política de Privacidad y Tratamiento de Datos Personales conforme a la Ley N° 19.628 y Ley N° 21.719 en Chile.",
-};
+  path: "/privacidad",
+});
 
 export default function PrivacidadPage() {
   return (

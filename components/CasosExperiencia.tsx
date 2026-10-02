@@ -1,6 +1,4 @@
-"use client";
-
-import { motion } from "framer-motion";
+import Reveal from "@/components/ui/Reveal";
 import { Briefcase, ShieldAlert, Award, FileSpreadsheet } from "lucide-react";
 
 export default function CasosExperiencia() {
@@ -42,7 +40,7 @@ export default function CasosExperiencia() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16">
           <div className="max-w-2xl">
-            <span className="text-brand-gold text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
+            <span className="text-brand-gold-dark text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
               Trayectoria de Impacto
             </span>
             <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-4">
@@ -67,17 +65,15 @@ export default function CasosExperiencia() {
           {cases.map((project, idx) => {
             const Icon = project.icon;
             return (
-              <motion.div
+              <Reveal
                 key={project.title}
-                initial={{ opacity: 0, scale: 0.98 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1, duration: 0.4 }}
+                from="translateY(0px)"
+                delay={idx * 0.1}
                 className="bg-brand-bg/50 border border-brand-gray/15 p-8 rounded-2xl flex flex-col justify-between hover:shadow-lg hover:bg-white hover:border-brand-gold/30 transition-all duration-300 group"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <span className="text-[10px] font-bold text-brand-gold bg-brand-gold/10 px-2.5 py-1 rounded-full uppercase tracking-wider">
+                    <span className="text-[10px] font-bold text-brand-gold-dark bg-brand-gold/10 px-2.5 py-1 rounded-full uppercase tracking-wider">
                       {project.sector}
                     </span>
                     <div className="w-8 h-8 rounded-lg bg-brand-navy/5 text-brand-navy flex items-center justify-center group-hover:bg-brand-gold group-hover:text-brand-navy transition-all duration-300">
@@ -100,7 +96,7 @@ export default function CasosExperiencia() {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </Reveal>
             );
           })}
         </div>

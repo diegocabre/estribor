@@ -1,6 +1,4 @@
-"use client";
-
-import { motion } from "framer-motion";
+import Reveal from "@/components/ui/Reveal";
 import { Users2, ShieldCheck, Leaf, Check } from "lucide-react";
 
 export default function Servicios() {
@@ -64,7 +62,7 @@ export default function Servicios() {
         
         {/* Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-brand-gold text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
+          <span className="text-brand-gold-dark text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
             Áreas de Especialización
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-4">
@@ -80,12 +78,10 @@ export default function Servicios() {
           {axes.map((axis, index) => {
             const Icon = axis.icon;
             return (
-              <motion.div
+              <Reveal
                 key={axis.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                from="translateY(0px)"
+                delay={index * 0.1}
                 className={`bg-white border rounded-2xl p-8 shadow-sm flex flex-col justify-between hover:shadow-xl transition-all duration-300 ${axis.color}`}
               >
                 <div>
@@ -126,7 +122,7 @@ export default function Servicios() {
                   </a>
                 </div>
 
-              </motion.div>
+              </Reveal>
             );
           })}
         </div>

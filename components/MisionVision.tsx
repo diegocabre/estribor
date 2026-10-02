@@ -1,6 +1,4 @@
-"use client";
-
-import { motion } from "framer-motion";
+import Reveal from "@/components/ui/Reveal";
 import { Compass, Eye } from "lucide-react";
 
 export default function MisionVision() {
@@ -34,11 +32,9 @@ export default function MisionVision() {
           </div>
 
           {/* Misión Card */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
+          <Reveal
+            from="translateX(-50px)"
+            rootMargin="0px 0px -100px 0px"
             className="flex flex-col bg-white p-8 sm:p-10 rounded-2xl shadow-sm hover:shadow-md border border-brand-gray/10 transition-all duration-300 relative group overflow-hidden"
           >
             {/* Side colored bar */}
@@ -57,14 +53,12 @@ export default function MisionVision() {
             <p className="text-brand-navy/90 text-sm sm:text-base leading-relaxed font-light">
               Nos comprometemos a generar valor para nuestros clientes mediante un equipo multidisciplinario con amplia experiencia, promoviendo ambientes laborales seguros, eficientes y sostenibles que contribuyan al crecimiento y desarrollo de sus organizaciones.
             </p>
-          </motion.div>
+          </Reveal>
 
           {/* Visión Card */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
+          <Reveal
+            from="translateX(50px)"
+            rootMargin="0px 0px -100px 0px"
             className="flex flex-col bg-white p-8 sm:p-10 rounded-2xl shadow-sm hover:shadow-md border border-brand-gray/10 transition-all duration-300 relative group overflow-hidden"
           >
             {/* Side colored bar */}
@@ -80,7 +74,7 @@ export default function MisionVision() {
             <p className="text-brand-navy/90 text-sm sm:text-base leading-relaxed font-light">
               Ser una empresa consultora líder y referente en soluciones integrales de gestión empresarial, reconocida por la excelencia de nuestros servicios, la calidad de nuestro equipo profesional y nuestra capacidad para contribuir al fortalecimiento, competitividad y sostenibilidad de las organizaciones, consolidando relaciones de confianza y resultados de alto impacto para nuestros clientes.
             </p>
-          </motion.div>
+          </Reveal>
         </div>
       </div>
     </section>

@@ -1,12 +1,14 @@
+import { pageMetadata } from "@/lib/seo";
 ﻿import React from "react";
 import Link from "next/link";
 import { legalConfig } from "@/lib/legalConfig";
 import { Scale, ArrowLeft, Shield, FileCheck, AlertCircle } from "lucide-react";
 
-export const metadata = {
-  title: `Términos y Condiciones de Uso | ${legalConfig.brandName}`,
+export const metadata = pageMetadata({
+  title: "Términos y Condiciones de Uso",
   description: "Términos y condiciones de uso del sitio web y servicios de Estribor Consultores.",
-};
+  path: "/terminos",
+});
 
 export default function TerminosPage() {
   return (

@@ -1,8 +1,15 @@
-"use client";
-
 import Image from "next/image";
-import { motion } from "framer-motion";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
+import Reveal from "@/components/ui/Reveal";
 import { CheckCircle2, ShieldCheck, Scale, Users2, Award } from "lucide-react";
+
+export const metadata = pageMetadata({
+  title: "Nuestro Equipo",
+  description:
+    "Conoce al equipo de Estribor Consultores: especialistas en gestión de personas, atracción de talento, comunicaciones corporativas, cultura y gestión del cambio.",
+  path: "/equipo",
+});
 
 export default function EquipoPage() {
   const pillars = [
@@ -34,19 +41,19 @@ export default function EquipoPage() {
       name: "Camila Alvear",
       role: "Directora Ejecutiva",
       bio: "Con más de 10 años de experiencia en industrias productivas, Camila ha liderado estrategias y cambios organizacionales impactando directamente en los objetivos del negocio. Desde la Gestión de Personas, Comunicaciones Corporativas, Compliance y Sostenibilidad.",
-      photo: "/images/team/camilaalvear.jpeg",
+      photo: "/images/team/camilaalvear.webp",
     },
     {
       name: "Dayana González",
       role: "Consultora Atracción de Talento",
       bio: "Psicóloga Organizacional y Diplomada en Gestión de Recursos Humanos, con experiencia en procesos de Atracción y Selección de talento.",
-      photo: "/images/team/dayanagonzalez.jpeg",
+      photo: "/images/team/dayanagonzalez.webp",
     },
     {
       name: "Fernanda Núñez",
       role: "Consultora Senior Comunicaciones Corporativas, Gestión del Cambio y Cultura",
       bio: "Periodista Corporativa, especialista en cultura, comunicaciones y transformación organizacional, con más de 10 años de experiencia acompañando procesos de cambio e integración así como gestión de crisis, sostenibilidad y procesos de reportabilidad.",
-      photo: "/images/team/fernandanunez.jpeg",
+      photo: "/images/team/fernandanunez.webp",
     },
   ];
 
@@ -59,13 +66,19 @@ export default function EquipoPage() {
 
   return (
     <div className="pt-48 md:pt-52 pb-16 bg-white overflow-hidden min-h-screen relative">
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Inicio", path: "/" },
+          { name: "Equipo", path: "/equipo" },
+        ])}
+      />
       {/* Decorative background grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#7D7E80/5_1px,transparent_1px),linear-gradient(to_bottom,#7D7E80/5_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgb(125_126_128/0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgb(125_126_128/0.05)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-brand-gold text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
+          <span className="text-brand-gold-dark text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
             Nuestros Profesionales
           </span>
           <h1 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-4">
@@ -94,12 +107,12 @@ export default function EquipoPage() {
 
           <div className="relative z-10 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {team.map((member, idx) => (
-              <motion.article
+              <Reveal
                 key={member.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: idx * 0.15 }}
+                as="article"
+                from="translateY(0px)"
+                delay={idx * 0.15}
+                rootMargin="0px 0px -50px 0px"
                 className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-2xl hover:shadow-black/30"
               >
                 <div className="relative aspect-[4/5] overflow-hidden">
@@ -121,16 +134,14 @@ export default function EquipoPage() {
                   <span className="mb-4 h-px w-12 bg-brand-gold/60 transition-all duration-300 group-hover:w-20" />
                   <p className="text-sm font-light leading-relaxed text-white/75">{member.bio}</p>
                 </div>
-              </motion.article>
+              </Reveal>
             ))}
           </div>
         </section>
 
         {/* Big General Statement Banner */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+        <Reveal
+          from="translateY(0px)"
           className="bg-brand-navy text-white p-8 sm:p-12 rounded-3xl shadow-xl mb-16 relative overflow-hidden"
         >
           {/* Compass silhouette graphic in background */}
@@ -158,7 +169,7 @@ export default function EquipoPage() {
               ))}
             </div>
           </div>
-        </motion.div>
+        </Reveal>
 
         {/* Disciplines / Areas Grid */}
         <div className="mb-16">
@@ -170,12 +181,11 @@ export default function EquipoPage() {
             {pillars.map((pillar, idx) => {
               const Icon = pillar.icon;
               return (
-                <motion.div
+                <Reveal
                   key={pillar.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.5, delay: idx * 0.15 }}
+                  from="translateY(0px)"
+                  delay={idx * 0.15}
+                  rootMargin="0px 0px -50px 0px"
                   className="bg-white border border-brand-gray/10 p-8 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
                 >
                   <div>
@@ -190,16 +200,16 @@ export default function EquipoPage() {
                     <p className="text-xs font-semibold text-brand-electric uppercase tracking-wider mb-4">
                       {pillar.subtitle}
                     </p>
-                    <p className="text-sm text-brand-gray font-light leading-relaxed mb-6">
+                    <p className="text-sm text-brand-gray-dark font-light leading-relaxed mb-6">
                       {pillar.description}
                     </p>
                   </div>
 
-                  <div className="mt-auto pt-6 border-t border-brand-gray/5 text-xs text-brand-gray/80 flex items-center gap-2">
+                  <div className="mt-auto pt-6 border-t border-brand-gray/5 text-xs text-brand-gray-dark flex items-center gap-2">
                     <Award className="h-4.5 w-4.5 text-brand-electric" />
                     <span>Consultores Senior Asignados por Proyecto</span>
                   </div>
-                </motion.div>
+                </Reveal>
               );
             })}
           </div>
