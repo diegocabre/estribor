@@ -39,7 +39,7 @@ export default function BookingCalendar({ agenda }: { agenda: AgendaState }) {
         <p id="booking-date-label" className={groupLabelClass}>
           2. Selecciona Fecha
         </p>
-        <div className="grid grid-cols-5 gap-2 min-h-[58px]">
+        <div className="grid grid-cols-5 gap-2 min-h-[61px]">
           {agenda.dates.map((d) => {
             const isSelected = agenda.selectedDateStr === d.dateStr;
             return (

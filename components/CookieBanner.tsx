@@ -30,10 +30,18 @@ export default function CookieBanner() {
       // Navegación privada: el consentimiento vale solo para esta visita.
     }
     setShowBanner(false);
-    window.dispatchEvent(new Event(CONSENT_EVENT));
 
     // Retirar el consentimiento: recargar para descargar los scripts de analítica ya cargados.
-    if (previous === "all" && value === "essential") window.location.reload();
+    if (previous === "all" && value === "essential") {
+      window.location.reload();
+      return;
+    }
+
+    // Avisar a ConsentAnalytics cuando el navegador esté libre: así el clic solo cierra el aviso
+    // y montar Clarity y Vercel Analytics no se suma al tiempo de respuesta (INP).
+    const notify = () => window.dispatchEvent(new Event(CONSENT_EVENT));
+    if ("requestIdleCallback" in window) window.requestIdleCallback(notify, { timeout: 2000 });
+    else setTimeout(notify, 200);
   };
 
   if (!showBanner) return null;
@@ -45,7 +53,7 @@ export default function CookieBanner() {
       aria-describedby="cookie-banner-description"
       className="animate-pop-in fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-50"
     >
-      <div className="bg-brand-navy text-white border border-brand-blue-med/80 shadow-2xl rounded-2xl p-5 backdrop-blur-md relative overflow-hidden">
+      <div className="bg-brand-navy text-white border border-brand-blue-med/80 shadow-2xl rounded-2xl p-5 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-32 h-32 bg-brand-electric/10 rounded-full blur-2xl pointer-events-none" />
 
         <div className="flex items-start gap-3.5 relative z-10">

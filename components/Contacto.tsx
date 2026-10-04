@@ -10,7 +10,7 @@ import { useAgenda } from "@/lib/hooks/useAgenda";
 // principal. El marcador reserva su altura para no provocar saltos de diseño (CLS).
 const BookingWidget = dynamic(() => import("@/components/agenda/BookingWidget"), {
   ssr: false,
-  loading: () => <div className="min-h-[372px]" aria-busy="true" aria-label="Cargando calendario" />,
+  loading: () => <div className="min-h-[243px]" aria-busy="true" aria-label="Cargando calendario" />,
 });
 
 function ModalityHeader({
