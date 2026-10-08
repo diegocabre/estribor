@@ -26,8 +26,7 @@ export const teamMembers: TeamMember[] = [
     group: "consultor",
   },
   {
-    // TODO: agregar el apellido cuando esté confirmado.
-    name: "Fabián",
+    name: "Fabián Velásquez",
     role: "Consultor Senior HSE",
     bio: "Prevencionista de riesgos con cerca de 10 años en construcción y salmonicultura. Experiencia en programas preventivos, normativa MINSAL, sistemas de gestión y certificaciones ASC, BAP e ISO.",
     photo: "/images/team/fabian.webp",
