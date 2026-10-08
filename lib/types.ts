@@ -54,6 +54,16 @@ export interface BlogPost {
   content: string[];
 }
 
+export interface TeamMember {
+  name: string;
+  role: string;
+  bio: string;
+  /** Ruta en /public, en WebP de ~760 px de ancho. */
+  photo: string;
+  /** "direccion" se muestra destacado; "consultor" va en la grilla del equipo consultor. */
+  group: "direccion" | "consultor";
+}
+
 /** Fila de la tabla `jobs` tal como la devuelve Supabase. */
 export interface JobRow {
   id: string;

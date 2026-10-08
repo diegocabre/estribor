@@ -1,5 +1,6 @@
 import Image from "next/image";
 import JsonLd from "@/components/seo/JsonLd";
+import { teamMembers } from "@/lib/content/team";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 import Reveal from "@/components/ui/Reveal";
 import { CheckCircle2, ShieldCheck, Scale, Users2, Award } from "lucide-react";
@@ -36,26 +37,8 @@ export default function EquipoPage() {
     },
   ];
 
-  const team = [
-    {
-      name: "Camila Alvear",
-      role: "Directora Ejecutiva",
-      bio: "Con más de 10 años de experiencia en industrias productivas, Camila ha liderado estrategias y cambios organizacionales impactando directamente en los objetivos del negocio. Desde la Gestión de Personas, Comunicaciones Corporativas, Compliance y Sostenibilidad.",
-      photo: "/images/team/camilaalvear.webp",
-    },
-    {
-      name: "Dayana González",
-      role: "Consultora Atracción de Talento",
-      bio: "Psicóloga Organizacional y Diplomada en Gestión de Recursos Humanos, con experiencia en procesos de Atracción y Selección de talento.",
-      photo: "/images/team/dayanagonzalez.webp",
-    },
-    {
-      name: "Fernanda Núñez",
-      role: "Consultora Senior Comunicaciones Corporativas, Gestión del Cambio y Cultura",
-      bio: "Periodista Corporativa, especialista en cultura, comunicaciones y transformación organizacional, con más de 10 años de experiencia acompañando procesos de cambio e integración así como gestión de crisis, sostenibilidad y procesos de reportabilidad.",
-      photo: "/images/team/fernandanunez.webp",
-    },
-  ];
+  const directors = teamMembers.filter((m) => m.group === "direccion");
+  const consultants = teamMembers.filter((m) => m.group === "consultor");
 
   const highlights = [
     "Profesionales seniors con postgrados y certificaciones vigentes.",
@@ -105,8 +88,47 @@ export default function EquipoPage() {
             </h2>
           </div>
 
+          {/* Dirección: tarjeta destacada horizontal */}
+          {directors.map((member) => (
+            <Reveal
+              key={member.name}
+              as="article"
+              from="translateY(0px)"
+              rootMargin="0px 0px -50px 0px"
+              className="group relative z-10 mb-14 grid grid-cols-1 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] transition-all duration-300 hover:border-brand-gold/40 hover:shadow-2xl hover:shadow-black/30 md:grid-cols-12"
+            >
+              <div className="relative aspect-[4/5] overflow-hidden md:col-span-5 lg:col-span-4">
+                <Image
+                  src={member.photo}
+                  alt={`${member.name}, ${member.role}`}
+                  fill
+                  sizes="(min-width: 1024px) 400px, (min-width: 768px) 40vw, 100vw"
+                  className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/70 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:via-transparent md:to-brand-navy/40" />
+              </div>
+
+              <div className="flex flex-col justify-center p-6 sm:p-10 md:col-span-7 lg:col-span-8 lg:p-14">
+                <span className="mb-4 flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-brand-gold">
+                  <span className="h-px w-8 bg-brand-gold" />
+                  Dirección
+                </span>
+                <h3 className="text-3xl font-bold text-brand-gold sm:text-4xl">{member.name}</h3>
+                <p className="mt-2 text-base font-medium text-white sm:text-lg">{member.role}</p>
+                <span className="my-6 h-px w-16 bg-brand-gold/60 transition-all duration-300 group-hover:w-24" />
+                <p className="max-w-2xl text-base font-light leading-relaxed text-white/80">{member.bio}</p>
+              </div>
+            </Reveal>
+          ))}
+
+          {/* Equipo consultor */}
+          <div className="relative z-10 mb-8 flex items-center gap-4">
+            <h3 className="text-sm font-bold uppercase tracking-widest text-white/80">Equipo Consultor</h3>
+            <span className="h-px flex-1 bg-white/10" />
+          </div>
+
           <div className="relative z-10 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {team.map((member, idx) => (
+            {consultants.map((member, idx) => (
               <Reveal
                 key={member.name}
                 as="article"
@@ -125,7 +147,7 @@ export default function EquipoPage() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-navy via-brand-navy/10 to-transparent" />
                   <div className="absolute inset-x-0 bottom-0 p-6">
-                    <h3 className="text-2xl font-bold text-brand-gold">{member.name}</h3>
+                    <h4 className="text-2xl font-bold text-brand-gold">{member.name}</h4>
                     <p className="mt-1 text-sm font-medium leading-snug text-white">{member.role}</p>
                   </div>
                 </div>
