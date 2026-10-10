@@ -14,7 +14,7 @@ const inputClass =
   "border border-brand-gray/30 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:border-brand-electric bg-brand-bg/20 text-brand-navy font-sans";
 const labelClass = "text-xs font-bold text-brand-navy mb-1.5 uppercase tracking-wide";
 
-/** Formulario "Enviar mensaje directo" (Modalidad 1). */
+/** Formulario "Enviar mensaje directo" de la sección de contacto. */
 export default function ContactForm() {
   const [formData, setFormData] = useState(EMPTY_FORM);
   const [privacyAccepted, setPrivacyAccepted] = useState(false);

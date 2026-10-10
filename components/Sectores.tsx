@@ -1,60 +1,34 @@
-import Reveal from "@/components/ui/Reveal";
-import { Anchor, Shield, Zap, HardHat, Soup, Briefcase } from "lucide-react";
+const SECTORS = [
+  { name: "Acuicultura", desc: "Asesorías en terreno para centros de cultivo, plantas de proceso y logística marítima." },
+  { name: "Industria", desc: "Evaluación y optimización de procesos productivos y cumplimiento normativo DS44." },
+  { name: "Energía", desc: "Sistemas de gestión, auditorías operativas e indicadores ESG para el sector energético." },
+  { name: "Construcción", desc: "Supervisión técnica de seguridad y salud (SST) en obras civiles y edificación." },
+  { name: "Alimentos", desc: "Aseguramiento del cumplimiento regulatorio y optimización de procesos en manufactura." },
+  { name: "Servicios", desc: "Outsourcing, clima organizacional y hunting ejecutivo para empresas del sector terciario." },
+];
 
+/** Franja compacta de sectores: continúa el fondo de "¿Por qué Estribor?" y se separa con una línea. */
 export default function Sectores() {
-  const sectors = [
-    { name: "Acuicultura", icon: Anchor, desc: "Asesorías en terreno para centros de cultivo, plantas de proceso y logística marítima." },
-    { name: "Industria", icon: Shield, desc: "Evaluación y optimización de procesos productivos y cumplimiento normativo DS44." },
-    { name: "Energía", icon: Zap, desc: "Sistemas de gestión, auditorías operativas e indicadores ESG para el sector energético." },
-    { name: "Construcción", icon: HardHat, desc: "Supervisión técnica de seguridad y salud (SST) en obras civiles y edificación." },
-    { name: "Alimentos", icon: Soup, desc: "Aseguramiento del cumplimiento regulatorio y optimización de procesos en manufactura." },
-    { name: "Servicios", icon: Briefcase, desc: "Outsourcing, clima organizacional y hunting ejecutivo para empresas del sector terciario." },
-  ];
-
   return (
-    <section id="sectores" className="py-24 bg-brand-bg relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Section Title */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-brand-gold-dark text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
-            Presencia multisectorial
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-4">
-            Sectores donde trabajamos
-          </h2>
-          <p className="text-base text-brand-gray-dark leading-relaxed">
-            Rubros en los que asesoramos, con foco en la Región de Los Lagos.
-          </p>
-        </div>
+    <section id="sectores" className="bg-brand-bg pb-16 md:pb-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 border-t border-brand-gray/40 pt-12 md:pt-16">
+          <div className="lg:col-span-4">
+            <h2 className="text-2xl sm:text-3xl font-bold text-brand-navy tracking-tight mb-3">Sectores donde trabajamos</h2>
+            <p className="text-base text-brand-gray-dark leading-relaxed">
+              Rubros en los que asesoramos, con foco en la Región de Los Lagos.
+            </p>
+          </div>
 
-        {/* Sectors Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {sectors.map((sector, idx) => {
-            const Icon = sector.icon;
-            return (
-              <Reveal
-                key={sector.name}
-                from="translateY(0px)"
-                delay={idx * 0.08}
-                className="bg-white p-6 rounded-2xl border border-brand-gray/10 shadow-sm hover:shadow-md hover:border-brand-blue-light/30 transition-all duration-300 group flex items-start gap-4"
-              >
-                <div className="w-10 h-10 rounded-xl bg-brand-navy/5 text-brand-navy flex items-center justify-center shrink-0 group-hover:bg-brand-blue-light group-hover:text-white transition-all duration-300">
-                  <Icon className="h-5 w-5" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-brand-navy group-hover:text-brand-blue-light transition-colors mb-1">
-                    {sector.name}
-                  </h3>
-                  <p className="text-xs text-brand-gray-dark leading-relaxed">
-                    {sector.desc}
-                  </p>
-                </div>
-              </Reveal>
-            );
-          })}
+          <ul className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-6">
+            {SECTORS.map((sector) => (
+              <li key={sector.name}>
+                <h3 className="font-titles font-bold text-brand-navy">{sector.name}</h3>
+                <p className="mt-1 text-sm text-brand-gray-dark leading-relaxed">{sector.desc}</p>
+              </li>
+            ))}
+          </ul>
         </div>
-
       </div>
     </section>
   );

@@ -15,24 +15,18 @@ const BookingWidget = dynamic(() => import("@/components/agenda/BookingWidget"),
 
 function ModalityHeader({
   icon,
-  label,
   title,
   tone,
 }: {
   icon: React.ReactNode;
-  label: string;
   title: string;
   tone: "electric" | "gold";
 }) {
   const iconClass = tone === "electric" ? "bg-brand-electric/10 text-brand-electric" : "bg-brand-gold/15 text-brand-gold";
-  const labelClass = tone === "electric" ? "text-brand-electric" : "text-brand-gold-dark";
   return (
     <div className="flex items-center gap-3 mb-6 pb-5 border-b border-brand-gray/10">
       <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${iconClass}`}>{icon}</div>
-      <div>
-        <span className={`text-[11px] font-bold uppercase tracking-wider block ${labelClass}`}>{label}</span>
-        <h3 className="text-xl font-bold text-brand-navy font-titles">{title}</h3>
-      </div>
+      <h3 className="text-xl font-bold text-brand-navy font-titles">{title}</h3>
     </div>
   );
 }
@@ -45,20 +39,14 @@ export default function Contacto() {
   const agenda = useAgenda();
 
   return (
-    <section id="contacto" className="py-20 md:py-28 bg-brand-bg relative overflow-hidden scroll-mt-20">
+    <section id="contacto" className="py-16 md:py-24 bg-brand-bg relative overflow-hidden scroll-mt-20">
       <div id="agenda" className="absolute -top-24 left-0"></div>
 
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-brand-gold/5 rounded-full blur-3xl pointer-events-none"></div>
       <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-brand-electric/5 rounded-full blur-3xl pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 mb-4">
-            <span className="bg-brand-gold/15 text-brand-navy text-xs font-bold tracking-widest uppercase px-4 py-1.5 rounded-full border border-brand-gold/30">
-              Canal de comunicación directo
-            </span>
-          </div>
-
+        <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14">
           <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-brand-navy tracking-tight mb-6">Agenda una reunión o escríbenos</h2>
 
           <p className="text-base sm:text-lg text-brand-gray-dark leading-relaxed">
@@ -72,7 +60,6 @@ export default function Contacto() {
             <div>
               <ModalityHeader
                 icon={<MessageSquare aria-hidden="true" className="h-6 w-6" />}
-                label="Modalidad 1"
                 title="Enviar mensaje directo"
                 tone="electric"
               />
@@ -85,7 +72,6 @@ export default function Contacto() {
             <div>
               <ModalityHeader
                 icon={<CalendarDays aria-hidden="true" className="h-6 w-6" />}
-                label="Modalidad 2"
                 title="Agendar reunión virtual"
                 tone="gold"
               />

@@ -1,106 +1,107 @@
 import Reveal from "@/components/ui/Reveal";
-import { Briefcase, ShieldAlert, Award, FileSpreadsheet } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
-export default function CasosExperiencia() {
-  const cases = [
-    {
-      title: "Hunting ejecutivo y reclutamiento",
-      sector: "Sector acuícola / industrial",
-      challenge: "Búsqueda crítica de Gerente de Operaciones con experiencia técnica en terreno.",
-      solution: "Búsqueda directa de directivos del rubro productivo, evaluando experiencia técnica en terreno y ajuste con la cultura de la empresa.",
-      icon: Briefcase,
-    },
-    {
-      title: "Implementación de la Ley Karin y liderazgo",
-      sector: "Sector servicios y alimentos",
-      challenge: "Adecuación obligatoria de procesos internos, protocolos de acoso y canal de denuncias.",
-      solution: "Auditoría del RIOHS, diseño de políticas de prevención y capacitación en liderazgo preventivo a jefaturas.",
-      icon: ShieldAlert,
-    },
-    {
-      title: "Auditoría e implementación de SST",
-      sector: "Sector construcción y producción",
-      challenge: "Alta tasa de accidentabilidad y observaciones de fiscalizaciones normativas.",
-      solution: "Diagnóstico, rediseño de matrices IPER, capacitación en terreno e implementación de un sistema de gestión preventivo.",
-      icon: Award,
-    },
-    {
-      title: "Estrategia ESG y reportes de sostenibilidad",
-      sector: "Sector energía e industria",
-      challenge: "Presión de inversionistas y clientes por reportar impacto socio-ambiental y huella hídrica.",
-      solution: "Análisis de materialidad con stakeholders clave, medición de huella de carbono, y diseño de reportes anuales bajo lineamientos GRI.",
-      icon: FileSpreadsheet,
-    },
-  ];
+interface Case {
+  title: string;
+  sector: string;
+  challenge: string;
+  solution: string;
+}
 
+// Trabajos reales del equipo antes de formar Estribor (ver PRODUCT.md). Sin cifras: no hay respaldo publicable.
+const FEATURED: Case = {
+  title: "Implementación de la Ley Karin y liderazgo",
+  sector: "Sector servicios y alimentos",
+  challenge: "Adecuación obligatoria de procesos internos, protocolos de acoso y canal de denuncias.",
+  solution: "Auditoría del RIOHS, diseño de políticas de prevención y capacitación en liderazgo preventivo a jefaturas.",
+};
+
+const OTHERS: Case[] = [
+  {
+    title: "Hunting ejecutivo y reclutamiento",
+    sector: "Sector acuícola / industrial",
+    challenge: "Búsqueda crítica de Gerente de Operaciones con experiencia técnica en terreno.",
+    solution: "Búsqueda directa de directivos del rubro productivo, evaluando experiencia técnica en terreno y ajuste con la cultura de la empresa.",
+  },
+  {
+    title: "Auditoría e implementación de SST",
+    sector: "Sector construcción y producción",
+    challenge: "Alta tasa de accidentabilidad y observaciones de fiscalizaciones normativas.",
+    solution: "Diagnóstico, rediseño de matrices IPER, capacitación en terreno e implementación de un sistema de gestión preventivo.",
+  },
+  {
+    title: "Estrategia ESG y reportes de sostenibilidad",
+    sector: "Sector energía e industria",
+    challenge: "Presión de inversionistas y clientes por reportar impacto socio-ambiental y huella hídrica.",
+    solution: "Análisis de materialidad con stakeholders clave, medición de huella de carbono, y diseño de reportes anuales bajo lineamientos GRI.",
+  },
+];
+
+function Detail({ label, text, tone }: { label: string; text: string; tone: "light" | "dark" }) {
   return (
-    <section id="casos" className="py-24 bg-white relative overflow-hidden border-t border-brand-gray/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16">
-          <div className="max-w-2xl">
-            <span className="text-brand-gold-dark text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
-              Experiencia del equipo
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-4">
-              Casos de experiencia
-            </h2>
-            <p className="text-base text-brand-gray-dark leading-relaxed">
-              Trabajos que integrantes de nuestro equipo realizaron antes de formar Estribor. Por confidencialidad no nombramos a las empresas.
-            </p>
-          </div>
-          <div className="mt-4 md:mt-0">
-            <a
-              href="#agenda"
-              className="inline-flex items-center justify-center bg-brand-navy hover:bg-brand-blue-med text-white text-sm font-semibold py-3 px-6 rounded-xl transition-colors shadow-sm"
-            >
-              Agendar reunión
-            </a>
-          </div>
+    <div>
+      <h4 className={`text-xs font-bold uppercase tracking-wider mb-1 ${tone === "dark" ? "text-brand-gold" : "text-brand-navy"}`}>
+        {label}
+      </h4>
+      <p className={`text-sm leading-relaxed ${tone === "dark" ? "text-white/80" : "text-brand-gray-dark"}`}>{text}</p>
+    </div>
+  );
+}
+
+/** Casos: un trabajo destacado en grande y los demás como columnas de texto. */
+export default function CasosExperiencia() {
+  return (
+    <section id="casos" className="bg-white py-20 md:py-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-2xl mb-10 md:mb-14">
+          <span className="text-brand-gold-dark text-xs font-bold tracking-widest uppercase block mb-3">
+            Experiencia del equipo
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-4">Casos de experiencia</h2>
+          <p className="text-base text-brand-gray-dark leading-relaxed">
+            Trabajos que integrantes de nuestro equipo realizaron antes de formar Estribor. Por confidencialidad no nombramos a las empresas.
+          </p>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {cases.map((project, idx) => {
-            const Icon = project.icon;
-            return (
-              <Reveal
-                key={project.title}
-                from="translateY(0px)"
-                delay={idx * 0.1}
-                className="bg-brand-bg/50 border border-brand-gray/15 p-8 rounded-2xl flex flex-col justify-between hover:shadow-lg hover:bg-white hover:border-brand-gold/30 transition-all duration-300 group"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-6">
-                    <span className="text-[10px] font-bold text-brand-gold-dark bg-brand-gold/10 px-2.5 py-1 rounded-full uppercase tracking-wider">
-                      {project.sector}
-                    </span>
-                    <div className="w-8 h-8 rounded-lg bg-brand-navy/5 text-brand-navy flex items-center justify-center group-hover:bg-brand-gold group-hover:text-brand-navy transition-all duration-300">
-                      <Icon className="h-4 w-4" />
-                    </div>
-                  </div>
+        {/* Caso destacado: el título es el protagonista. */}
+        <Reveal
+          as="article"
+          from="translateY(20px)"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 rounded-3xl bg-brand-navy p-7 sm:p-10 lg:p-14"
+        >
+          <div className="lg:col-span-7">
+            <p className="text-sm font-semibold text-white/70 mb-4">{FEATURED.sector}</p>
+            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-[1.1]">
+              {FEATURED.title}
+            </h3>
+          </div>
+          <div className="lg:col-span-5 flex flex-col justify-end gap-6">
+            <Detail label="El desafío" text={FEATURED.challenge} tone="dark" />
+            <Detail label="La solución" text={FEATURED.solution} tone="dark" />
+          </div>
+        </Reveal>
 
-                  <h3 className="text-xl font-bold text-brand-navy mb-4 group-hover:text-brand-gold-dark transition-colors duration-300">
-                    {project.title}
-                  </h3>
-
-                  <div className="space-y-4">
-                    <div>
-                      <h4 className="text-xs font-bold text-brand-navy uppercase tracking-wider mb-1">El desafío</h4>
-                      <p className="text-sm text-brand-gray-dark leading-relaxed">{project.challenge}</p>
-                    </div>
-                    <div>
-                      <h4 className="text-xs font-bold text-brand-navy uppercase tracking-wider mb-1">La solución</h4>
-                      <p className="text-sm text-brand-gray-dark leading-relaxed">{project.solution}</p>
-                    </div>
-                  </div>
-                </div>
-              </Reveal>
-            );
-          })}
+        {/* Resto de los casos: columnas de texto separadas por una línea superior. */}
+        <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
+          {OTHERS.map((item) => (
+            <article key={item.title} className="border-t border-brand-gray/40 pt-6">
+              <p className="text-sm font-semibold text-brand-gold-dark mb-2">{item.sector}</p>
+              <h3 className="font-titles text-xl font-bold text-brand-navy mb-4 leading-snug">{item.title}</h3>
+              <div className="space-y-4">
+                <Detail label="El desafío" text={item.challenge} tone="light" />
+                <Detail label="La solución" text={item.solution} tone="light" />
+              </div>
+            </article>
+          ))}
         </div>
 
+        <a
+          href="#agenda"
+          className="mt-12 md:mt-16 inline-flex items-center gap-2 bg-brand-navy hover:bg-brand-blue-med text-white text-sm font-semibold py-3 px-6 rounded-xl transition-colors"
+        >
+          Agendar reunión
+          <ArrowRight aria-hidden="true" className="h-4 w-4" />
+        </a>
       </div>
     </section>
   );

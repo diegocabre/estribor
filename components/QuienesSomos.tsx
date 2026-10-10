@@ -29,7 +29,7 @@ export default function QuienesSomos() {
   const columns = [teamMembers.filter((_, i) => i % 2 === 0), teamMembers.filter((_, i) => i % 2 === 1)];
 
   return (
-    <section id="quienes-somos" className="py-24 bg-white relative overflow-hidden border-b border-brand-gray/10">
+    <section id="quienes-somos" className="py-20 md:py-28 bg-white relative overflow-hidden">
       {/* Abstract decorations */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-brand-bg rounded-full blur-3xl pointer-events-none opacity-50"></div>
       
@@ -38,9 +38,6 @@ export default function QuienesSomos() {
           
           {/* Text Column (5 cols) */}
           <div className="lg:col-span-5">
-            <span className="text-brand-gold-dark text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
-              Trayectoria y cercanía
-            </span>
             <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-6">
               ¿Quiénes somos?
             </h2>
