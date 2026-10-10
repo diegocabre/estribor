@@ -1,27 +1,32 @@
+import Image from "next/image";
 import Reveal from "@/components/ui/Reveal";
-import { Users2, ShieldAlert, Leaf, ArrowRight } from "lucide-react";
+import { teamMembers } from "@/lib/content/team";
+import type { TeamMember } from "@/lib/types";
+import { ArrowRight } from "lucide-react";
+
+// Ancho real de cada retrato: la columna de fotos ocupa 7/12 del contenedor (máx. 1280 px) en dos columnas.
+const PHOTO_SIZES = "(min-width: 1280px) 330px, (min-width: 1024px) 27vw, 50vw";
+
+function Portrait({ member, delay }: { member: TeamMember; delay: number }) {
+  return (
+    <Reveal from="translateY(24px)" delay={delay}>
+      <figure>
+        {/* Contenedor con proporción fija (fotos 4:5): reserva el alto antes de que cargue la imagen. */}
+        <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-brand-bg">
+          <Image src={member.photo} alt={member.photoAlt} fill sizes={PHOTO_SIZES} className="object-cover object-top" />
+        </div>
+        <figcaption className="mt-3">
+          <span className="block font-titles text-base font-bold text-brand-navy">{member.name}</span>
+          <span className="mt-0.5 block text-sm leading-snug text-brand-gray-dark">{member.role}</span>
+        </figcaption>
+      </figure>
+    </Reveal>
+  );
+}
 
 export default function QuienesSomos() {
-  const pillars = [
-    {
-      title: "Gestión de Personas",
-      description: "Soluciones para el desarrollo, reclutamiento y liderazgo en equipos de alto rendimiento.",
-      icon: Users2,
-      color: "from-brand-blue-light/10 to-brand-blue-light/5 text-brand-blue-light border-brand-blue-light/25",
-    },
-    {
-      title: "Seguridad y Salud en el Trabajo",
-      description: "Diagnósticos, auditorías y sistemas de gestión para operaciones seguras y cumplimiento legal.",
-      icon: ShieldAlert,
-      color: "from-brand-gold/10 to-brand-gold/5 text-brand-gold border-brand-gold/25",
-    },
-    {
-      title: "Sostenibilidad Organizacional",
-      description: "Gestión de riesgos, reportes de sostenibilidad y estrategias con indicadores ESG.",
-      icon: Leaf,
-      color: "from-emerald-500/10 to-emerald-500/5 text-emerald-600 border-emerald-500/25",
-    },
-  ];
+  // Dos columnas desfasadas: la segunda baja un poco para que la grilla no se lea como cuatro tarjetas iguales.
+  const columns = [teamMembers.filter((_, i) => i % 2 === 0), teamMembers.filter((_, i) => i % 2 === 1)];
 
   return (
     <section id="quienes-somos" className="py-24 bg-white relative overflow-hidden border-b border-brand-gray/10">
@@ -60,27 +65,15 @@ export default function QuienesSomos() {
             </a>
           </div>
 
-          {/* Cards Column (7 cols) */}
-          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-6">
-            {pillars.map((pillar, idx) => {
-              const Icon = pillar.icon;
-              return (
-                <Reveal
-                  key={pillar.title}
-                  from="translateX(30px)"
-                  delay={idx * 0.15}
-                  className={`bg-gradient-to-r ${pillar.color} p-6 sm:p-8 rounded-2xl border flex flex-col sm:flex-row items-start gap-5 shadow-sm hover:shadow-md transition-all duration-300`}
-                >
-                  <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center shadow-sm shrink-0">
-                    <Icon className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-brand-navy mb-2">{pillar.title}</h3>
-                    <p className="text-sm text-brand-gray-dark leading-relaxed">{pillar.description}</p>
-                  </div>
-                </Reveal>
-              );
-            })}
+          {/* Equipo (7 cols): retratos reales de quienes atienden a cada cliente. */}
+          <div className="lg:col-span-7 grid grid-cols-2 gap-x-4 sm:gap-x-6">
+            {columns.map((column, colIdx) => (
+              <div key={colIdx} className={`flex flex-col gap-8 ${colIdx === 1 ? "pt-10 sm:pt-16" : ""}`}>
+                {column.map((member, idx) => (
+                  <Portrait key={member.name} member={member} delay={(idx * 2 + colIdx) * 0.1} />
+                ))}
+              </div>
+            ))}
           </div>
 
         </div>

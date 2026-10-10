@@ -60,6 +60,8 @@ export interface TeamMember {
   bio: string;
   /** Ruta en /public, en WebP de ~760 px de ancho. */
   photo: string;
+  /** Texto alternativo de la foto: describe lo que se ve, no repite el cargo. */
+  photoAlt: string;
   /** "direccion" se muestra destacado; "consultor" va en la grilla del equipo consultor. */
   group: "direccion" | "consultor";
 }

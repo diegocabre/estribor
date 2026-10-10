@@ -100,7 +100,7 @@ export default function EquipoPage() {
               <div className="relative aspect-[4/5] overflow-hidden md:col-span-5 lg:col-span-4">
                 <Image
                   src={member.photo}
-                  alt={`${member.name}, ${member.role}`}
+                  alt={member.photoAlt}
                   fill
                   sizes="(min-width: 1024px) 400px, (min-width: 768px) 40vw, 100vw"
                   className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
@@ -140,7 +140,7 @@ export default function EquipoPage() {
                 <div className="relative aspect-[4/5] overflow-hidden">
                   <Image
                     src={member.photo}
-                    alt={`${member.name}, ${member.role}`}
+                    alt={member.photoAlt}
                     fill
                     sizes="(min-width: 1024px) 380px, (min-width: 768px) 50vw, 100vw"
                     className="object-cover object-top transition-transform duration-700 group-hover:scale-105"

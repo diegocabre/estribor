@@ -1,6 +1,6 @@
 import type { TeamMember } from "@/lib/types";
 
-// Equipo que se muestra en /equipo. Para sumar a alguien: agregar su foto en
+// Equipo que se muestra en /equipo y en "Quiénes somos" de la portada. Para sumar a alguien: agregar su foto en
 // public/images/team (WebP, ~760 px de ancho) y una entrada aquí.
 
 export const teamMembers: TeamMember[] = [
@@ -9,6 +9,7 @@ export const teamMembers: TeamMember[] = [
     role: "Directora Ejecutiva",
     bio: "Con más de 10 años de experiencia en industrias productivas, Camila ha liderado estrategias y cambios organizacionales impactando directamente en los objetivos del negocio. Desde la Gestión de Personas, Comunicaciones Corporativas, Compliance y Sostenibilidad.",
     photo: "/images/team/camilaalvear.webp",
+    photoAlt: "Retrato de Camila Alvear, con camisa blanca, en una oficina",
     group: "direccion",
   },
   {
@@ -16,6 +17,7 @@ export const teamMembers: TeamMember[] = [
     role: "Consultora Atracción de Talento",
     bio: "Psicóloga Organizacional y Diplomada en Gestión de Recursos Humanos, con experiencia en procesos de Atracción y Selección de talento.",
     photo: "/images/team/dayanagonzalez.webp",
+    photoAlt: "Retrato de Dayana González sonriendo, con chaqueta negra y blusa blanca, en una oficina",
     group: "consultor",
   },
   {
@@ -23,6 +25,7 @@ export const teamMembers: TeamMember[] = [
     role: "Consultora Senior Comunicaciones Corporativas, Gestión del Cambio y Cultura",
     bio: "Periodista Corporativa, especialista en cultura, comunicaciones y transformación organizacional, con más de 10 años de experiencia acompañando procesos de cambio e integración así como gestión de crisis, sostenibilidad y procesos de reportabilidad.",
     photo: "/images/team/fernandanunez.webp",
+    photoAlt: "Retrato de Fernanda Núñez sonriendo, con chaqueta negra, en una oficina",
     group: "consultor",
   },
   {
@@ -30,6 +33,7 @@ export const teamMembers: TeamMember[] = [
     role: "Consultor Senior HSE",
     bio: "Prevencionista de riesgos con cerca de 10 años en construcción y salmonicultura. Experiencia en programas preventivos, normativa MINSAL, sistemas de gestión y certificaciones ASC, BAP e ISO.",
     photo: "/images/team/fabian.webp",
+    photoAlt: "Retrato de Fabián Velásquez, con camisa azul, en una oficina",
     group: "consultor",
   },
 ];
