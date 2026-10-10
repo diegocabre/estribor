@@ -27,7 +27,7 @@ export default function BookingDetailsForm({ agenda }: { agenda: AgendaState }) 
         <button
           type="button"
           onClick={agenda.goBack}
-          className="text-brand-navy hover:text-brand-gold font-bold flex items-center gap-1 text-xs"
+          className="text-brand-navy hover:text-brand-gold-dark font-bold flex items-center gap-1 text-xs"
         >
           <ArrowLeft aria-hidden="true" className="h-3 w-3" />
           Cambiar

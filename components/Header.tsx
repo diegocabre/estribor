@@ -139,7 +139,7 @@ export default function Header() {
                   style={{ animationDelay: `${index * 0.05}s` }}
                   className={`animate-slide-in-left block px-3 py-3 rounded-md text-base font-medium transition-all ${
                     active
-                      ? "bg-brand-electric/10 text-brand-electric font-semibold border-l-4 border-brand-electric pl-2.5"
+                      ? "bg-brand-electric/10 text-brand-electric font-semibold"
                       : "text-brand-navy hover:bg-brand-bg hover:text-brand-electric"
                   }`}
                 >

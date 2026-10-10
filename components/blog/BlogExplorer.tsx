@@ -55,7 +55,7 @@ export default function BlogExplorer({ posts, categories }: { posts: BlogPost[];
                   </div>
                 </div>
 
-                <h2 className="text-xl font-bold text-brand-navy mb-3 line-clamp-2 hover:text-brand-gold transition-colors duration-200">
+                <h2 className="text-xl font-bold text-brand-navy mb-3 line-clamp-2 hover:text-brand-gold-dark transition-colors duration-200">
                   <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                 </h2>
 

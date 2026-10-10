@@ -174,7 +174,7 @@ export default function JobFormModal({ data, editingJob, onClose }: JobFormModal
                         {a.name}
                       </option>
                     ))}
-                    <option value="__NEW__" className="text-brand-gold font-bold">
+                    <option value="__NEW__" className="text-brand-gold-dark font-bold">
                       + Otra área (escribir nueva)...
                     </option>
                   </select>

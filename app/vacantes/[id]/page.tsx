@@ -62,7 +62,7 @@ export default async function VacanteDetailPage({ params }: PageProps) {
         <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <Link
             href="/vacantes"
-            className="inline-flex items-center gap-2 text-xs font-bold text-brand-navy hover:text-brand-gold transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-bold text-brand-navy hover:text-brand-gold-dark transition-colors"
           >
             <ArrowLeft aria-hidden="true" className="h-4 w-4" />
             Volver al Portal de Vacantes

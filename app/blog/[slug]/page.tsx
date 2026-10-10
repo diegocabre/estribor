@@ -72,7 +72,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         <div className="mb-8 flex items-center justify-between">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-xs font-bold text-brand-navy hover:text-brand-gold transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-bold text-brand-navy hover:text-brand-gold-dark transition-colors"
           >
             <ArrowLeft aria-hidden="true" className="h-4 w-4" />
             Volver al Blog
