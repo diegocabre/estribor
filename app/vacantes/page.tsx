@@ -14,11 +14,11 @@ export const revalidate = 300;
 export const metadata: Metadata = {
   title: "Portal de empleo y vacantes",
   description:
-    "Postula a procesos de selección y hunting de Estribor Consultores en el sur de Chile, o deja tu CV en nuestra base de talentos.",
+    "Postula a procesos de selección y hunting de Estribor Consultores en la Región de Los Lagos, o deja tu CV en nuestra base de talentos.",
   alternates: { canonical: "/vacantes" },
   openGraph: {
     title: "Portal de empleo | Estribor Consultores",
-    description: "Procesos de selección y hunting ejecutivo en Chile. Postula o deja tu CV.",
+    description: "Procesos de selección y hunting ejecutivo en la Región de Los Lagos. Postula o deja tu CV.",
     url: "/vacantes",
   },
 };
@@ -52,7 +52,7 @@ export default async function VacantesPage() {
             <p className="text-sm sm:text-base text-brand-gray max-w-2xl leading-relaxed mb-6">
               Acompañamos a profesionales de excelencia en su desarrollo laboral. Postula a nuestros procesos de
               selección exclusivos o regístrate en nuestra base de talentos para acceder a nuevas oportunidades
-              estratégicas en todo Chile.
+              en la Región de Los Lagos.
             </p>
             <div className="flex flex-wrap gap-3">
               <a

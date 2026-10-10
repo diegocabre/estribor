@@ -121,8 +121,8 @@ Afirmaciones que el sitio hace hoy y que necesitan respaldo:
 | "Psicólogos organizacionales y expertos en administración" (en plural) | /equipo | Corregido el 10-oct-2026 |
 | "Amplia experiencia en auditorías ISO 45001 e ISO 14001" | /equipo | Corregido el 10-oct-2026 |
 | "Profesionales seniors con postgrados y certificaciones vigentes" | /equipo | Corregido el 10-oct-2026 |
-| "Presencia local y cobertura técnica a lo largo de todo Chile" | /equipo | Corregido el 10-oct-2026 en /equipo; aún aparece en el portal de empleo (`app/vacantes/page.tsx`) |
-| `areaServed: Chile` | Datos estructurados (`lib/seo.ts`) | Cambiar a Región de Los Lagos |
+| "Presencia local y cobertura técnica a lo largo de todo Chile" | /equipo | Corregido el 10-oct-2026 en /equipo y en el portal de empleo |
+| `areaServed: Chile` | Datos estructurados (`lib/seo.ts`) | Corregido el 10-oct-2026 |
 | "Trayectoria de impacto", "relaciones de confianza duraderas" | Portada | Empresa de 2026: no implicar historia propia |
 | "Consultora líder y referente" | Visión | Aceptable solo como aspiración (visión), no como hecho |
 
