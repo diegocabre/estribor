@@ -59,7 +59,12 @@ export function localBusinessJsonLd() {
     email: legalConfig.contactEmail,
     telephone: legalConfig.phone,
     address,
-    areaServed: { "@type": "Country", name: "Chile" },
+    // Zona confirmada en PRODUCT.md; no declarar cobertura nacional sin respaldo.
+    areaServed: {
+      "@type": "AdministrativeArea",
+      name: "Región de Los Lagos",
+      containedInPlace: { "@type": "Country", name: "Chile" },
+    },
     parentOrganization: { "@id": ORG_ID },
   };
 }
