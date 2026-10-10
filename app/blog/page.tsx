@@ -35,7 +35,7 @@ export default function BlogPage() {
             Recursos y Conocimiento
           </span>
           <h1 className="text-3xl sm:text-5xl font-bold tracking-tight mb-4 font-titles">Blog & Insights</h1>
-          <p className="text-sm sm:text-base text-brand-gray max-w-xl font-light leading-relaxed">
+          <p className="text-sm sm:text-base text-brand-gray max-w-xl leading-relaxed">
             Explora nuestros artículos técnicos, guías normativas y análisis sobre capital humano, seguridad y
             sostenibilidad organizacional.
           </p>

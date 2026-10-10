@@ -73,7 +73,7 @@ export default function ContactForm() {
         >
           <CheckCircle2 aria-hidden="true" className="h-14 w-14 text-emerald-500 mb-4 motion-safe:animate-bounce" />
           <h4 className="text-xl font-bold text-brand-navy mb-2">¡Mensaje Enviado con Éxito!</h4>
-          <p className="text-sm text-brand-gray-dark max-w-sm font-light mb-6">
+          <p className="text-sm text-brand-gray-dark max-w-sm mb-6">
             Agradecemos tu interés. Uno de nuestros consultores especializados responderá a tu solicitud a la brevedad.
           </p>
           <button

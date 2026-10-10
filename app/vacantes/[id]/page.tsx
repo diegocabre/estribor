@@ -82,7 +82,7 @@ export default async function VacanteDetailPage({ params }: PageProps) {
                 </div>
                 <div>
                   <p className="text-sm font-bold text-emerald-950">Proceso de Selección Cerrado con Éxito</p>
-                  <p className="text-xs text-emerald-800 font-light leading-relaxed">
+                  <p className="text-xs text-emerald-800 leading-relaxed">
                     Esta convocatoria de talento ha concluido satisfactoriamente y la vacante ya fue cubierta.
                   </p>
                 </div>
@@ -138,7 +138,7 @@ export default async function VacanteDetailPage({ params }: PageProps) {
                 <FileText aria-hidden="true" className="h-4 w-4 text-brand-gold" />
                 Misión del Cargo
               </h2>
-              <p className="text-sm text-brand-gray-dark font-light leading-relaxed">{job.description}</p>
+              <p className="text-sm text-brand-gray-dark leading-relaxed">{job.description}</p>
             </section>
 
             {job.functions && (
@@ -152,7 +152,7 @@ export default async function VacanteDetailPage({ params }: PageProps) {
                     .split(". ")
                     .filter(Boolean)
                     .map((func, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-sm text-brand-gray-dark font-light">
+                      <li key={i} className="flex items-start gap-2.5 text-sm text-brand-gray-dark">
                         <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-brand-gold shrink-0 mt-2"></span>
                         <span>{func.trim()}</span>
                       </li>
@@ -168,7 +168,7 @@ export default async function VacanteDetailPage({ params }: PageProps) {
               </h2>
               <ul className="space-y-2.5">
                 {job.requirements.split(", ").map((req, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-sm text-brand-gray-dark font-light">
+                  <li key={i} className="flex items-start gap-2.5 text-sm text-brand-gray-dark">
                     <CheckCircle aria-hidden="true" className="h-4.5 w-4.5 text-emerald-500 shrink-0 mt-0.5" />
                     <span>{req.trim()}</span>
                   </li>
@@ -193,7 +193,7 @@ export default async function VacanteDetailPage({ params }: PageProps) {
 
                 <h2 className="text-xl font-bold text-brand-navy mb-3 font-titles">Proceso Cerrado con Éxito</h2>
 
-                <p className="text-xs text-brand-gray-dark font-light leading-relaxed mb-6">
+                <p className="text-xs text-brand-gray-dark leading-relaxed mb-6">
                   Agradecemos el gran interés de todos los postulantes. Esta búsqueda ha finalizado con la contratación
                   exitosa del candidato seleccionado y ya no recibe nuevas postulaciones.
                 </p>
@@ -203,7 +203,7 @@ export default async function VacanteDetailPage({ params }: PageProps) {
                     <Award aria-hidden="true" className="h-4 w-4 text-brand-gold" />
                     ¿Quieres ser considerado en futuras búsquedas?
                   </h3>
-                  <p className="text-xs text-brand-gray-dark font-light leading-relaxed">
+                  <p className="text-xs text-brand-gray-dark leading-relaxed">
                     Súmate a nuestra base de talentos enviando tus antecedentes en la postulación espontánea o revisa
                     otras convocatorias vigentes.
                   </p>

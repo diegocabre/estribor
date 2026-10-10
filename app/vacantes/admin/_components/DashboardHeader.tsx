@@ -28,7 +28,7 @@ export default function DashboardHeader({ isRecruiter, userEmail, onChangePasswo
             </span>
           )}
         </div>
-        <p className="text-xs text-brand-gray-dark font-light mt-1">
+        <p className="text-xs text-brand-gray-dark mt-1">
           {isRecruiter
             ? `Sesión iniciada como ${userEmail || "Reclutador"} — Permisos: Creación de vacantes y revisión de candidatos.`
             : `Gestión administrativa de ofertas de empleo y selección de personal.`}

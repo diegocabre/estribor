@@ -151,7 +151,7 @@ export default function JobFormModal({ data, editingJob, onClose }: JobFormModal
                       <X aria-hidden="true" className="h-4 w-4" />
                     </button>
                   </div>
-                  <span className="text-[10px] text-brand-gray-dark font-light">
+                  <span className="text-[10px] text-brand-gray-dark">
                     Presiona Enter o el check para guardar en la BD.
                   </span>
                 </div>

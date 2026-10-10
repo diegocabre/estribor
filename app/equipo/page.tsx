@@ -67,7 +67,7 @@ export default function EquipoPage() {
           <h1 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-4">
             Equipo Multidisciplinario
           </h1>
-          <p className="text-base text-brand-gray-dark font-light leading-relaxed">
+          <p className="text-base text-brand-gray-dark leading-relaxed">
             En <strong className="font-semibold text-brand-navy">Estribor Consultores</strong> no dependemos de individualidades, sino de la fuerza colectiva de nuestra red de consultores seniors con una sólida base técnica y legal.
           </p>
         </div>
@@ -116,7 +116,7 @@ export default function EquipoPage() {
                 <h3 className="text-3xl font-bold text-brand-gold sm:text-4xl">{member.name}</h3>
                 <p className="mt-2 text-base font-medium text-white sm:text-lg">{member.role}</p>
                 <span className="my-6 h-px w-16 bg-brand-gold/60 transition-all duration-300 group-hover:w-24" />
-                <p className="max-w-2xl text-base font-light leading-relaxed text-white/80">{member.bio}</p>
+                <p className="max-w-2xl text-base leading-relaxed text-white/80">{member.bio}</p>
               </div>
             </Reveal>
           ))}
@@ -154,7 +154,7 @@ export default function EquipoPage() {
 
                 <div className="flex flex-1 flex-col p-6 pt-5">
                   <span className="mb-4 h-px w-12 bg-brand-gold/60 transition-all duration-300 group-hover:w-20" />
-                  <p className="text-sm font-light leading-relaxed text-white/75">{member.bio}</p>
+                  <p className="text-sm leading-relaxed text-white/75">{member.bio}</p>
                 </div>
               </Reveal>
             ))}
@@ -178,7 +178,7 @@ export default function EquipoPage() {
             <h2 className="text-2xl sm:text-3xl font-bold mb-4 tracking-tight">
               Sólida Trayectoria al Servicio de tu Empresa
             </h2>
-            <p className="text-base sm:text-lg text-white/80 font-light leading-relaxed mb-8">
+            <p className="text-base sm:text-lg text-white/80 leading-relaxed mb-8">
               Contamos con una red de profesionales con más de 10 y 15 años de experiencia acumulada en diversos sectores productivos de Chile. Esta diversidad disciplinaria nos permite abordar de forma integral la seguridad laboral, el cumplimiento fiscal-regulatorio y la eficiencia operacional de nuestros clientes.
             </p>
 
@@ -186,7 +186,7 @@ export default function EquipoPage() {
               {highlights.map((item, idx) => (
                 <div key={idx} className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-brand-electric shrink-0 mt-0.5" />
-                  <span className="text-sm text-white/95 font-light">{item}</span>
+                  <span className="text-sm text-white/95">{item}</span>
                 </div>
               ))}
             </div>
@@ -222,7 +222,7 @@ export default function EquipoPage() {
                     <p className="text-xs font-semibold text-brand-electric uppercase tracking-wider mb-4">
                       {pillar.subtitle}
                     </p>
-                    <p className="text-sm text-brand-gray-dark font-light leading-relaxed mb-6">
+                    <p className="text-sm text-brand-gray-dark leading-relaxed mb-6">
                       {pillar.description}
                     </p>
                   </div>

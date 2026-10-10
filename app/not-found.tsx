@@ -5,7 +5,7 @@ export default function NotFound() {
     <div className="pt-36 md:pt-44 pb-24 text-center min-h-[70vh] px-4">
       <p className="text-brand-gold-dark text-xs font-bold tracking-widest uppercase mb-3">Error 404</p>
       <h1 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-4">Página no encontrada</h1>
-      <p className="text-base text-brand-gray-dark font-light mb-8 max-w-md mx-auto">
+      <p className="text-base text-brand-gray-dark mb-8 max-w-md mx-auto">
         El enlace que seguiste no existe o fue movido. Revisa la dirección o vuelve al inicio.
       </p>
       <div className="flex flex-wrap justify-center gap-3">

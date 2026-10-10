@@ -22,7 +22,7 @@ export default function AgendaReunion() {
             Planificación Directa
           </span>
           <h2 className="text-3xl font-bold text-brand-navy tracking-tight mb-4">Agenda una Asesoría</h2>
-          <p className="text-sm sm:text-base text-brand-gray-dark font-light leading-relaxed">
+          <p className="text-sm sm:text-base text-brand-gray-dark leading-relaxed">
             Reserva una sesión estratégica virtual de 15, 30 o 45 minutos con uno de nuestros consultores senior sin demoras
             ni correos de ida y vuelta.
           </p>
@@ -37,16 +37,16 @@ export default function AgendaReunion() {
                 Reunión Virtual
               </span>
               <h3 className="text-2xl font-bold text-white mb-2 font-titles">Asesoría de Rumbo</h3>
-              <p className="text-sm text-brand-gray font-light leading-relaxed mb-6">
+              <p className="text-sm text-brand-gray leading-relaxed mb-6">
                 Espacio consultivo para evaluar requerimientos específicos de tu empresa en RRHH, SST o ESG.
               </p>
 
               <div className="space-y-4">
-                <div className="flex items-center gap-3 text-sm font-light text-white/90">
+                <div className="flex items-center gap-3 text-sm text-white/90">
                   <Clock aria-hidden="true" className="h-5 w-5 text-brand-gold shrink-0" />
                   <span>{agenda.duration} de duración</span>
                 </div>
-                <div className="flex items-center gap-3 text-sm font-light text-white/90">
+                <div className="flex items-center gap-3 text-sm text-white/90">
                   <Video aria-hidden="true" className="h-5 w-5 text-brand-gold shrink-0" />
                   <span>Videollamada de Google Meet / Teams</span>
                 </div>
@@ -62,7 +62,7 @@ export default function AgendaReunion() {
               </div>
             </div>
 
-            <div className="text-xs text-brand-gray/80 font-light mt-8 relative z-10">
+            <div className="text-xs text-brand-gray/80 mt-8 relative z-10">
               Estribor Consultores &copy; {new Date().getFullYear()}. Zona horaria: hora de Chile continental.
             </div>
           </div>

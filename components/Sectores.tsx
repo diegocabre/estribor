@@ -23,7 +23,7 @@ export default function Sectores() {
           <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-4">
             Sectores Donde Trabajamos
           </h2>
-          <p className="text-base text-brand-gray-dark font-light leading-relaxed">
+          <p className="text-base text-brand-gray-dark leading-relaxed">
             Nuestros consultores cuentan con experiencia ejecutiva directa en las industrias clave del país, permitiendo una entrega de soluciones contextualizadas.
           </p>
         </div>
@@ -46,7 +46,7 @@ export default function Sectores() {
                   <h3 className="font-bold text-brand-navy group-hover:text-brand-blue-light transition-colors mb-1">
                     {sector.name}
                   </h3>
-                  <p className="text-xs text-brand-gray-dark font-light leading-relaxed">
+                  <p className="text-xs text-brand-gray-dark leading-relaxed">
                     {sector.desc}
                   </p>
                 </div>

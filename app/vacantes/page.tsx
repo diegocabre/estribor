@@ -49,7 +49,7 @@ export default async function VacantesPage() {
                 Impulsa tu Talento en Empresas Líderes
               </span>
             </h1>
-            <p className="text-sm sm:text-base text-brand-gray max-w-2xl font-light leading-relaxed mb-6">
+            <p className="text-sm sm:text-base text-brand-gray max-w-2xl leading-relaxed mb-6">
               Acompañamos a profesionales de excelencia en su desarrollo laboral. Postula a nuestros procesos de
               selección exclusivos o regístrate en nuestra base de talentos para acceder a nuevas oportunidades
               estratégicas en todo Chile.

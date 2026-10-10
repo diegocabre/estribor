@@ -74,7 +74,7 @@ export default function CookieBanner() {
                 <X aria-hidden="true" className="w-4 h-4" />
               </button>
             </div>
-            <p id="cookie-banner-description" className="text-xs text-white/80 mt-1.5 leading-relaxed font-light">
+            <p id="cookie-banner-description" className="text-xs text-white/80 mt-1.5 leading-relaxed">
               Utilizamos cookies técnicas necesarias y, solo si lo aceptas, cookies analíticas (Microsoft Clarity y Vercel
               Analytics) para mejorar tu experiencia. Puedes consultar los detalles en nuestra{" "}
               <Link href="/privacidad#cookies" className="text-brand-gold hover:text-white underline transition-colors">

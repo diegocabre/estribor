@@ -50,7 +50,7 @@ export default function PorQueEstribor() {
           <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-4">
             ¿Por qué Estribor?
           </h2>
-          <p className="text-base text-brand-gray-dark font-light leading-relaxed">
+          <p className="text-base text-brand-gray-dark leading-relaxed">
             Combinamos una visión de excelencia con práctica en el terreno para entregar un servicio que realmente transforma tu operación.
           </p>
         </div>
@@ -70,10 +70,10 @@ export default function PorQueEstribor() {
                   <div className="w-12 h-12 rounded-xl bg-brand-navy/5 text-brand-navy flex items-center justify-center mb-6 group-hover:bg-brand-gold group-hover:text-brand-navy transition-all duration-300">
                     <Icon className="h-6 w-6" />
                   </div>
-                  <h3 className="text-lg font-bold text-brand-navy mb-3 group-hover:text-brand-gold transition-colors duration-300">
+                  <h3 className="text-lg font-bold text-brand-navy mb-3 group-hover:text-brand-gold-dark transition-colors duration-300">
                     {pillar.title}
                   </h3>
-                  <p className="text-sm text-brand-gray-dark font-light leading-relaxed">
+                  <p className="text-sm text-brand-gray-dark leading-relaxed">
                     {pillar.description}
                   </p>
                 </div>

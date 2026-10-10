@@ -59,11 +59,11 @@ export default function BlogExplorer({ posts, categories }: { posts: BlogPost[];
                   <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                 </h2>
 
-                <p className="text-sm text-brand-gray-dark font-light leading-relaxed line-clamp-3">{post.description}</p>
+                <p className="text-sm text-brand-gray-dark leading-relaxed line-clamp-3">{post.description}</p>
               </div>
 
               <div className="p-6 sm:p-8 bg-brand-bg/30 border-t border-brand-gray/5 flex justify-between items-center mt-auto">
-                <div className="flex items-center gap-1.5 text-xs text-brand-gray-dark font-light">
+                <div className="flex items-center gap-1.5 text-xs text-brand-gray-dark">
                   <Calendar aria-hidden="true" className="h-4 w-4" />
                   <time dateTime={post.publishedAt}>{post.date}</time>
                 </div>
@@ -86,7 +86,7 @@ export default function BlogExplorer({ posts, categories }: { posts: BlogPost[];
         <div className="text-center py-16 bg-white border border-brand-gray/10 rounded-2xl">
           <BookOpen aria-hidden="true" className="h-12 w-12 text-brand-gray mx-auto mb-4" />
           <h2 className="text-lg font-bold text-brand-navy">No se encontraron artículos</h2>
-          <p className="text-sm text-brand-gray-dark font-light">Intenta seleccionando otra categoría.</p>
+          <p className="text-sm text-brand-gray-dark">Intenta seleccionando otra categoría.</p>
         </div>
       )}
     </>

@@ -39,16 +39,16 @@ export default function QuienesSomos() {
             <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-6">
               ¿Quiénes Somos?
             </h2>
-            <p className="text-base text-brand-gray-dark font-light leading-relaxed mb-6">
+            <p className="text-base text-brand-gray-dark leading-relaxed mb-6">
               <strong className="font-semibold text-brand-navy">Estribor Consultores</strong> es una consultora boutique especializada en tres grandes ejes de impacto organizacional: 
               <span className="block mt-2 font-medium text-brand-navy">• Gestión de Personas</span>
               <span className="block font-medium text-brand-navy">• Seguridad y Salud en el Trabajo</span>
               <span className="block font-medium text-brand-navy">• Sostenibilidad Organizacional.</span>
             </p>
-            <p className="text-base text-brand-gray-dark font-light leading-relaxed mb-6">
+            <p className="text-base text-brand-gray-dark leading-relaxed mb-6">
               Acompañamos a empresas de la industria, producción y servicios con soluciones estratégicas adaptadas a su realidad.
             </p>
-            <p className="text-base text-brand-gray-dark font-light leading-relaxed mb-8">
+            <p className="text-base text-brand-gray-dark leading-relaxed mb-8">
               Nuestro enfoque es cercano, práctico y estratégico. Combinamos experiencia ejecutiva con conocimiento profundo de las industrias productivas para entregar resultados concretos y sostenibles, construyendo relaciones de confianza duraderas con cada cliente.
             </p>
             <a
@@ -76,7 +76,7 @@ export default function QuienesSomos() {
                   </div>
                   <div>
                     <h3 className="text-lg font-bold text-brand-navy mb-2">{pillar.title}</h3>
-                    <p className="text-sm text-brand-gray-dark font-light leading-relaxed">{pillar.description}</p>
+                    <p className="text-sm text-brand-gray-dark leading-relaxed">{pillar.description}</p>
                   </div>
                 </Reveal>
               );

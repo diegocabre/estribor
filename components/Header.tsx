@@ -59,7 +59,7 @@ export default function Header() {
           <Link href="/" className="flex items-center group py-1" onClick={closeMenu} aria-label="Estribor Consultores, ir al inicio">
             <div
               className={`relative transition-all duration-300 overflow-hidden hover:scale-105 ${
-                scrolled ? "w-16 h-16 md:w-20 md:h-20" : "w-20 h-20 md:w-24 md:h-24"
+                scrolled ? "w-14 h-14 md:w-20 md:h-20" : "w-16 h-16 md:w-24 md:h-24"
               }`}
             >
               <Image

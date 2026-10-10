@@ -192,7 +192,7 @@ export default function JobsExplorer({ jobs }: { jobs: Job[] }) {
           <div className="text-center py-16 bg-white border border-brand-gray/10 rounded-2xl">
             <Building aria-hidden="true" className="h-12 w-12 text-brand-gray mx-auto mb-4" />
             <h3 className="text-lg font-bold text-brand-navy">No encontramos vacantes</h3>
-            <p className="text-sm text-brand-gray-dark font-light">
+            <p className="text-sm text-brand-gray-dark">
               {jobs.length === 0
                 ? "No hay convocatorias publicadas en este momento. Puedes dejarnos tu CV en la postulación espontánea."
                 : "Intenta ajustando los filtros de búsqueda."}

@@ -61,7 +61,7 @@ export default function Contacto() {
 
           <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-brand-navy tracking-tight mb-6">¿Quieres contactarnos?</h2>
 
-          <p className="text-base sm:text-lg text-brand-gray-dark font-light leading-relaxed">
+          <p className="text-base sm:text-lg text-brand-gray-dark leading-relaxed">
             Elige la modalidad que prefieras: déjanos un mensaje a través del formulario o agenda una sesión virtual directa en
             nuestro calendario.
           </p>

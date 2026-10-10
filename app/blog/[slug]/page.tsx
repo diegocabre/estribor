@@ -101,11 +101,11 @@ export default async function BlogPostPage({ params }: PageProps) {
             {post.title}
           </h1>
 
-          <p className="text-base sm:text-lg text-brand-navy/90 font-light leading-relaxed italic border-l-4 border-brand-gold/40 pl-4 mb-8 bg-brand-bg/20 py-2 pr-2 rounded-r-xl">
+          <p className="text-base sm:text-lg text-brand-navy/90 leading-relaxed italic border-l-4 border-brand-gold/40 pl-4 mb-8 bg-brand-bg/20 py-2 pr-2 rounded-r-xl">
             {post.description}
           </p>
 
-          <div className="space-y-6 text-brand-navy/90 font-light leading-relaxed text-sm sm:text-base">
+          <div className="space-y-6 text-brand-navy/90 leading-relaxed text-sm sm:text-base">
             {post.content.map((paragraph, idx) => {
               if (paragraph.startsWith("###")) {
                 return (
@@ -117,7 +117,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               if (/^(\d+\.|-)\s/.test(paragraph)) {
                 return (
                   <div key={idx} className="pl-4 border-l-2 border-brand-gold/25 py-0.5">
-                    <p className="font-light">{renderInline(paragraph)}</p>
+                    <p>{renderInline(paragraph)}</p>
                   </div>
                 );
               }
@@ -130,7 +130,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
               <div>
                 <h2 className="text-lg font-bold text-white mb-2 font-titles">¿Quieres aplicar esto en tu organización?</h2>
-                <p className="text-xs text-brand-gray font-light max-w-md">
+                <p className="text-xs text-brand-gray max-w-md">
                   Agenda una sesión de diagnóstico gratuita de 15 minutos con nuestros consultores expertos para evaluar
                   tus requerimientos y planificar tu rumbo.
                 </p>

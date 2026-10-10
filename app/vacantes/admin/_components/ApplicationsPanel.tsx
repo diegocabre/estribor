@@ -54,7 +54,7 @@ export default function ApplicationsPanel({
               {filteredApplications.length} de {applications.length}
             </span>
           </div>
-          <p className="text-xs text-brand-gray-dark font-light mt-0.5">
+          <p className="text-xs text-brand-gray-dark mt-0.5">
             Filtra por período, vacante, cargo o ciudad y descarga la nómina completa en Excel con todos los datos.
           </p>
         </div>
@@ -232,7 +232,7 @@ export default function ApplicationsPanel({
               <th scope="col" className="p-4 text-center">Acción</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-brand-gray/5 text-brand-navy font-light">
+          <tbody className="divide-y divide-brand-gray/5 text-brand-navy">
             {filteredApplications.map((app) => {
               const linkedin = safeHttpsUrl(app.linkedinProfile);
               return (
@@ -309,7 +309,7 @@ export default function ApplicationsPanel({
 
             {filteredApplications.length === 0 && applications.length > 0 && (
               <tr>
-                <td colSpan={9} className="text-center p-12 text-brand-gray-dark font-light">
+                <td colSpan={9} className="text-center p-12 text-brand-gray-dark">
                   <Filter aria-hidden="true" className="h-10 w-10 text-brand-gray mx-auto mb-3 opacity-40" />
                   <p className="font-semibold text-brand-navy text-sm mb-1">
                     No se encontraron postulaciones con los filtros seleccionados
@@ -331,7 +331,7 @@ export default function ApplicationsPanel({
 
             {applications.length === 0 && (
               <tr>
-                <td colSpan={9} className="text-center p-12 text-brand-gray-dark font-light">
+                <td colSpan={9} className="text-center p-12 text-brand-gray-dark">
                   <Users aria-hidden="true" className="h-10 w-10 text-brand-gray mx-auto mb-3" />
                   No se han recibido postulaciones en la plataforma.
                 </td>

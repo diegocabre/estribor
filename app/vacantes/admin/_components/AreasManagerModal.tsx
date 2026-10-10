@@ -76,7 +76,7 @@ export default function AreasManagerModal({ data, onClose }: { data: AdminData; 
         <div>
           <div className="flex items-center justify-between mb-2">
             <span className="text-[10px] font-bold text-brand-navy uppercase">Áreas Registradas ({areas.length})</span>
-            <span className="text-[10px] text-brand-gray-dark font-light">Disponibles en el formulario</span>
+            <span className="text-[10px] text-brand-gray-dark">Disponibles en el formulario</span>
           </div>
 
           <ul className="border border-brand-gray/10 rounded-2xl overflow-hidden divide-y divide-brand-gray/10">
@@ -113,7 +113,7 @@ export default function AreasManagerModal({ data, onClose }: { data: AdminData; 
             })}
 
             {areas.length === 0 && (
-              <li className="p-6 text-center text-xs text-brand-gray-dark font-light">No hay áreas registradas. Agrega una arriba.</li>
+              <li className="p-6 text-center text-xs text-brand-gray-dark">No hay áreas registradas. Agrega una arriba.</li>
             )}
           </ul>
         </div>

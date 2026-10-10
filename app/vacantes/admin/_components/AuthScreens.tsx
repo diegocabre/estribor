@@ -94,7 +94,7 @@ export function RecoveryScreen({ session }: { session: AdminSession }) {
   return (
     <AuthCard>
       <h1 className="text-xl font-bold text-brand-navy mb-2 font-titles">Establecer Nueva Contraseña</h1>
-      <p className="text-xs text-brand-gray-dark font-light mb-6">Por favor ingresa tu nueva contraseña corporativa.</p>
+      <p className="text-xs text-brand-gray-dark mb-6">Por favor ingresa tu nueva contraseña corporativa.</p>
 
       <form onSubmit={session.handleUpdatePassword} className="space-y-4 text-left">
         <PasswordFields session={session} idPrefix="recovery" />
@@ -112,7 +112,7 @@ export function ForgotPasswordScreen({ session }: { session: AdminSession }) {
   return (
     <AuthCard>
       <h1 className="text-xl font-bold text-brand-navy mb-2 font-titles">Recuperar Contraseña</h1>
-      <p className="text-xs text-brand-gray-dark font-light mb-6">
+      <p className="text-xs text-brand-gray-dark mb-6">
         Ingresa tu correo corporativo y te enviaremos un enlace para restablecer tu contraseña.
       </p>
 
@@ -153,7 +153,7 @@ export function LoginScreen({ session }: { session: AdminSession }) {
   return (
     <AuthCard>
       <h1 className="text-xl font-bold text-brand-navy mb-2 font-titles">Administración Estribor</h1>
-      <p className="text-xs text-brand-gray-dark font-light mb-6">
+      <p className="text-xs text-brand-gray-dark mb-6">
         Inicia sesión con tu correo y contraseña corporativa para acceder a la base de datos de vacantes y postulantes
         (JWT Secure).
       </p>
@@ -228,7 +228,7 @@ export function FirstLoginPasswordScreen({ session }: { session: AdminSession })
       }
     >
       <h1 className="text-xl font-bold text-brand-navy mb-2 font-titles">Actualiza tu Contraseña</h1>
-      <p className="text-xs text-brand-gray-dark font-light mb-6">
+      <p className="text-xs text-brand-gray-dark mb-6">
         Hola <strong className="text-brand-navy">{user?.user_metadata?.full_name || user?.email}</strong>. Por motivos
         de seguridad corporativa, debes cambiar tu contraseña provisional antes de acceder al panel de administración.
       </p>

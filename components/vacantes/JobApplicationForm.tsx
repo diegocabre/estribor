@@ -91,7 +91,7 @@ export default function JobApplicationForm({ jobId, jobTitle }: { jobId: string;
           >
             <CheckCircle2 aria-hidden="true" className="h-16 w-16 text-emerald-500 mx-auto mb-6" />
             <h3 className="text-xl font-bold text-brand-navy mb-2">¡Postulación Enviada!</h3>
-            <p className="text-xs text-brand-gray-dark font-light max-w-sm mx-auto mb-6 leading-relaxed">
+            <p className="text-xs text-brand-gray-dark max-w-sm mx-auto mb-6 leading-relaxed">
               Agradecemos tu interés. Tus antecedentes han sido guardados con éxito para la vacante{" "}
               <strong className="font-semibold text-brand-navy">{jobTitle}</strong>. Los consultores a cargo revisarán
               tu CV a la brevedad.

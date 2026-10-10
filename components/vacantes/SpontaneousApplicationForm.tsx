@@ -85,7 +85,7 @@ export default function SpontaneousApplicationForm() {
       className="lg:col-span-4 bg-white border border-brand-gray/10 p-6 sm:p-8 rounded-2xl shadow-sm scroll-mt-28"
     >
       <h2 className="text-lg font-bold text-brand-navy mb-3">Postulación Espontánea</h2>
-      <p className="text-xs text-brand-gray-dark font-light leading-relaxed mb-6">
+      <p className="text-xs text-brand-gray-dark leading-relaxed mb-6">
         ¿No encontraste un cargo afín a tu perfil? Déjanos tu currículum para sumarte a nuestra base de datos. Nos
         pondremos en contacto contigo cuando surjan búsquedas alineadas a tu experiencia.
       </p>
@@ -99,7 +99,7 @@ export default function SpontaneousApplicationForm() {
           >
             <CheckCircle2 aria-hidden="true" className="h-12 w-12 text-emerald-500 mx-auto mb-4" />
             <h3 className="font-bold text-brand-navy mb-2">¡Ingreso Exitoso!</h3>
-            <p className="text-xs text-brand-gray-dark font-light max-w-xs mx-auto mb-6 leading-relaxed">
+            <p className="text-xs text-brand-gray-dark max-w-xs mx-auto mb-6 leading-relaxed">
               Hemos incorporado tu CV a nuestra base de datos de selección estratégica.
             </p>
             <button

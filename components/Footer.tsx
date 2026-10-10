@@ -29,7 +29,7 @@ export default function Footer() {
                 </span>
               </div>
             </Link>
-            <p className="text-sm text-white/75 font-light max-w-sm leading-relaxed">
+            <p className="text-sm text-white/75 max-w-sm leading-relaxed">
               Soluciones integrales en seguridad y salud, cumplimiento normativo, asesoría técnica y gestión organizacional en todo Chile.
             </p>
           </div>

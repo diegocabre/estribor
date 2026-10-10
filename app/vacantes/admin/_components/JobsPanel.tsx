@@ -67,7 +67,7 @@ export default function JobsPanel({
               <th scope="col" className="p-4 text-center">Acciones</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-brand-gray/5 text-brand-navy font-light">
+          <tbody className="divide-y divide-brand-gray/5 text-brand-navy">
             {jobs.map((job) => (
               <tr key={job.id} className="hover:bg-brand-bg/20 transition-colors">
                 <td className="p-4 font-bold">{job.title}</td>
@@ -131,7 +131,7 @@ export default function JobsPanel({
             ))}
             {jobs.length === 0 && (
               <tr>
-                <td colSpan={7} className="text-center p-12 text-brand-gray-dark font-light">
+                <td colSpan={7} className="text-center p-12 text-brand-gray-dark">
                   No hay ofertas publicadas. Haz clic en &quot;Crear Vacante&quot; para publicar.
                 </td>
               </tr>

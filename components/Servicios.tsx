@@ -68,7 +68,7 @@ export default function Servicios() {
           <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-4">
             Nuestros Servicios
           </h2>
-          <p className="text-base text-brand-gray-dark font-light leading-relaxed">
+          <p className="text-base text-brand-gray-dark leading-relaxed">
             Brindamos soluciones integrales y adaptadas a los desafíos de industrias productivas, extractivas y de servicios.
           </p>
         </div>
@@ -93,7 +93,7 @@ export default function Servicios() {
                     <h3 className="text-xl font-bold text-brand-navy leading-tight">{axis.title}</h3>
                   </div>
 
-                  <p className="text-sm text-brand-gray-dark font-light leading-relaxed mb-6">
+                  <p className="text-sm text-brand-gray-dark leading-relaxed mb-6">
                     {axis.description}
                   </p>
 
@@ -106,7 +106,7 @@ export default function Servicios() {
                         <span className="w-5 h-5 rounded-full bg-brand-gold/10 text-brand-gold flex items-center justify-center shrink-0 mt-0.5">
                           <Check className="h-3 w-3" strokeWidth={3} />
                         </span>
-                        <span className="font-light leading-snug">{item}</span>
+                        <span className="leading-snug">{item}</span>
                       </li>
                     ))}
                   </ul>

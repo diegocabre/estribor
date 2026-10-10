@@ -46,7 +46,7 @@ export default function CasosExperiencia() {
             <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-4">
               Casos de Experiencia
             </h2>
-            <p className="text-base text-brand-gray-dark font-light leading-relaxed">
+            <p className="text-base text-brand-gray-dark leading-relaxed">
               Por confidencialidad corporativa y respeto a nuestros clientes, presentamos resúmenes de proyectos representativos que reflejan nuestras metodologías en el terreno.
             </p>
           </div>
@@ -81,18 +81,18 @@ export default function CasosExperiencia() {
                     </div>
                   </div>
 
-                  <h3 className="text-xl font-bold text-brand-navy mb-4 group-hover:text-brand-gold transition-colors duration-300">
+                  <h3 className="text-xl font-bold text-brand-navy mb-4 group-hover:text-brand-gold-dark transition-colors duration-300">
                     {project.title}
                   </h3>
 
                   <div className="space-y-4">
                     <div>
                       <h4 className="text-xs font-bold text-brand-navy uppercase tracking-wider mb-1">El Desafío:</h4>
-                      <p className="text-sm text-brand-gray-dark font-light leading-relaxed">{project.challenge}</p>
+                      <p className="text-sm text-brand-gray-dark leading-relaxed">{project.challenge}</p>
                     </div>
                     <div>
                       <h4 className="text-xs font-bold text-brand-navy uppercase tracking-wider mb-1">La Solución:</h4>
-                      <p className="text-sm text-brand-gray-dark font-light leading-relaxed">{project.solution}</p>
+                      <p className="text-sm text-brand-gray-dark leading-relaxed">{project.solution}</p>
                     </div>
                   </div>
                 </div>

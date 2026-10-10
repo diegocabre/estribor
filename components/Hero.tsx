@@ -5,7 +5,7 @@ export default function Hero() {
   return (
     <section
       id="inicio"
-      className="relative pt-24 pb-16 md:pt-36 md:pb-24 lg:pt-40 lg:pb-32 overflow-hidden bg-gradient-to-b from-white via-brand-bg to-brand-bg"
+      className="relative pt-28 pb-16 md:pt-36 md:pb-24 lg:pt-40 lg:pb-32 overflow-hidden bg-gradient-to-b from-white via-brand-bg to-brand-bg"
     >
       {/* Decorative background grid lines */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgb(125_126_128/0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgb(125_126_128/0.05)_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
@@ -17,8 +17,9 @@ export default function Hero() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Text Column */}
+          {/* En móvil el texto va primero para que el botón principal quede en la primera pantalla. */}
           <div
-            className="animate-fade-up lg:col-span-7 flex flex-col justify-center text-center lg:text-left order-2 lg:order-1"
+            className="animate-fade-up lg:col-span-7 flex flex-col justify-center text-center lg:text-left"
           >
             <div className="inline-flex items-center justify-center lg:justify-start gap-2 mb-4">
               <span className="bg-brand-gold/10 text-brand-gold-dark text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full border border-brand-gold/20">
@@ -28,12 +29,10 @@ export default function Hero() {
 
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-brand-navy leading-tight mb-6">
               Navega con Seguridad hacia la{" "}
-              <span className="text-brand-gold bg-gradient-to-r from-brand-gold to-brand-blue-light bg-clip-text text-transparent">
-                Excelencia Operacional
-              </span>
+              <span className="text-brand-gold-dark">Excelencia Operacional</span>
             </h1>
 
-            <p className="text-base sm:text-lg lg:text-xl text-brand-gray-dark mb-8 max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
+            <p className="text-base sm:text-lg lg:text-xl text-brand-gray-dark mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
               Acompañamos a empresas en el diseño e implementación de soluciones estratégicas que fortalecen su gestión, desarrollan sus equipos y promueven operaciones más seguras, eficientes y sostenibles.
             </p>
 
@@ -42,7 +41,7 @@ export default function Hero() {
                 href="#contacto"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-gold hover:bg-brand-gold/90 text-brand-navy px-8 py-4 rounded-md font-bold transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
               >
-                Solicitar una reunión o cotización
+                Agendar reunión
                 <ArrowRight aria-hidden="true" className="h-5 w-5" />
               </a>
             </div>
@@ -50,9 +49,9 @@ export default function Hero() {
 
           {/* Graphic Column */}
           <div
-            className="animate-zoom-in lg:col-span-5 flex justify-center items-center order-1 lg:order-2"
+            className="animate-zoom-in lg:col-span-5 flex justify-center items-center"
           >
-            <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-[400px] lg:h-[400px] flex justify-center items-center">
+            <div className="relative w-44 h-44 sm:w-72 sm:h-72 lg:w-[400px] lg:h-[400px] flex justify-center items-center">
               {/* Outer compass ring rotating slowly */}
               <div
                 aria-hidden="true"
@@ -74,7 +73,7 @@ export default function Hero() {
                   src="/logo.webp"
                   alt="Rosa de los Vientos - Estribor"
                   fill
-                  sizes="(max-width: 640px) 240px, (max-width: 1024px) 300px, 400px"
+                  sizes="(max-width: 640px) 132px, (max-width: 1024px) 216px, 300px"
                   preload
                   className="object-contain"
                 />

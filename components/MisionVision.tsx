@@ -47,10 +47,10 @@ export default function MisionVision() {
               <h3 className="text-2xl font-bold text-brand-navy tracking-wide">MISIÓN</h3>
             </div>
 
-            <p className="text-brand-navy/90 text-sm sm:text-base leading-relaxed font-light mb-4">
+            <p className="text-brand-navy/90 text-sm sm:text-base leading-relaxed mb-4">
               En <strong className="font-semibold text-brand-navy">Estribor Consultores</strong> brindamos soluciones integrales de gestión a empresas de diversos sectores, proporcionando servicios especializados en seguridad y salud en el trabajo, cumplimiento normativo, asesorías técnicas y gestión organizacional.
             </p>
-            <p className="text-brand-navy/90 text-sm sm:text-base leading-relaxed font-light">
+            <p className="text-brand-navy/90 text-sm sm:text-base leading-relaxed">
               Nos comprometemos a generar valor para nuestros clientes mediante un equipo multidisciplinario con amplia experiencia, promoviendo ambientes laborales seguros, eficientes y sostenibles que contribuyan al crecimiento y desarrollo de sus organizaciones.
             </p>
           </Reveal>
@@ -71,7 +71,7 @@ export default function MisionVision() {
               <h3 className="text-2xl font-bold text-brand-navy tracking-wide">VISIÓN</h3>
             </div>
 
-            <p className="text-brand-navy/90 text-sm sm:text-base leading-relaxed font-light">
+            <p className="text-brand-navy/90 text-sm sm:text-base leading-relaxed">
               Ser una empresa consultora líder y referente en soluciones integrales de gestión empresarial, reconocida por la excelencia de nuestros servicios, la calidad de nuestro equipo profesional y nuestra capacidad para contribuir al fortalecimiento, competitividad y sostenibilidad de las organizaciones, consolidando relaciones de confianza y resultados de alto impacto para nuestros clientes.
             </p>
           </Reveal>
