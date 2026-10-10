@@ -80,7 +80,7 @@ export default function JobApplicationForm({ jobId, jobTitle }: { jobId: string;
 
   return (
     <>
-      <h2 className="text-xl font-bold text-brand-navy mb-4 font-titles">Postular a la vacante</h2>
+      <h2 className="text-xl font-semibold text-brand-navy mb-4 font-titles">Postular a la vacante</h2>
 
       <>
         {status === "success" ? (

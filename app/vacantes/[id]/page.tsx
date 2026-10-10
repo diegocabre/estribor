@@ -134,7 +134,7 @@ export default async function VacanteDetailPage({ params }: PageProps) {
             </div>
 
             <section className="space-y-3">
-              <h2 className="text-sm font-bold text-brand-navy uppercase tracking-wider flex items-center gap-2">
+              <h2 className="text-sm font-semibold text-brand-navy uppercase tracking-wider flex items-center gap-2">
                 <FileText aria-hidden="true" className="h-4 w-4 text-brand-gold" />
                 Misión del cargo
               </h2>
@@ -143,7 +143,7 @@ export default async function VacanteDetailPage({ params }: PageProps) {
 
             {job.functions && (
               <section className="space-y-3">
-                <h2 className="text-sm font-bold text-brand-navy uppercase tracking-wider flex items-center gap-2">
+                <h2 className="text-sm font-semibold text-brand-navy uppercase tracking-wider flex items-center gap-2">
                   <ListTodo aria-hidden="true" className="h-4 w-4 text-brand-gold" />
                   Funciones y responsabilidades
                 </h2>
@@ -162,7 +162,7 @@ export default async function VacanteDetailPage({ params }: PageProps) {
             )}
 
             <section className="space-y-3">
-              <h2 className="text-sm font-bold text-brand-navy uppercase tracking-wider flex items-center gap-2">
+              <h2 className="text-sm font-semibold text-brand-navy uppercase tracking-wider flex items-center gap-2">
                 <Award aria-hidden="true" className="h-4 w-4 text-brand-gold" />
                 Requisitos excluyentes
               </h2>
@@ -191,7 +191,7 @@ export default async function VacanteDetailPage({ params }: PageProps) {
                   Búsqueda finalizada
                 </span>
 
-                <h2 className="text-xl font-bold text-brand-navy mb-3 font-titles">Proceso cerrado con éxito</h2>
+                <h2 className="text-xl font-semibold text-brand-navy mb-3 font-titles">Proceso cerrado con éxito</h2>
 
                 <p className="text-xs text-brand-gray-dark leading-relaxed mb-6">
                   Agradecemos el gran interés de todos los postulantes. Esta búsqueda ha finalizado con la contratación

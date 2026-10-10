@@ -58,7 +58,7 @@ export default function CasosExperiencia() {
           <span className="text-brand-gold-dark text-xs font-bold tracking-widest uppercase block mb-3">
             Experiencia del equipo
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-4">Casos de experiencia</h2>
+          <h2 className="text-3xl sm:text-4xl font-semibold text-brand-navy tracking-[-0.01em] mb-4">Casos de experiencia</h2>
           <p className="text-base text-brand-gray-dark leading-relaxed">
             Trabajos que integrantes de nuestro equipo realizaron antes de formar Estribor. Por confidencialidad no nombramos a las empresas.
           </p>
@@ -72,7 +72,7 @@ export default function CasosExperiencia() {
         >
           <div className="lg:col-span-7">
             <p className="text-sm font-semibold text-white/70 mb-4">{FEATURED.sector}</p>
-            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-[1.1]">
+            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-[-0.01em] leading-[1.1]">
               {FEATURED.title}
             </h3>
           </div>

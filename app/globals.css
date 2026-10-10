@@ -21,12 +21,9 @@
   --color-brand-blue-med: #1F3654;
   --color-brand-bg: #F4F5F6;
   
-  --animate-compass-pulse: compass-pulse 3s ease-in-out infinite;
   /* Animaciones de entrada del Hero: CSS puro, no esperan a que hidrate React (mejor LCP). */
   --animate-fade-up: fade-up 0.8s ease-out both;
   --animate-zoom-in: zoom-in 1s ease-out both;
-  --animate-rotate-slow: rotate-cw 45s linear infinite;
-  --animate-rotate-slower-reverse: rotate-ccw 65s linear infinite;
 
   /* Entradas de componentes interactivos (reemplazan a framer-motion en páginas públicas). */
   --animate-fade-in: fade-in 0.3s ease-out both;
@@ -105,29 +102,6 @@
     }
   }
 
-  @keyframes rotate-cw {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  @keyframes rotate-ccw {
-    to {
-      transform: rotate(-360deg);
-    }
-  }
-
-  @keyframes compass-pulse {
-    0%, 100% {
-      transform: scale(1);
-      opacity: 0.95;
-    }
-    50% {
-      transform: scale(1.02);
-      opacity: 1;
-      filter: drop-shadow(0 0 15px rgba(201, 160, 92, 0.4));
-    }
-  }
 }
 
 body {
@@ -186,10 +160,7 @@ h1, h2, h3, h4, h5, h6 {
   .animate-slide-in-left,
   .animate-slide-in-right,
   .animate-rise-in,
-  .animate-drawer-in,
-  .animate-rotate-slow,
-  .animate-rotate-slower-reverse,
-  .animate-compass-pulse {
+  .animate-drawer-in {
     animation: none;
   }
 }

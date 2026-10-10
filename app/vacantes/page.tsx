@@ -42,7 +42,7 @@ export default async function VacantesPage() {
             <span className="text-brand-gold text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
               Portal de empleo y hunting ejecutivo
             </span>
-            <h1 className="text-3xl sm:text-5xl font-bold tracking-tight mb-4 font-titles leading-tight">
+            <h1 className="text-3xl sm:text-5xl font-semibold tracking-[-0.01em] mb-4 font-titles leading-tight">
               Define el rumbo de tu carrera{" "}
               <span className="text-brand-gold">
                 Impulsa tu talento en empresas líderes

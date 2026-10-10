@@ -31,7 +31,7 @@ export default function PrivacidadPage() {
               <ShieldCheck className="w-4 h-4" />
               Cumplimiento normativo Chile
             </div>
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-brand-navy tracking-tight leading-tight">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-brand-navy tracking-[-0.01em] leading-tight">
               Política de privacidad y protección de datos personales
             </h1>
             <p className="text-xs sm:text-sm text-brand-gray-dark mt-3">
@@ -52,7 +52,7 @@ export default function PrivacidadPage() {
 
             {/* 1. Identificación del Responsable */}
             <section className="bg-brand-bg/50 p-6 rounded-xl border border-brand-gray/20">
-              <h2 className="text-lg font-bold text-brand-navy mb-3 flex items-center gap-2">
+              <h2 className="text-lg font-semibold text-brand-navy mb-3 flex items-center gap-2">
                 <FileText className="w-5 h-5 text-brand-gold" />
                 1. Identificación del responsable del tratamiento
               </h2>
@@ -67,7 +67,7 @@ export default function PrivacidadPage() {
 
             {/* 2. Datos Personales Recopilados */}
             <section>
-              <h2 className="text-lg font-bold text-brand-navy mb-3">2. Datos personales que recopilamos</h2>
+              <h2 className="text-lg font-semibold text-brand-navy mb-3">2. Datos personales que recopilamos</h2>
               <p>
                 A través del sitio web únicamente recopilamos aquellos datos personales que el usuario nos entrega de manera libre y voluntaria a través de nuestros canales de contacto o procesos de selección:
               </p>
@@ -89,7 +89,7 @@ export default function PrivacidadPage() {
 
             {/* 3. Finalidades del Tratamiento */}
             <section>
-              <h2 className="text-lg font-bold text-brand-navy mb-3">3. Finalidad del tratamiento de datos</h2>
+              <h2 className="text-lg font-semibold text-brand-navy mb-3">3. Finalidad del tratamiento de datos</h2>
               <p>Sus datos personales son tratados con las siguientes finalidades explícitas:</p>
               <ul className="list-disc pl-5 space-y-2 mt-3 text-xs sm:text-sm">
                 <li>Atender, gestionar y responder formalmente a consultas, solicitudes de cotización o asesorías requeridas.</li>
@@ -101,7 +101,7 @@ export default function PrivacidadPage() {
 
             {/* 4. Base Legal */}
             <section>
-              <h2 className="text-lg font-bold text-brand-navy mb-3">4. Base legal y licitud</h2>
+              <h2 className="text-lg font-semibold text-brand-navy mb-3">4. Base legal y licitud</h2>
               <p>
                 El tratamiento de datos personales realizado por {legalConfig.brandName} se ampara en el <strong>consentimiento libre, informado y expreso</strong> otorgado por el titular al enviar cualquiera de nuestros formularios o al configurar sus preferencias de cookies, así como en la necesidad de ejecutar medidas precontractuales o contractuales solicitadas por el titular.
               </p>
@@ -109,7 +109,7 @@ export default function PrivacidadPage() {
 
             {/* 5. Transferencia a Terceros y Encargados */}
             <section>
-              <h2 className="text-lg font-bold text-brand-navy mb-3">5. Comunicación de datos a terceros</h2>
+              <h2 className="text-lg font-semibold text-brand-navy mb-3">5. Comunicación de datos a terceros</h2>
               <p>
                 {legalConfig.brandName} <strong>no vende, arrienda ni comercializa</strong> bajo ninguna circunstancia datos personales a terceros.
               </p>
@@ -120,7 +120,7 @@ export default function PrivacidadPage() {
 
             {/* 6. Derechos ARCOP */}
             <section className="bg-brand-navy text-white p-6 sm:p-8 rounded-xl">
-              <h2 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
+              <h2 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
                 <CheckCircle2 className="w-5 h-5 text-brand-gold" />
                 6. Derechos del titular (derechos ARCOP)
               </h2>
@@ -163,7 +163,7 @@ export default function PrivacidadPage() {
 
             {/* 7. Política de Cookies */}
             <section id="cookies" className="pt-4">
-              <h2 className="text-lg font-bold text-brand-navy mb-3 flex items-center gap-2">
+              <h2 className="text-lg font-semibold text-brand-navy mb-3 flex items-center gap-2">
                 <Cookie className="w-5 h-5 text-brand-electric" />
                 7. Política de cookies y tecnologías de rastreo
               </h2>
@@ -185,7 +185,7 @@ export default function PrivacidadPage() {
 
             {/* 8. Seguridad */}
             <section className="pt-4 border-t border-brand-gray/20">
-              <h2 className="text-lg font-bold text-brand-navy mb-3 flex items-center gap-2">
+              <h2 className="text-lg font-semibold text-brand-navy mb-3 flex items-center gap-2">
                 <Lock className="w-5 h-5 text-brand-gold" />
                 8. Medidas de seguridad de la información
               </h2>

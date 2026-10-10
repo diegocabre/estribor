@@ -14,7 +14,7 @@ export default function Sectores() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 border-t border-brand-gray/40 pt-12 md:pt-16">
           <div className="lg:col-span-4">
-            <h2 className="text-2xl sm:text-3xl font-bold text-brand-navy tracking-tight mb-3">Sectores donde trabajamos</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold text-brand-navy tracking-[-0.01em] mb-3">Sectores donde trabajamos</h2>
             <p className="text-base text-brand-gray-dark leading-relaxed">
               Rubros en los que asesoramos, con foco en la Región de Los Lagos.
             </p>

@@ -10,7 +10,7 @@ export const metadata = pageMetadata({
 export default function ContactoPage() {
   return (
     <div className="pt-24 md:pt-28">
-      <Contacto />
+      <Contacto headingLevel="h1" />
     </div>
   );
 }

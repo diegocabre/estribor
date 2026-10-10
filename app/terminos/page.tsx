@@ -31,7 +31,7 @@ export default function TerminosPage() {
               <Scale className="w-4 h-4 text-brand-gold" />
               Marco legal y operativo
             </div>
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-brand-navy tracking-tight leading-tight">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-brand-navy tracking-[-0.01em] leading-tight">
               Términos y condiciones de uso
             </h1>
             <p className="text-xs sm:text-sm text-brand-gray-dark mt-3">
@@ -42,7 +42,7 @@ export default function TerminosPage() {
           {/* Content */}
           <div className="space-y-8 text-sm sm:text-base text-brand-gray-dark leading-relaxed">
             <section>
-              <h2 className="text-lg font-bold text-brand-navy mb-2 flex items-center gap-2">
+              <h2 className="text-lg font-semibold text-brand-navy mb-2 flex items-center gap-2">
                 <FileCheck className="w-5 h-5 text-brand-electric" />
                 1. Información general y aceptación
               </h2>
@@ -55,7 +55,7 @@ export default function TerminosPage() {
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-brand-navy mb-2">2. Objeto y servicios</h2>
+              <h2 className="text-lg font-semibold text-brand-navy mb-2">2. Objeto y servicios</h2>
               <p>
                 {legalConfig.brandName} es una firma de consultoría especializada en Seguridad y Salud en el Trabajo, Cumplimiento Normativo (incluyendo Ley Karin), Sostenibilidad Organizacional y Gestión de Personas en Chile.
               </p>
@@ -65,7 +65,7 @@ export default function TerminosPage() {
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-brand-navy mb-2 flex items-center gap-2">
+              <h2 className="text-lg font-semibold text-brand-navy mb-2 flex items-center gap-2">
                 <Shield className="w-5 h-5 text-brand-gold" />
                 3. Propiedad intelectual e industrial
               </h2>
@@ -78,7 +78,7 @@ export default function TerminosPage() {
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-brand-navy mb-2">4. Obligaciones y conducta del usuario</h2>
+              <h2 className="text-lg font-semibold text-brand-navy mb-2">4. Obligaciones y conducta del usuario</h2>
               <p>El usuario se compromete a:</p>
               <ul className="list-disc pl-5 space-y-1.5 mt-2 text-xs sm:text-sm">
                 <li>Hacer un uso diligente, honesto y conforme a la ley de todos los canales y formularios disponibles.</li>
@@ -88,7 +88,7 @@ export default function TerminosPage() {
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-brand-navy mb-2 flex items-center gap-2">
+              <h2 className="text-lg font-semibold text-brand-navy mb-2 flex items-center gap-2">
                 <AlertCircle className="w-5 h-5 text-brand-electric" />
                 5. Limitación de responsabilidad
               </h2>
@@ -101,7 +101,7 @@ export default function TerminosPage() {
             </section>
 
             <section className="bg-brand-bg/50 p-6 rounded-xl border border-brand-gray/20">
-              <h2 className="text-lg font-bold text-brand-navy mb-2">6. Legislación aplicable y jurisdicción</h2>
+              <h2 className="text-lg font-semibold text-brand-navy mb-2">6. Legislación aplicable y jurisdicción</h2>
               <p className="text-xs sm:text-sm">
                 Los presentes Términos y Condiciones se rigen e interpretan en conformidad con las leyes de la <strong>República de Chile</strong>. Cualquier controversia, desacuerdo o reclamación relativa a su validez, interpretación o ejecución será sometida a la jurisdicción de los Tribunales Ordinarios de Justicia de <strong>{legalConfig.cityJurisdiction}</strong>.
               </p>

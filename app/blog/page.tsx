@@ -33,7 +33,7 @@ export default function BlogPage() {
           <span className="text-brand-gold text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
             Recursos y conocimiento
           </span>
-          <h1 className="text-3xl sm:text-5xl font-bold tracking-tight mb-4 font-titles">Blog e insights</h1>
+          <h1 className="text-3xl sm:text-5xl font-semibold tracking-[-0.01em] mb-4 font-titles">Blog e insights</h1>
           <p className="text-sm sm:text-base text-brand-gray max-w-xl leading-relaxed">
             Explora nuestros artículos técnicos, guías normativas y análisis sobre capital humano, seguridad y
             sostenibilidad organizacional.

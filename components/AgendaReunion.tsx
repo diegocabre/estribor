@@ -21,7 +21,7 @@ export default function AgendaReunion() {
           <span className="text-brand-gold-dark text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
             Planificación Directa
           </span>
-          <h2 className="text-3xl font-bold text-brand-navy tracking-tight mb-4">Agenda una Asesoría</h2>
+          <h2 className="text-3xl font-semibold text-brand-navy tracking-[-0.01em] mb-4">Agenda una Asesoría</h2>
           <p className="text-sm sm:text-base text-brand-gray-dark leading-relaxed">
             Reserva una sesión estratégica virtual de 15, 30 o 45 minutos con uno de nuestros consultores senior sin demoras
             ni correos de ida y vuelta.

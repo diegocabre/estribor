@@ -84,7 +84,7 @@ export default function SpontaneousApplicationForm() {
       id="espontanea"
       className="lg:col-span-4 bg-white border border-brand-gray/10 p-6 sm:p-8 rounded-2xl shadow-sm scroll-mt-28"
     >
-      <h2 className="text-lg font-bold text-brand-navy mb-3">Postulación espontánea</h2>
+      <h2 className="text-lg font-semibold text-brand-navy mb-3">Postulación espontánea</h2>
       <p className="text-xs text-brand-gray-dark leading-relaxed mb-6">
         ¿No encontraste un cargo afín a tu perfil? Déjanos tu currículum para sumarte a nuestra base de datos. Nos
         pondremos en contacto contigo cuando surjan búsquedas alineadas a tu experiencia.

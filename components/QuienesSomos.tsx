@@ -36,7 +36,7 @@ export default function QuienesSomos() {
           
           {/* Text Column (5 cols) */}
           <div className="lg:col-span-5">
-            <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-6">
+            <h2 className="text-3xl sm:text-4xl font-semibold text-brand-navy tracking-[-0.01em] mb-6">
               ¿Quiénes somos?
             </h2>
             <p className="text-base text-brand-gray-dark leading-relaxed mb-6">
@@ -53,7 +53,7 @@ export default function QuienesSomos() {
             </p>
             <a
               href="#agenda"
-              className="inline-flex items-center gap-2 text-brand-gold-dark hover:text-brand-navy font-bold text-sm transition-colors group"
+              className="inline-flex items-center gap-2 py-2 text-brand-gold-dark hover:text-brand-navy font-bold text-sm transition-colors group"
             >
               Agendar reunión
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />

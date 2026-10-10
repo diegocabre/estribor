@@ -55,7 +55,7 @@ export default function BlogExplorer({ posts, categories }: { posts: BlogPost[];
                   </div>
                 </div>
 
-                <h2 className="text-xl font-bold text-brand-navy mb-3 line-clamp-2 hover:text-brand-gold-dark transition-colors duration-200">
+                <h2 className="text-xl font-semibold text-brand-navy mb-3 line-clamp-2 hover:text-brand-gold-dark transition-colors duration-200">
                   <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                 </h2>
 
@@ -70,7 +70,7 @@ export default function BlogExplorer({ posts, categories }: { posts: BlogPost[];
                 <Link
                   href={`/blog/${post.slug}`}
                   aria-label={`Leer artículo: ${post.title}`}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-electric hover:text-brand-navy transition-colors group"
+                  className="inline-flex items-center gap-1.5 py-2 text-xs font-bold text-brand-electric hover:text-brand-navy transition-colors group"
                 >
                   Leer artículo
                   <ArrowRight
@@ -85,7 +85,7 @@ export default function BlogExplorer({ posts, categories }: { posts: BlogPost[];
       ) : (
         <div className="text-center py-16 bg-white border border-brand-gray/10 rounded-2xl">
           <BookOpen aria-hidden="true" className="h-12 w-12 text-brand-gray mx-auto mb-4" />
-          <h2 className="text-lg font-bold text-brand-navy">No se encontraron artículos</h2>
+          <h2 className="text-lg font-semibold text-brand-navy">No se encontraron artículos</h2>
           <p className="text-sm text-brand-gray-dark">Intenta seleccionando otra categoría.</p>
         </div>
       )}

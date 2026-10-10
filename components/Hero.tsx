@@ -22,7 +22,7 @@ export default function Hero() {
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl xl:text-6xl font-bold tracking-tight text-brand-navy leading-tight mb-6">
+            <h1 className="text-3xl sm:text-5xl xl:text-6xl font-semibold tracking-[-0.01em] text-brand-navy leading-tight mb-6">
               Seguridad, personas y sostenibilidad para la{" "}
               <span className="text-brand-gold-dark">industria de Los Lagos</span>
             </h1>
@@ -47,18 +47,9 @@ export default function Hero() {
             className="animate-zoom-in lg:col-span-5 flex justify-center items-center"
           >
             <div className="relative w-44 h-44 sm:w-72 sm:h-72 lg:w-[400px] lg:h-[400px] flex justify-center items-center">
-              {/* Outer compass ring rotating slowly */}
-              <div
-                aria-hidden="true"
-                className="animate-rotate-slow absolute inset-0 border-2 border-dashed border-brand-gold/30 rounded-full"
-              ></div>
-
-              {/* Inner compass ring rotating the other way */}
-              <div
-                aria-hidden="true"
-                className="animate-rotate-slower-reverse absolute w-[85%] h-[85%] border border-brand-blue-light/20 rounded-full"
-              ></div>
-
+              {/* Anillos quietos alrededor de la rosa de los vientos. */}
+              <div aria-hidden="true" className="absolute inset-0 border border-dashed border-brand-gold/40 rounded-full"></div>
+              <div aria-hidden="true" className="absolute w-[85%] h-[85%] border border-brand-blue-light/20 rounded-full"></div>
 
               {/* Main Brand Image */}
               <div className="relative w-3/4 h-3/4 select-none drop-shadow-[0_10px_20px_rgba(0,31,66,0.15)]">
@@ -71,12 +62,6 @@ export default function Hero() {
                   className="object-contain"
                 />
               </div>
-
-              {/* Accent details mimicking fine navigation lines */}
-              <div className="absolute -top-4 text-brand-navy/60 font-mono text-xs select-none" aria-hidden="true">N 0°</div>
-              <div className="absolute -bottom-4 text-brand-navy/60 font-mono text-xs select-none" aria-hidden="true">S 180°</div>
-              <div className="absolute -right-6 text-brand-navy/60 font-mono text-xs select-none" aria-hidden="true">E 90°</div>
-              <div className="absolute -left-6 text-brand-navy/60 font-mono text-xs select-none" aria-hidden="true">W 270°</div>
             </div>
           </div>
         </div>

@@ -63,9 +63,9 @@ export default function Servicios() {
           <span className="text-brand-gold-dark text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
             Áreas de especialización
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-4">
+          <h1 className="text-3xl sm:text-4xl font-semibold text-brand-navy tracking-[-0.01em] mb-4">
             Nuestros servicios
-          </h2>
+          </h1>
           <p className="text-base text-brand-gray-dark leading-relaxed">
             Qué hacemos en cada una de nuestras tres áreas.
           </p>

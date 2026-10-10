@@ -17,9 +17,9 @@ export default function MisionVision() {
           <span className="text-brand-electric text-xs font-bold tracking-widest uppercase block mb-3">
             Nuestro propósito
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-semibold text-brand-navy tracking-[-0.01em]">
             Misión y visión
-          </h2>
+          </h1>
         </div>
 
         {/* Content columns */}

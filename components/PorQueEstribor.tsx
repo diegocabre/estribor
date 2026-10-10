@@ -33,7 +33,7 @@ export default function PorQueEstribor() {
     <section id="por-que-estribor" className="bg-brand-bg pt-16 pb-12 md:pt-24 md:pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
         <div className="lg:col-span-4">
-          <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-4">¿Por qué Estribor?</h2>
+          <h2 className="text-3xl sm:text-4xl font-semibold text-brand-navy tracking-[-0.01em] mb-4">¿Por qué Estribor?</h2>
           <p className="text-base text-brand-gray-dark leading-relaxed max-w-md">
             Un equipo pequeño que conoce la faena y la normativa, y que trabaja contigo de principio a fin.
           </p>

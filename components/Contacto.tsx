@@ -35,7 +35,9 @@ const cardClass =
   "lg:col-span-6 bg-white border border-brand-gray/20 rounded-3xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-shadow flex flex-col justify-between";
 
 /** Sección "Agenda una reunión o escríbenos": formulario (izquierda) y agenda virtual (derecha). */
-export default function Contacto() {
+export default function Contacto({ headingLevel = "h2" }: { headingLevel?: "h1" | "h2" }) {
+  // En /contacto esta sección es el contenido principal y su título debe ser el h1 de la página.
+  const Heading = headingLevel;
   const agenda = useAgenda();
 
   return (
@@ -44,7 +46,7 @@ export default function Contacto() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14">
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-brand-navy tracking-tight mb-6">Agenda una reunión o escríbenos</h2>
+          <Heading className="text-3xl sm:text-5xl lg:text-6xl font-semibold text-brand-navy tracking-[-0.01em] mb-6">Agenda una reunión o escríbenos</Heading>
 
           <p className="text-base sm:text-lg text-brand-gray-dark leading-relaxed">
             Elige la modalidad que prefieras: déjanos un mensaje a través del formulario o agenda una reunión virtual en

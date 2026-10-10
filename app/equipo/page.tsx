@@ -63,7 +63,7 @@ export default function EquipoPage() {
           <span className="text-brand-gold-dark text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
             Nuestros profesionales
           </span>
-          <h1 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-4">
+          <h1 className="text-3xl sm:text-4xl font-semibold text-brand-navy tracking-[-0.01em] mb-4">
             Equipo multidisciplinario
           </h1>
           <p className="text-base text-brand-gray-dark leading-relaxed">
@@ -82,7 +82,7 @@ export default function EquipoPage() {
               <span className="h-px w-8 bg-brand-gold" />
               Liderazgo
             </span>
-            <h2 className="text-3xl sm:text-4xl font-bold uppercase tracking-tight text-white">
+            <h2 className="text-3xl sm:text-4xl font-semibold uppercase tracking-[-0.01em] text-white">
               Nuestro equipo
             </h2>
           </div>
@@ -174,7 +174,7 @@ export default function EquipoPage() {
           </div>
 
           <div className="relative z-10 max-w-4xl">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-semibold mb-4 tracking-[-0.01em]">
               Una empresa nueva con un equipo con trayectoria
             </h2>
             <p className="text-base sm:text-lg text-white/80 leading-relaxed mb-8">

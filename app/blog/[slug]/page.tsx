@@ -109,7 +109,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             {post.content.map((paragraph, idx) => {
               if (paragraph.startsWith("###")) {
                 return (
-                  <h2 key={idx} className="text-xl font-bold text-brand-navy pt-6 mb-2 font-titles">
+                  <h2 key={idx} className="text-xl font-semibold text-brand-navy pt-6 mb-2 font-titles">
                     {paragraph.replace("###", "").trim()}
                   </h2>
                 );
@@ -128,7 +128,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           <aside className="mt-12 p-8 bg-brand-navy text-white rounded-2xl relative overflow-hidden shadow-md">
             <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
               <div>
-                <h2 className="text-lg font-bold text-white mb-2 font-titles">¿Quieres aplicar esto en tu organización?</h2>
+                <h2 className="text-lg font-semibold text-white mb-2 font-titles">¿Quieres aplicar esto en tu organización?</h2>
                 <p className="text-xs text-brand-gray max-w-md">
                   Agenda una sesión de diagnóstico gratuita de 15 minutos con nuestros consultores expertos para evaluar
                   tus requerimientos y planificar tu rumbo.
