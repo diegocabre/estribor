@@ -93,7 +93,7 @@ export default function JobsExplorer({ jobs }: { jobs: Job[] }) {
 
           <div className="flex flex-col">
             <label htmlFor="filter-type" className={labelClass}>
-              Tipo de Cargo
+              Tipo de cargo
             </label>
             <select id="filter-type" value={selectedType} onChange={(e) => setSelectedType(e.target.value)} className={selectClass}>
               {types.map((t) => (
@@ -115,8 +115,8 @@ export default function JobsExplorer({ jobs }: { jobs: Job[] }) {
               className={selectClass}
             >
               <option value="Todos">Todos</option>
-              <option value="Activas">Convocatorias Abiertas</option>
-              <option value="Cerradas">Procesos Cerrados</option>
+              <option value="Activas">Convocatorias abiertas</option>
+              <option value="Cerradas">Procesos cerrados</option>
             </select>
           </div>
         </div>
@@ -143,19 +143,19 @@ export default function JobsExplorer({ jobs }: { jobs: Job[] }) {
                   {job.active ? (
                     <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full uppercase tracking-wider flex items-center gap-1.5">
                       <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                      Convocatoria Abierta
+                      Convocatoria abierta
                     </span>
                   ) : (
                     <span className="text-[10px] font-bold text-emerald-900 bg-emerald-100 border border-emerald-300 px-2.5 py-0.5 rounded-full uppercase tracking-wider flex items-center gap-1.5 shadow-xs">
                       <CheckCircle2 aria-hidden="true" className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                      Proceso Cerrado con Éxito
+                      Proceso cerrado con éxito
                     </span>
                   )}
 
                   {job.confidential && (
                     <span className="text-[10px] font-bold text-slate-600 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-full flex items-center gap-1 uppercase tracking-wider">
                       <Lock aria-hidden="true" className="h-3 w-3" />
-                      Búsqueda Confidencial
+                      Búsqueda confidencial
                     </span>
                   )}
                 </div>
@@ -183,7 +183,7 @@ export default function JobsExplorer({ jobs }: { jobs: Job[] }) {
                     : "bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 shadow-sm"
                 }`}
               >
-                <span>{job.active ? "Postular / Detalle" : "Ver Proceso"}</span>
+                <span>{job.active ? "Postular / detalle" : "Ver proceso"}</span>
                 <ChevronRight aria-hidden="true" className="h-4 w-4" />
               </Link>
             </article>

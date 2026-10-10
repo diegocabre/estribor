@@ -10,7 +10,7 @@ export function ScrollToTopButton() {
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white/70 hover:text-brand-gold transition-colors"
     >
-      Volver Arriba
+      Volver arriba
       <ArrowUp aria-hidden="true" className="h-4 w-4" />
     </button>
   );

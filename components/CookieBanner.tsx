@@ -63,7 +63,7 @@ export default function CookieBanner() {
           <div className="flex-1">
             <div className="flex items-center justify-between">
               <h2 id="cookie-banner-title" className="text-sm font-bold text-white flex items-center gap-1.5">
-                Privacidad y Cookies
+                Privacidad y cookies
               </h2>
               <button
                 type="button"

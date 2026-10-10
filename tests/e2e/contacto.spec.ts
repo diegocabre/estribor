@@ -15,9 +15,9 @@ test("envía el formulario de contacto", async ({ page }) => {
   await page.getByLabel("Empresa", { exact: true }).fill("Acuícola Sur");
   await page.getByLabel("Mensaje o Consulta *").fill("Queremos implementar el protocolo de Ley Karin.");
   await page.locator("#privacy-consent").check();
-  await page.getByRole("button", { name: "Enviar Mensaje" }).click();
+  await page.getByRole("button", { name: "Enviar mensaje" }).click();
 
-  await expect(page.getByRole("status")).toContainText("¡Mensaje Enviado con Éxito!");
+  await expect(page.getByRole("status")).toContainText("¡Mensaje enviado con éxito!");
   expect(requests[0]).toMatchObject({
     name: "Juan Pérez",
     email: "juan@empresa.cl",
@@ -35,7 +35,7 @@ test("muestra el error que devuelve el servidor", async ({ page }) => {
   await page.getByLabel("Correo *").fill("juan@empresa.cl");
   await page.getByLabel("Mensaje o Consulta *").fill("Necesito una cotización de auditoría SST.");
   await page.locator("#privacy-consent").check();
-  await page.getByRole("button", { name: "Enviar Mensaje" }).click();
+  await page.getByRole("button", { name: "Enviar mensaje" }).click();
 
   await expect(page.getByRole("alert").filter({ hasText: "Correo" })).toHaveText("Correo electrónico inválido.");
 });
@@ -47,7 +47,7 @@ test("no envía sin aceptar la política de privacidad", async ({ page }) => {
   await page.getByLabel("Nombre *").fill("Juan Pérez");
   await page.getByLabel("Correo *").fill("juan@empresa.cl");
   await page.getByLabel("Mensaje o Consulta *").fill("Necesito una cotización de auditoría SST.");
-  await page.getByRole("button", { name: "Enviar Mensaje" }).click();
+  await page.getByRole("button", { name: "Enviar mensaje" }).click();
 
   // El checkbox es required: el navegador bloquea el envío.
   expect(requests).toHaveLength(0);

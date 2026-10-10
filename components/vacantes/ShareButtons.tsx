@@ -57,7 +57,7 @@ export default function ShareButtons({ title }: { title: string }) {
         className="px-3 py-1.5 bg-brand-navy text-white rounded-lg text-xs font-bold transition-all hover:bg-brand-blue-med flex items-center gap-1.5"
       >
         <Share2 aria-hidden="true" className="h-3.5 w-3.5" />
-        <span aria-live="polite">{copied ? "Copiado!" : "Copiar Enlace"}</span>
+        <span aria-live="polite">{copied ? "Copiado!" : "Copiar enlace"}</span>
       </button>
     </div>
   );

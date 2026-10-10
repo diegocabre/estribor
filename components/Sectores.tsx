@@ -18,13 +18,13 @@ export default function Sectores() {
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-brand-gold-dark text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
-            Presencia Multisectorial
+            Presencia multisectorial
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-4">
-            Sectores Donde Trabajamos
+            Sectores donde trabajamos
           </h2>
           <p className="text-base text-brand-gray-dark leading-relaxed">
-            Nuestros consultores cuentan con experiencia ejecutiva directa en las industrias clave del país, permitiendo una entrega de soluciones contextualizadas.
+            Rubros en los que asesoramos, con foco en la Región de Los Lagos.
           </p>
         </div>
 

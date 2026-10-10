@@ -19,7 +19,7 @@ export default function NotFound() {
           href="/contacto"
           className="inline-flex items-center gap-2 border border-brand-navy text-brand-navy hover:bg-white px-6 py-2.5 rounded-lg text-sm font-semibold transition-colors"
         >
-          Contáctanos
+          Agendar reunión
         </Link>
       </div>
     </div>

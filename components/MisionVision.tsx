@@ -15,10 +15,10 @@ export default function MisionVision() {
         {/* Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-brand-electric text-xs font-bold tracking-widest uppercase block mb-3">
-            Nuestro Propósito
+            Nuestro propósito
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight">
-            Misión y Visión
+            Misión y visión
           </h2>
         </div>
 
@@ -48,7 +48,7 @@ export default function MisionVision() {
             </div>
 
             <p className="text-brand-navy/90 text-sm sm:text-base leading-relaxed mb-4">
-              En <strong className="font-semibold text-brand-navy">Estribor Consultores</strong> brindamos soluciones integrales de gestión a empresas de diversos sectores, proporcionando servicios especializados en seguridad y salud en el trabajo, cumplimiento normativo, asesorías técnicas y gestión organizacional.
+              En <strong className="font-semibold text-brand-navy">Estribor Consultores</strong> asesoramos a empresas de distintos sectores en seguridad y salud en el trabajo, cumplimiento normativo, asesorías técnicas y gestión organizacional.
             </p>
             <p className="text-brand-navy/90 text-sm sm:text-base leading-relaxed">
               Nos comprometemos a generar valor para nuestros clientes mediante un equipo multidisciplinario con amplia experiencia, promoviendo ambientes laborales seguros, eficientes y sostenibles que contribuyan al crecimiento y desarrollo de sus organizaciones.

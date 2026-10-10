@@ -13,7 +13,7 @@ export default function BookingCalendar({ agenda }: { agenda: AgendaState }) {
       {/* Duración */}
       <div role="group" aria-labelledby="booking-duration-label">
         <p id="booking-duration-label" className={groupLabelClass}>
-          1. Selecciona Duración
+          1. Selecciona duración
         </p>
         <div className="grid grid-cols-3 gap-2">
           {DURATIONS.map((d) => (
@@ -37,7 +37,7 @@ export default function BookingCalendar({ agenda }: { agenda: AgendaState }) {
       {/* Fecha */}
       <div role="group" aria-labelledby="booking-date-label">
         <p id="booking-date-label" className={groupLabelClass}>
-          2. Selecciona Fecha
+          2. Selecciona fecha
         </p>
         <div className="grid grid-cols-5 gap-2 min-h-[61px]">
           {agenda.dates.map((d) => {
@@ -75,7 +75,7 @@ export default function BookingCalendar({ agenda }: { agenda: AgendaState }) {
           aria-labelledby="booking-time-label"
         >
           <p id="booking-time-label" className={groupLabelClass}>
-            3. Horario Disponible (hora de Chile)
+            3. Horario disponible (hora de Chile)
           </p>
           <div className="grid grid-cols-3 gap-2">
             {TIME_SLOTS.map((time) => {
@@ -111,7 +111,7 @@ export default function BookingCalendar({ agenda }: { agenda: AgendaState }) {
         onClick={agenda.goToForm}
         className="w-full bg-brand-gold hover:bg-brand-gold/90 disabled:opacity-40 disabled:cursor-not-allowed text-brand-navy font-bold py-3.5 rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 mt-4 cursor-pointer"
       >
-        <span>Completar Datos de la Reunión</span>
+        <span>Completar datos de la reunión</span>
         <ArrowRight aria-hidden="true" className="h-4 w-4" />
       </button>
     </div>

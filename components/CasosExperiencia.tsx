@@ -4,29 +4,29 @@ import { Briefcase, ShieldAlert, Award, FileSpreadsheet } from "lucide-react";
 export default function CasosExperiencia() {
   const cases = [
     {
-      title: "Hunting Ejecutivo & Reclutamiento",
-      sector: "Sector Acuícola / Industrial",
+      title: "Hunting ejecutivo y reclutamiento",
+      sector: "Sector acuícola / industrial",
       challenge: "Búsqueda crítica de Gerente de Operaciones con experiencia técnica en terreno.",
-      solution: "Hunting consultivo enfocado en directivos del rubro productivo. Selección exitosa en un plazo menor a 40 días, asegurando fit cultural.",
+      solution: "Búsqueda directa de directivos del rubro productivo, evaluando experiencia técnica en terreno y ajuste con la cultura de la empresa.",
       icon: Briefcase,
     },
     {
-      title: "Implementación Ley Karin & Liderazgo",
-      sector: "Sector Servicios & Alimentos",
+      title: "Implementación de la Ley Karin y liderazgo",
+      sector: "Sector servicios y alimentos",
       challenge: "Adecuación obligatoria de procesos internos, protocolos de acoso y canal de denuncias.",
-      solution: "Auditoría de RIOHS, diseño de políticas de prevención, y capacitación en liderazgo preventivo a jefaturas con más de 250 colaboradores entrenados.",
+      solution: "Auditoría del RIOHS, diseño de políticas de prevención y capacitación en liderazgo preventivo a jefaturas.",
       icon: ShieldAlert,
     },
     {
-      title: "Auditoría e Implementación de SST",
-      sector: "Sector Construcción & Producción",
+      title: "Auditoría e implementación de SST",
+      sector: "Sector construcción y producción",
       challenge: "Alta tasa de accidentabilidad y observaciones de fiscalizaciones normativas.",
-      solution: "Diagnóstico profundo, rediseño de matrices IPER, capacitación en terreno e implantación de sistema de gestión preventivo. Tasa de accidentabilidad disminuida en un 42%.",
+      solution: "Diagnóstico, rediseño de matrices IPER, capacitación en terreno e implementación de un sistema de gestión preventivo.",
       icon: Award,
     },
     {
-      title: "Estrategia ESG y Reportes Sostenibles",
-      sector: "Sector Energía & Industria",
+      title: "Estrategia ESG y reportes de sostenibilidad",
+      sector: "Sector energía e industria",
       challenge: "Presión de inversionistas y clientes por reportar impacto socio-ambiental y huella hídrica.",
       solution: "Análisis de materialidad con stakeholders clave, medición de huella de carbono, y diseño de reportes anuales bajo lineamientos GRI.",
       icon: FileSpreadsheet,
@@ -41,13 +41,13 @@ export default function CasosExperiencia() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16">
           <div className="max-w-2xl">
             <span className="text-brand-gold-dark text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
-              Trayectoria de Impacto
+              Experiencia del equipo
             </span>
             <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-4">
-              Casos de Experiencia
+              Casos de experiencia
             </h2>
             <p className="text-base text-brand-gray-dark leading-relaxed">
-              Por confidencialidad corporativa y respeto a nuestros clientes, presentamos resúmenes de proyectos representativos que reflejan nuestras metodologías en el terreno.
+              Trabajos que integrantes de nuestro equipo realizaron antes de formar Estribor. Por confidencialidad no nombramos a las empresas.
             </p>
           </div>
           <div className="mt-4 md:mt-0">
@@ -55,7 +55,7 @@ export default function CasosExperiencia() {
               href="#agenda"
               className="inline-flex items-center justify-center bg-brand-navy hover:bg-brand-blue-med text-white text-sm font-semibold py-3 px-6 rounded-xl transition-colors shadow-sm"
             >
-              Solicitar Referencias
+              Agendar reunión
             </a>
           </div>
         </div>
@@ -87,11 +87,11 @@ export default function CasosExperiencia() {
 
                   <div className="space-y-4">
                     <div>
-                      <h4 className="text-xs font-bold text-brand-navy uppercase tracking-wider mb-1">El Desafío:</h4>
+                      <h4 className="text-xs font-bold text-brand-navy uppercase tracking-wider mb-1">El desafío</h4>
                       <p className="text-sm text-brand-gray-dark leading-relaxed">{project.challenge}</p>
                     </div>
                     <div>
-                      <h4 className="text-xs font-bold text-brand-navy uppercase tracking-wider mb-1">La Solución:</h4>
+                      <h4 className="text-xs font-bold text-brand-navy uppercase tracking-wider mb-1">La solución</h4>
                       <p className="text-sm text-brand-gray-dark leading-relaxed">{project.solution}</p>
                     </div>
                   </div>

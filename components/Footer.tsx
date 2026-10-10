@@ -30,7 +30,7 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-sm text-white/75 max-w-sm leading-relaxed">
-              Soluciones integrales en seguridad y salud, cumplimiento normativo, asesoría técnica y gestión organizacional en todo Chile.
+              Consultoría en seguridad y salud en el trabajo, gestión de personas y sostenibilidad. Puerto Varas, Región de Los Lagos.
             </p>
           </div>
 
@@ -45,7 +45,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/mision-vision" className="hover:text-brand-gold transition-colors">
-                  Misión y Visión
+                  Misión y visión
                 </Link>
               </li>
               <li>
@@ -60,7 +60,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/vacantes" className="hover:text-brand-gold transition-colors">
-                  Portal Empleo
+                  Portal de empleo
                 </Link>
               </li>
               <li>
@@ -104,11 +104,11 @@ export default function Footer() {
           </p>
           <div className="flex flex-wrap items-center justify-center sm:justify-end gap-3 text-xs">
             <Link href="/privacidad" className="hover:text-brand-gold transition-colors">
-              Política de Privacidad
+              Política de privacidad
             </Link>
             <span aria-hidden="true">&middot;</span>
             <Link href="/terminos" className="hover:text-brand-gold transition-colors">
-              Términos y Condiciones
+              Términos y condiciones
             </Link>
             <span aria-hidden="true">&middot;</span>
             <Link href="/privacidad#cookies" className="hover:text-brand-gold transition-colors">

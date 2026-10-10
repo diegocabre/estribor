@@ -65,7 +65,7 @@ export default async function VacanteDetailPage({ params }: PageProps) {
             className="inline-flex items-center gap-2 text-xs font-bold text-brand-navy hover:text-brand-gold-dark transition-colors"
           >
             <ArrowLeft aria-hidden="true" className="h-4 w-4" />
-            Volver al Portal de Vacantes
+            Volver al portal de vacantes
           </Link>
           <ShareButtons title={job.title} />
         </div>
@@ -98,19 +98,19 @@ export default async function VacanteDetailPage({ params }: PageProps) {
                 {job.active ? (
                   <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full uppercase tracking-wider flex items-center gap-1.5">
                     <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    Convocatoria Abierta
+                    Convocatoria abierta
                   </span>
                 ) : (
                   <span className="text-[10px] font-bold text-emerald-900 bg-emerald-100 border border-emerald-300 px-2.5 py-1 rounded-full uppercase tracking-wider flex items-center gap-1.5 shadow-xs">
                     <CheckCircle2 aria-hidden="true" className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                    Proceso Cerrado con Éxito
+                    Proceso cerrado con éxito
                   </span>
                 )}
 
                 {job.confidential ? (
                   <span className="text-[10px] font-bold text-slate-600 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-full flex items-center gap-1 uppercase tracking-wider">
                     <Lock aria-hidden="true" className="h-3 w-3" />
-                    Búsqueda Confidencial
+                    Búsqueda confidencial
                   </span>
                 ) : (
                   <span className="text-[10px] font-bold text-brand-blue-light bg-brand-blue-light/10 border border-brand-blue-light/20 px-2.5 py-1 rounded-full uppercase tracking-wider">
@@ -136,7 +136,7 @@ export default async function VacanteDetailPage({ params }: PageProps) {
             <section className="space-y-3">
               <h2 className="text-sm font-bold text-brand-navy uppercase tracking-wider flex items-center gap-2">
                 <FileText aria-hidden="true" className="h-4 w-4 text-brand-gold" />
-                Misión del Cargo
+                Misión del cargo
               </h2>
               <p className="text-sm text-brand-gray-dark leading-relaxed">{job.description}</p>
             </section>
@@ -145,7 +145,7 @@ export default async function VacanteDetailPage({ params }: PageProps) {
               <section className="space-y-3">
                 <h2 className="text-sm font-bold text-brand-navy uppercase tracking-wider flex items-center gap-2">
                   <ListTodo aria-hidden="true" className="h-4 w-4 text-brand-gold" />
-                  Funciones y Responsabilidades
+                  Funciones y responsabilidades
                 </h2>
                 <ul className="space-y-2.5">
                   {job.functions
@@ -164,7 +164,7 @@ export default async function VacanteDetailPage({ params }: PageProps) {
             <section className="space-y-3">
               <h2 className="text-sm font-bold text-brand-navy uppercase tracking-wider flex items-center gap-2">
                 <Award aria-hidden="true" className="h-4 w-4 text-brand-gold" />
-                Requisitos Excluyentes
+                Requisitos excluyentes
               </h2>
               <ul className="space-y-2.5">
                 {job.requirements.split(", ").map((req, i) => (
@@ -188,7 +188,7 @@ export default async function VacanteDetailPage({ params }: PageProps) {
                 </div>
 
                 <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100 border border-emerald-200 px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">
-                  Búsqueda Finalizada
+                  Búsqueda finalizada
                 </span>
 
                 <h2 className="text-xl font-bold text-brand-navy mb-3 font-titles">Proceso Cerrado con Éxito</h2>
@@ -214,7 +214,7 @@ export default async function VacanteDetailPage({ params }: PageProps) {
                     href="/vacantes"
                     className="w-full inline-flex items-center justify-center bg-brand-navy hover:bg-brand-blue-med text-white text-xs font-bold py-3.5 px-6 rounded-xl transition-all shadow-md gap-2"
                   >
-                    <span>Ver Convocatorias Abiertas</span>
+                    <span>Ver convocatorias abiertas</span>
                     <ArrowLeft aria-hidden="true" className="h-4 w-4 rotate-180" />
                   </Link>
 
@@ -222,7 +222,7 @@ export default async function VacanteDetailPage({ params }: PageProps) {
                     href="/vacantes#espontanea"
                     className="w-full inline-flex items-center justify-center bg-white hover:bg-slate-50 text-brand-navy border border-brand-gray/30 text-xs font-bold py-3.5 px-6 rounded-xl transition-all gap-2"
                   >
-                    <span>Postulación Espontánea (Enviar CV)</span>
+                    <span>Postulación espontánea (enviar CV)</span>
                   </Link>
                 </div>
               </div>

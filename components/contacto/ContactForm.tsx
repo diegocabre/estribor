@@ -14,7 +14,7 @@ const inputClass =
   "border border-brand-gray/30 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:border-brand-electric bg-brand-bg/20 text-brand-navy font-sans";
 const labelClass = "text-xs font-bold text-brand-navy mb-1.5 uppercase tracking-wide";
 
-/** Formulario "Enviar Mensaje Directo" (Modalidad 1). */
+/** Formulario "Enviar mensaje directo" (Modalidad 1). */
 export default function ContactForm() {
   const [formData, setFormData] = useState(EMPTY_FORM);
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
@@ -72,7 +72,7 @@ export default function ContactForm() {
           role="status"
         >
           <CheckCircle2 aria-hidden="true" className="h-14 w-14 text-emerald-500 mb-4 motion-safe:animate-bounce" />
-          <h4 className="text-xl font-bold text-brand-navy mb-2">¡Mensaje Enviado con Éxito!</h4>
+          <h4 className="text-xl font-bold text-brand-navy mb-2">¡Mensaje enviado con éxito!</h4>
           <p className="text-sm text-brand-gray-dark max-w-sm mb-6">
             Agradecemos tu interés. Uno de nuestros consultores especializados responderá a tu solicitud a la brevedad.
           </p>
@@ -158,7 +158,7 @@ export default function ContactForm() {
 
           <div className="flex flex-col">
             <label htmlFor="form-message" className={labelClass}>
-              Mensaje o Consulta *
+              Mensaje o consulta *
             </label>
             <textarea
               name="message"
@@ -196,12 +196,12 @@ export default function ContactForm() {
             {status === "loading" ? (
               <>
                 <Loader2 aria-hidden="true" className="h-4 w-4 animate-spin" />
-                Enviando Mensaje...
+                Enviando mensaje...
               </>
             ) : (
               <>
                 <Send aria-hidden="true" className="h-4 w-4" />
-                Enviar Mensaje
+                Enviar mensaje
               </>
             )}
           </button>

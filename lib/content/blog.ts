@@ -14,7 +14,7 @@ export const blogPosts: BlogPost[] = [
     content: [
       "La entrada en vigencia de la Ley Karin marca un hito fundamental en la regulación de las relaciones laborales en Chile. Esta normativa tiene como objetivo principal erradicar el acoso laboral, sexual y la violencia en los espacios de trabajo, imponiendo a las empresas obligaciones sumamente precisas en prevención, investigación y sanción.",
       "Para asegurar el cumplimiento de la ley y proteger a tus colaboradores, las organizaciones deben implementar un protocolo de prevención de acoso laboral, el cual debe estar contenido en el Reglamento Interno de Orden, Higiene y Seguridad (RIOHS) y ser difundido de forma activa.",
-      "### Pasos Clave para Adaptar tu Organización:",
+      "### Pasos clave para adaptar tu organización:",
       "1. **Actualización del RIOHS:** Incorporar definiciones claras sobre conductas prohibidas y detallar el procedimiento de denuncias, asegurando confidencialidad y plazos específicos de respuesta.",
       "2. **Matrices de Riesgo Psicosocial:** Evaluar las condiciones internas de trabajo para identificar focos de riesgo y mitigarlos preventivamente.",
       "3. **Capacitación General:** Todo el personal, especialmente jefaturas y mandos medios, debe ser capacitado sobre los alcances de la ley y el respeto mutuo en el ámbito laboral.",

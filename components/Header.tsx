@@ -8,10 +8,10 @@ import { useEffect, useState } from "react";
 
 const NAV_ITEMS = [
   { name: "Servicios", href: "/servicios" },
-  { name: "Misión y Visión", href: "/mision-vision" },
+  { name: "Misión y visión", href: "/mision-vision" },
   { name: "Equipo", href: "/equipo" },
   { name: "Blog", href: "/blog" },
-  { name: "Portal Empleo", href: "/vacantes" },
+  { name: "Portal de empleo", href: "/vacantes" },
 ];
 
 export default function Header() {
@@ -73,7 +73,7 @@ export default function Header() {
             </div>
           </Link>
 
-          <nav aria-label="Navegación principal" className="hidden md:flex items-center gap-8">
+          <nav aria-label="Navegación principal" className="hidden md:flex items-center gap-5 lg:gap-8">
             {NAV_ITEMS.map((item) => {
               const active = isActive(item.href);
               return (
@@ -81,7 +81,7 @@ export default function Header() {
                   key={item.name}
                   href={item.href}
                   aria-current={active ? "page" : undefined}
-                  className={`text-base font-semibold transition-colors duration-200 relative group py-2 ${
+                  className={`whitespace-nowrap text-sm lg:text-base font-semibold transition-colors duration-200 relative group py-2 ${
                     active ? "text-brand-electric" : "text-brand-navy hover:text-brand-electric"
                   }`}
                 >
@@ -98,11 +98,11 @@ export default function Header() {
             <Link
               href="/contacto"
               aria-current={pathname === "/contacto" ? "page" : undefined}
-              className={`px-6 py-2.5 rounded-lg text-sm font-bold tracking-wide transition-all duration-300 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 ${
+              className={`whitespace-nowrap px-5 lg:px-6 py-2.5 rounded-lg text-sm font-bold tracking-wide transition-all duration-300 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 ${
                 pathname === "/contacto" ? "bg-brand-blue-med text-white" : "bg-brand-electric hover:bg-brand-blue-med text-white"
               }`}
             >
-              Contáctanos
+              Agendar reunión
             </Link>
           </nav>
 
@@ -153,7 +153,7 @@ export default function Header() {
                 onClick={closeMenu}
                 className="block w-full text-center bg-brand-electric hover:bg-brand-blue-med text-white px-5 py-3 rounded-md text-base font-semibold transition-colors shadow-sm"
               >
-                Contáctanos
+                Agendar reunión
               </Link>
             </div>
           </div>

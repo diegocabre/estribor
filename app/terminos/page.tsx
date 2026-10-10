@@ -5,7 +5,7 @@ import { legalConfig } from "@/lib/legalConfig";
 import { Scale, ArrowLeft, Shield, FileCheck, AlertCircle } from "lucide-react";
 
 export const metadata = pageMetadata({
-  title: "Términos y Condiciones de Uso",
+  title: "Términos y condiciones de uso",
   description: "Términos y condiciones de uso del sitio web y servicios de Estribor Consultores.",
   path: "/terminos",
 });
@@ -29,10 +29,10 @@ export default function TerminosPage() {
           <div className="border-b border-brand-gray/20 pb-8 mb-8">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-gold/15 text-brand-navy text-xs font-bold uppercase tracking-wider mb-4">
               <Scale className="w-4 h-4 text-brand-gold" />
-              Marco Legal y Operativo
+              Marco legal y operativo
             </div>
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-brand-navy tracking-tight leading-tight">
-              Términos y Condiciones de Uso
+              Términos y condiciones de uso
             </h1>
             <p className="text-xs sm:text-sm text-brand-gray-dark mt-3">
               Última actualización: <span className="font-semibold text-brand-navy">{legalConfig.lastUpdated}</span>
@@ -44,7 +44,7 @@ export default function TerminosPage() {
             <section>
               <h2 className="text-lg font-bold text-brand-navy mb-2 flex items-center gap-2">
                 <FileCheck className="w-5 h-5 text-brand-electric" />
-                1. Información General y Aceptación
+                1. Información general y aceptación
               </h2>
               <p>
                 El presente sitio web <strong>{legalConfig.websiteUrl}</strong> es operado por <strong>{legalConfig.companyName}</strong> (en adelante, &quot;{legalConfig.brandName}&quot;), con domicilio en {legalConfig.companyAddress}, correo de contacto: {legalConfig.contactEmail}.
@@ -55,7 +55,7 @@ export default function TerminosPage() {
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-brand-navy mb-2">2. Objeto y Servicios</h2>
+              <h2 className="text-lg font-bold text-brand-navy mb-2">2. Objeto y servicios</h2>
               <p>
                 {legalConfig.brandName} es una firma de consultoría especializada en Seguridad y Salud en el Trabajo, Cumplimiento Normativo (incluyendo Ley Karin), Sostenibilidad Organizacional y Gestión de Personas en Chile.
               </p>
@@ -67,7 +67,7 @@ export default function TerminosPage() {
             <section>
               <h2 className="text-lg font-bold text-brand-navy mb-2 flex items-center gap-2">
                 <Shield className="w-5 h-5 text-brand-gold" />
-                3. Propiedad Intelectual e Industrial
+                3. Propiedad intelectual e industrial
               </h2>
               <p>
                 Todos los elementos constitutivos del sitio web, incluyendo marcas comerciales, logotipos, textos explicativos, metodologías, diseños visuales, iconografía y código fuente, son propiedad exclusiva de {legalConfig.brandName} o cuentan con las debidas licencias de uso.
@@ -78,7 +78,7 @@ export default function TerminosPage() {
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-brand-navy mb-2">4. Obligaciones y Conducta del Usuario</h2>
+              <h2 className="text-lg font-bold text-brand-navy mb-2">4. Obligaciones y conducta del usuario</h2>
               <p>El usuario se compromete a:</p>
               <ul className="list-disc pl-5 space-y-1.5 mt-2 text-xs sm:text-sm">
                 <li>Hacer un uso diligente, honesto y conforme a la ley de todos los canales y formularios disponibles.</li>
@@ -90,7 +90,7 @@ export default function TerminosPage() {
             <section>
               <h2 className="text-lg font-bold text-brand-navy mb-2 flex items-center gap-2">
                 <AlertCircle className="w-5 h-5 text-brand-electric" />
-                5. Limitación de Responsabilidad
+                5. Limitación de responsabilidad
               </h2>
               <p>
                 La información provista en los artículos del blog o material divulgativo tiene fines puramente informativos y orientativos, no constituyendo por sí misma una asesoría jurídica o pericial vinculante hasta la formalización de un contrato de prestación de servicios profesionales.
@@ -101,7 +101,7 @@ export default function TerminosPage() {
             </section>
 
             <section className="bg-brand-bg/50 p-6 rounded-xl border border-brand-gray/20">
-              <h2 className="text-lg font-bold text-brand-navy mb-2">6. Legislación Aplicable y Jurisdicción</h2>
+              <h2 className="text-lg font-bold text-brand-navy mb-2">6. Legislación aplicable y jurisdicción</h2>
               <p className="text-xs sm:text-sm">
                 Los presentes Términos y Condiciones se rigen e interpretan en conformidad con las leyes de la <strong>República de Chile</strong>. Cualquier controversia, desacuerdo o reclamación relativa a su validez, interpretación o ejecución será sometida a la jurisdicción de los Tribunales Ordinarios de Justicia de <strong>{legalConfig.cityJurisdiction}</strong>.
               </p>

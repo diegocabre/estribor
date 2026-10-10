@@ -23,7 +23,7 @@ export default function ShareArticleButton({ title, text }: { title: string; tex
       className="inline-flex items-center gap-1.5 text-xs text-brand-navy hover:text-brand-gold-dark transition-colors font-bold"
     >
       <Share2 aria-hidden="true" className="h-4 w-4" />
-      <span aria-live="polite">{copied ? "Enlace copiado" : "Compartir Artículo"}</span>
+      <span aria-live="polite">{copied ? "Enlace copiado" : "Compartir artículo"}</span>
     </button>
   );
 }

@@ -5,12 +5,12 @@ import { BLOG_CATEGORIES, blogPosts } from "@/lib/content/blog";
 import { breadcrumbJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Blog e Insights",
+  title: "Blog e insights",
   description:
     "Artículos técnicos, guías normativas y análisis sobre gestión de personas, seguridad laboral y sostenibilidad organizacional en Chile.",
   alternates: { canonical: "/blog" },
   openGraph: {
-    title: "Blog & Insights | Estribor Consultores",
+    title: "Blog e insights | Estribor Consultores",
     description: "Guías sobre Ley Karin, reclutamiento, seguridad laboral y sostenibilidad en Chile.",
     url: "/blog",
   },
@@ -32,9 +32,9 @@ export default function BlogPage() {
         <div className="absolute right-0 bottom-0 translate-x-1/4 translate-y-1/4 w-96 h-96 bg-brand-gold/10 rounded-full blur-3xl pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center md:text-left">
           <span className="text-brand-gold text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
-            Recursos y Conocimiento
+            Recursos y conocimiento
           </span>
-          <h1 className="text-3xl sm:text-5xl font-bold tracking-tight mb-4 font-titles">Blog & Insights</h1>
+          <h1 className="text-3xl sm:text-5xl font-bold tracking-tight mb-4 font-titles">Blog e insights</h1>
           <p className="text-sm sm:text-base text-brand-gray max-w-xl leading-relaxed">
             Explora nuestros artículos técnicos, guías normativas y análisis sobre capital humano, seguridad y
             sostenibilidad organizacional.

@@ -37,7 +37,7 @@ export default function BookingDetailsForm({ agenda }: { agenda: AgendaState }) 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="flex flex-col">
           <label htmlFor="booking-name" className={labelClass}>
-            Nombre Completo *
+            Nombre completo *
           </label>
           <input
             id="booking-name"
@@ -52,7 +52,7 @@ export default function BookingDetailsForm({ agenda }: { agenda: AgendaState }) 
         </div>
         <div className="flex flex-col">
           <label htmlFor="booking-email" className={labelClass}>
-            Correo Corporativo *
+            Correo corporativo *
           </label>
           <input
             id="booking-email"
@@ -84,7 +84,7 @@ export default function BookingDetailsForm({ agenda }: { agenda: AgendaState }) 
 
       <div className="flex flex-col">
         <label htmlFor="booking-objective" className={labelClass}>
-          Objetivo de la Asesoría
+          Objetivo de la reunión
         </label>
         <select
           id="booking-objective"
@@ -141,7 +141,7 @@ export default function BookingDetailsForm({ agenda }: { agenda: AgendaState }) 
           ) : (
             <>
               <CheckCircle2 aria-hidden="true" className="h-4 w-4" />
-              Confirmar Cita
+              Confirmar cita
             </>
           )}
         </button>

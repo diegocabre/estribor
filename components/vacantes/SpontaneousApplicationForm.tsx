@@ -7,9 +7,9 @@ import LegalFormConsent from "@/components/LegalFormConsent";
 import { trackConversion } from "@/lib/analytics";
 
 const SPONTANEOUS_AREAS = [
-  { value: "Gestión de Personas", label: "Gestión de Personas / DO / Reclutamiento" },
-  { value: "Seguridad y Salud en el Trabajo", label: "Seguridad y Salud en el Trabajo (SST)" },
-  { value: "Sostenibilidad Organizacional", label: "Sostenibilidad Organizacional / ESG" },
+  { value: "Gestión de Personas", label: "Gestión de personas / DO / reclutamiento" },
+  { value: "Seguridad y Salud en el Trabajo", label: "Seguridad y salud en el trabajo (SST)" },
+  { value: "Sostenibilidad Organizacional", label: "Sostenibilidad organizacional / ESG" },
   { value: "Operaciones / Producción", label: "Operaciones / Producción" },
   { value: "Administración / Finanzas", label: "Administración / Finanzas" },
 ];
@@ -84,7 +84,7 @@ export default function SpontaneousApplicationForm() {
       id="espontanea"
       className="lg:col-span-4 bg-white border border-brand-gray/10 p-6 sm:p-8 rounded-2xl shadow-sm scroll-mt-28"
     >
-      <h2 className="text-lg font-bold text-brand-navy mb-3">Postulación Espontánea</h2>
+      <h2 className="text-lg font-bold text-brand-navy mb-3">Postulación espontánea</h2>
       <p className="text-xs text-brand-gray-dark leading-relaxed mb-6">
         ¿No encontraste un cargo afín a tu perfil? Déjanos tu currículum para sumarte a nuestra base de datos. Nos
         pondremos en contacto contigo cuando surjan búsquedas alineadas a tu experiencia.
@@ -116,7 +116,7 @@ export default function SpontaneousApplicationForm() {
 
             <div className="flex flex-col">
               <label htmlFor="spont-name" className={labelClass}>
-                Nombre Completo *
+                Nombre completo *
               </label>
               <input
                 id="spont-name"
@@ -148,7 +148,7 @@ export default function SpontaneousApplicationForm() {
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col">
                 <label htmlFor="spont-email" className={labelClass}>
-                  Correo Electrónico *
+                  Correo electrónico *
                 </label>
                 <input
                   id="spont-email"
@@ -198,7 +198,7 @@ export default function SpontaneousApplicationForm() {
 
               <div className="flex flex-col">
                 <label htmlFor="spont-salary" className={labelClass}>
-                  Pretensión Renta (CLP) *
+                  Pretensión de renta (CLP) *
                 </label>
                 <input
                   id="spont-salary"
@@ -273,7 +273,7 @@ export default function SpontaneousApplicationForm() {
               ) : (
                 <>
                   <Send aria-hidden="true" className="h-4 w-4" />
-                  Enviar Currículum
+                  Enviar currículum
                 </>
               )}
             </button>

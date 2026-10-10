@@ -47,7 +47,7 @@ test("el enlace 'Saltar al contenido' es el primer elemento enfocable", async ({
 test("el calendario se usa solo con teclado", async ({ page, isMobile }) => {
   test.skip(isMobile, "La navegación con Tab aplica a escritorio");
   await page.goto("/contacto");
-  const firstDate = page.getByRole("group", { name: "2. Selecciona Fecha" }).getByRole("button").first();
+  const firstDate = page.getByRole("group", { name: "2. Selecciona fecha" }).getByRole("button").first();
   await firstDate.focus();
   await page.keyboard.press("Enter");
   await expect(firstDate).toHaveAttribute("aria-pressed", "true");

@@ -28,7 +28,7 @@ export default function BookingWidget({ agenda }: { agenda: AgendaState }) {
           role="status"
         >
           <CheckCircle2 aria-hidden="true" className="h-14 w-14 text-emerald-500 mx-auto mb-3" />
-          <h4 className="text-xl font-bold text-brand-navy mb-1">¡Cita Confirmada!</h4>
+          <h4 className="text-xl font-bold text-brand-navy mb-1">¡Cita confirmada!</h4>
           <p className="text-xs text-brand-gray-dark mb-4">
             Hemos agendado tu sesión para el{" "}
             <strong className="text-brand-navy">

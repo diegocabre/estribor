@@ -9,8 +9,8 @@ export default function PorQueEstribor() {
       icon: Award,
     },
     {
-      title: "Soluciones personalizadas",
-      description: "Diseños y metodologías a la medida de tu realidad, huyendo de plantillas genéricas.",
+      title: "Trabajo a la medida",
+      description: "Diagnosticamos tu operación antes de proponer, y adaptamos protocolos y procesos a tu realidad.",
       icon: Sliders,
     },
     {
@@ -45,13 +45,13 @@ export default function PorQueEstribor() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-brand-gold-dark text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
-            Nuestros Diferenciadores
+            Nuestros diferenciadores
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-4">
             ¿Por qué Estribor?
           </h2>
           <p className="text-base text-brand-gray-dark leading-relaxed">
-            Combinamos una visión de excelencia con práctica en el terreno para entregar un servicio que realmente transforma tu operación.
+            Un equipo pequeño que conoce la faena y la normativa, y que trabaja contigo de principio a fin.
           </p>
         </div>
 

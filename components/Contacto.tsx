@@ -40,7 +40,7 @@ function ModalityHeader({
 const cardClass =
   "lg:col-span-6 bg-white border border-brand-gray/20 rounded-3xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-shadow flex flex-col justify-between";
 
-/** Sección "¿Quieres contactarnos?": formulario (izquierda) y agenda virtual (derecha). */
+/** Sección "Agenda una reunión o escríbenos": formulario (izquierda) y agenda virtual (derecha). */
 export default function Contacto() {
   const agenda = useAgenda();
 
@@ -55,14 +55,14 @@ export default function Contacto() {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 mb-4">
             <span className="bg-brand-gold/15 text-brand-navy text-xs font-bold tracking-widest uppercase px-4 py-1.5 rounded-full border border-brand-gold/30">
-              Canal de Comunicación Directo
+              Canal de comunicación directo
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-brand-navy tracking-tight mb-6">¿Quieres contactarnos?</h2>
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-brand-navy tracking-tight mb-6">Agenda una reunión o escríbenos</h2>
 
           <p className="text-base sm:text-lg text-brand-gray-dark leading-relaxed">
-            Elige la modalidad que prefieras: déjanos un mensaje a través del formulario o agenda una sesión virtual directa en
+            Elige la modalidad que prefieras: déjanos un mensaje a través del formulario o agenda una reunión virtual en
             nuestro calendario.
           </p>
         </div>
@@ -73,7 +73,7 @@ export default function Contacto() {
               <ModalityHeader
                 icon={<MessageSquare aria-hidden="true" className="h-6 w-6" />}
                 label="Modalidad 1"
-                title="Enviar Mensaje Directo"
+                title="Enviar mensaje directo"
                 tone="electric"
               />
               <ContactInfo />
@@ -86,7 +86,7 @@ export default function Contacto() {
               <ModalityHeader
                 icon={<CalendarDays aria-hidden="true" className="h-6 w-6" />}
                 label="Modalidad 2"
-                title="Agendar Asesoría Virtual"
+                title="Agendar reunión virtual"
                 tone="gold"
               />
               <BookingWidget agenda={agenda} />

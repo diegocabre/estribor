@@ -90,7 +90,7 @@ export default function JobApplicationForm({ jobId, jobTitle }: { jobId: string;
             role="status"
           >
             <CheckCircle2 aria-hidden="true" className="h-16 w-16 text-emerald-500 mx-auto mb-6" />
-            <h3 className="text-xl font-bold text-brand-navy mb-2">¡Postulación Enviada!</h3>
+            <h3 className="text-xl font-bold text-brand-navy mb-2">¡Postulación enviada!</h3>
             <p className="text-xs text-brand-gray-dark max-w-sm mx-auto mb-6 leading-relaxed">
               Agradecemos tu interés. Tus antecedentes han sido guardados con éxito para la vacante{" "}
               <strong className="font-semibold text-brand-navy">{jobTitle}</strong>. Los consultores a cargo revisarán
@@ -100,7 +100,7 @@ export default function JobApplicationForm({ jobId, jobTitle }: { jobId: string;
               href="/vacantes"
               className="inline-flex bg-brand-navy hover:bg-brand-blue-med text-white text-xs font-bold py-3 px-6 rounded-xl transition-colors"
             >
-              Ver Otras Vacantes
+              Ver otras vacantes
             </Link>
           </div>
         ) : (
@@ -109,7 +109,7 @@ export default function JobApplicationForm({ jobId, jobTitle }: { jobId: string;
 
             <div className="flex flex-col">
               <label htmlFor="app-name" className={labelClass}>
-                Nombre Completo *
+                Nombre completo *
               </label>
               <input
                 id="app-name"
@@ -158,7 +158,7 @@ export default function JobApplicationForm({ jobId, jobTitle }: { jobId: string;
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col">
                 <label htmlFor="app-email" className={labelClass}>
-                  Correo Electrónico *
+                  Correo electrónico *
                 </label>
                 <input
                   id="app-email"
@@ -204,7 +204,7 @@ export default function JobApplicationForm({ jobId, jobTitle }: { jobId: string;
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col">
                 <label htmlFor="app-salary" className={labelClass}>
-                  Pretensión de Renta (CLP) *
+                  Pretensión de renta (CLP) *
                 </label>
                 <input
                   id="app-salary"
@@ -235,7 +235,7 @@ export default function JobApplicationForm({ jobId, jobTitle }: { jobId: string;
 
             <div className="flex flex-col">
               <label htmlFor="app-linkedin" className={labelClass}>
-                Perfil de LinkedIn (Opcional)
+                Perfil de LinkedIn (opcional)
               </label>
               <input
                 id="app-linkedin"
@@ -306,12 +306,12 @@ export default function JobApplicationForm({ jobId, jobTitle }: { jobId: string;
               {status === "submitting" ? (
                 <>
                   <Loader2 aria-hidden="true" className="h-4 w-4 animate-spin" />
-                  Enviando Postulación...
+                  Enviando postulación...
                 </>
               ) : (
                 <>
                   <Send aria-hidden="true" className="h-4 w-4" />
-                  Enviar Postulación
+                  Enviar postulación
                 </>
               )}
             </button>

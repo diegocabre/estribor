@@ -12,12 +12,12 @@ import { breadcrumbJsonLd } from "@/lib/seo";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Portal de Empleo y Vacantes",
+  title: "Portal de empleo y vacantes",
   description:
     "Postula a procesos de selección y hunting de Estribor Consultores en el sur de Chile, o deja tu CV en nuestra base de talentos.",
   alternates: { canonical: "/vacantes" },
   openGraph: {
-    title: "Portal de Empleo | Estribor Consultores",
+    title: "Portal de empleo | Estribor Consultores",
     description: "Procesos de selección y hunting ejecutivo en Chile. Postula o deja tu CV.",
     url: "/vacantes",
   },
@@ -41,12 +41,12 @@ export default async function VacantesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
           <div className="max-w-3xl">
             <span className="text-brand-gold text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
-              Portal de Empleo & Hunting Estratégico
+              Portal de empleo y hunting ejecutivo
             </span>
             <h1 className="text-3xl sm:text-5xl font-bold tracking-tight mb-4 font-titles leading-tight">
-              Define el Rumbo de tu Carrera{" "}
+              Define el rumbo de tu carrera{" "}
               <span className="text-brand-gold bg-gradient-to-r from-brand-gold to-brand-blue-light bg-clip-text text-transparent">
-                Impulsa tu Talento en Empresas Líderes
+                Impulsa tu talento en empresas líderes
               </span>
             </h1>
             <p className="text-sm sm:text-base text-brand-gray max-w-2xl leading-relaxed mb-6">
@@ -59,13 +59,13 @@ export default async function VacantesPage() {
                 href="#vacantes-lista"
                 className="inline-flex items-center gap-2 bg-brand-gold hover:bg-brand-gold/90 text-brand-navy font-bold px-5 py-2.5 rounded-xl text-xs transition-all shadow-sm"
               >
-                <span>Ver Convocatorias</span>
+                <span>Ver convocatorias</span>
               </a>
               <a
                 href="#espontanea"
                 className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold px-5 py-2.5 rounded-xl text-xs transition-all border border-white/20"
               >
-                <span>Postulación Espontánea</span>
+                <span>Postulación espontánea</span>
               </a>
             </div>
           </div>
@@ -77,7 +77,7 @@ export default async function VacantesPage() {
               className="inline-flex items-center gap-2 text-xs text-brand-gold hover:text-white bg-white/5 hover:bg-white/10 border border-brand-gold/30 hover:border-brand-gold px-4 py-2.5 rounded-xl font-semibold transition-all shadow-sm"
             >
               <Lock aria-hidden="true" className="h-3.5 w-3.5" />
-              <span>Acceso Administrador / Reclutador</span>
+              <span>Acceso administrador / reclutador</span>
             </Link>
           </div>
         </div>

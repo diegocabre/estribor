@@ -11,7 +11,7 @@ export default function VacanteNotFound() {
         href="/vacantes"
         className="inline-flex items-center gap-2 bg-brand-navy text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition-colors"
       >
-        Volver a Vacantes
+        Volver a vacantes
       </Link>
     </div>
   );

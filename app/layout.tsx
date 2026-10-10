@@ -23,12 +23,12 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 const DESCRIPTION =
-  "Consultora boutique especializada en Gestión de Personas, Seguridad y Salud en el Trabajo, y Sostenibilidad Organizacional en Chile. Navega con seguridad hacia la excelencia operacional.";
+  "Consultora boutique de Puerto Varas en seguridad y salud en el trabajo, gestión de personas y sostenibilidad para empresas de la Región de Los Lagos.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} | Seguridad, Gestión y Sostenibilidad`,
+    default: `${SITE_NAME} | Seguridad, personas y sostenibilidad`,
     template: `%s | ${SITE_NAME}`,
   },
   description: DESCRIPTION,
@@ -40,12 +40,12 @@ export const metadata: Metadata = {
     locale: "es_CL",
     siteName: SITE_NAME,
     url: "/",
-    title: `${SITE_NAME} | Seguridad, Gestión y Sostenibilidad`,
+    title: `${SITE_NAME} | Seguridad, personas y sostenibilidad`,
     description: DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_NAME} | Seguridad, Gestión y Sostenibilidad`,
+    title: `${SITE_NAME} | Seguridad, personas y sostenibilidad`,
     description: DESCRIPTION,
   },
   robots: { index: true, follow: true },

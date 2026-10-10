@@ -75,7 +75,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             className="inline-flex items-center gap-2 text-xs font-bold text-brand-navy hover:text-brand-gold-dark transition-colors"
           >
             <ArrowLeft aria-hidden="true" className="h-4 w-4" />
-            Volver al Blog
+            Volver al blog
           </Link>
           <ShareArticleButton title={post.title} text={post.description} />
         </div>
@@ -139,7 +139,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                 href="/#agenda"
                 className="bg-brand-gold hover:bg-brand-gold/90 text-brand-navy px-6 py-3 rounded-xl text-xs font-bold transition-all shrink-0 hover:scale-[1.02] flex items-center gap-2"
               >
-                Agendar Diagnóstico
+                Agendar reunión
                 <ArrowRight aria-hidden="true" className="h-4 w-4" />
               </Link>
             </div>

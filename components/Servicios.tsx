@@ -4,51 +4,51 @@ import { Users2, ShieldCheck, Leaf, Check } from "lucide-react";
 export default function Servicios() {
   const axes = [
     {
-      title: "Gestión de Personas",
-      description: "Alineamos el talento humano con los objetivos del negocio a través de metodologías ágiles y de probada efectividad.",
+      title: "Gestión de personas",
+      description: "Reclutamos, evaluamos y capacitamos personas, y acompañamos cambios de cultura y liderazgo.",
       icon: Users2,
       color: "border-brand-blue-light/20 hover:border-brand-blue-light/50",
       iconColor: "text-brand-blue-light bg-brand-blue-light/10",
       list: [
-        "Reclutamiento y Selección",
+        "Reclutamiento y selección",
         "Outsourcing",
-        "Hunting Ejecutivo",
-        "Desarrollo Organizacional",
+        "Hunting ejecutivo",
+        "Desarrollo organizacional",
         "Evaluaciones | Assessment",
         "Capacitación",
-        "Cultura y Comunicaciones",
+        "Cultura y comunicaciones",
         "Liderazgo",
       ],
     },
     {
-      title: "Seguridad y Salud en el Trabajo",
-      description: "Construimos culturas preventivas y sistemas de gestión de excelencia para mitigar riesgos operacionales.",
+      title: "Seguridad y salud en el trabajo",
+      description: "Diagnosticamos, auditamos e implementamos sistemas de gestión y la normativa vigente: DS 44, IRL, RIOHS y Ley Karin.",
       icon: ShieldCheck,
       color: "border-brand-gold/20 hover:border-brand-gold/50",
       iconColor: "text-brand-gold bg-brand-gold/10",
       list: [
-        "Diagnósticos y Línea Base",
-        "Auditorías de Cumplimiento",
-        "Diseño e Implementación de Sistemas de Gestión",
-        "Cumplimiento Normativo (DS44, IRL, RIOHS, Ley Karin)",
-        "Cultura Preventiva",
-        "Capacitación en Seguridad Ocupacional",
+        "Diagnósticos y línea base",
+        "Auditorías de cumplimiento",
+        "Diseño e implementación de sistemas de gestión",
+        "Cumplimiento normativo (DS 44, IRL, RIOHS, Ley Karin)",
+        "Cultura preventiva",
+        "Capacitación en seguridad ocupacional",
       ],
     },
     {
-      title: "Sostenibilidad Organizacional",
-      description: "Integramos la sostenibilidad y la gobernanza en el ADN corporativo para la viabilidad de largo plazo.",
+      title: "Sostenibilidad organizacional",
+      description: "Analizamos materialidad, medimos huella hídrica y de carbono, y preparamos reportes e indicadores ESG.",
       icon: Leaf,
       color: "border-emerald-500/20 hover:border-emerald-500/50",
       iconColor: "text-emerald-600 bg-emerald-500/10",
       list: [
-        "Análisis de Materialidad",
-        "Gestión de Riesgos Ambientales y Sociales",
-        "Cumplimiento Regulatorio y Reportabilidad",
-        "Reportes de Sostenibilidad (GRI y otros estándares)",
-        "Sostenibilidad y Gestión Organizacional",
-        "Diseño de Estrategias e Indicadores ESG",
-        "Medición de Huella Hídrica y de Carbono",
+        "Análisis de materialidad",
+        "Gestión de riesgos ambientales y sociales",
+        "Cumplimiento regulatorio y reportabilidad",
+        "Reportes de sostenibilidad (GRI y otros estándares)",
+        "Sostenibilidad y gestión organizacional",
+        "Diseño de estrategias e indicadores ESG",
+        "Medición de huella hídrica y de carbono",
       ],
     },
   ];
@@ -63,13 +63,13 @@ export default function Servicios() {
         {/* Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-brand-gold-dark text-xs font-bold tracking-widest uppercase block mb-3 font-sans">
-            Áreas de Especialización
+            Áreas de especialización
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight mb-4">
-            Nuestros Servicios
+            Nuestros servicios
           </h2>
           <p className="text-base text-brand-gray-dark leading-relaxed">
-            Brindamos soluciones integrales y adaptadas a los desafíos de industrias productivas, extractivas y de servicios.
+            Qué hacemos en cada una de nuestras tres áreas.
           </p>
         </div>
 
@@ -118,7 +118,7 @@ export default function Servicios() {
                     href="#agenda"
                     className="inline-flex items-center justify-center w-full bg-brand-navy hover:bg-brand-blue-med text-white text-sm font-semibold py-3 px-4 rounded-xl transition-colors shadow-sm"
                   >
-                    Solicitar Propuesta
+                    Agendar reunión
                   </a>
                 </div>
 

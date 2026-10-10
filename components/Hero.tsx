@@ -23,17 +23,17 @@ export default function Hero() {
           >
             <div className="inline-flex items-center justify-center lg:justify-start gap-2 mb-4">
               <span className="bg-brand-gold/10 text-brand-gold-dark text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full border border-brand-gold/20">
-                Consultoría Estratégica
+                Consultora boutique
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-brand-navy leading-tight mb-6">
-              Navega con Seguridad hacia la{" "}
-              <span className="text-brand-gold-dark">Excelencia Operacional</span>
+            <h1 className="text-3xl sm:text-5xl xl:text-6xl font-bold tracking-tight text-brand-navy leading-tight mb-6">
+              Seguridad, personas y sostenibilidad para la{" "}
+              <span className="text-brand-gold-dark">industria de Los Lagos</span>
             </h1>
 
             <p className="text-base sm:text-lg lg:text-xl text-brand-gray-dark mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-              Acompañamos a empresas en el diseño e implementación de soluciones estratégicas que fortalecen su gestión, desarrollan sus equipos y promueven operaciones más seguras, eficientes y sostenibles.
+              Desde Puerto Varas, para acuicultura, construcción e industria: Ley Karin, DS 44, sistemas de gestión, reclutamiento y reportes de sostenibilidad.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
