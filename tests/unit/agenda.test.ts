@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   chileLocalToUtc,
+  formatDisplayDate,
   formatLongDate,
   getMeetingRange,
   getUpcomingDates,
@@ -18,6 +19,13 @@ describe("formatLongDate", () => {
   it("usa el mismo formato que se guarda en bookings.date", () => {
     expect(formatLongDate("2026-10-05")).toBe("Lunes, 5 de Octubre de 2026");
     expect(formatLongDate("2026-12-31")).toBe("Jueves, 31 de Diciembre de 2026");
+  });
+});
+
+describe("formatDisplayDate", () => {
+  it("escribe el mes en minúscula para mostrarlo", () => {
+    expect(formatDisplayDate("2026-10-05")).toBe("Lunes, 5 de octubre de 2026");
+    expect(formatDisplayDate("2026-12-31")).toBe("Jueves, 31 de diciembre de 2026");
   });
 });
 

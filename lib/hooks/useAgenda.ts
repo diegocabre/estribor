@@ -3,6 +3,7 @@
 import { useEffect, useState, useSyncExternalStore } from "react";
 import {
   OBJECTIVES,
+  formatDisplayDate,
   formatLongDate,
   getUpcomingDates,
   isSlotUnavailable,
@@ -68,8 +69,8 @@ export function useAgenda() {
   }, []);
 
   const selectedDate = dates.find((d) => d.dateStr === selectedDateStr);
-  /** Fecha larga visible, p. ej. "Lunes, 6 de Julio de 2026". */
-  const selectedDateLabel = selectedDateStr ? formatLongDate(selectedDateStr) : "";
+  /** Fecha larga visible, p. ej. "Lunes, 6 de julio de 2026". */
+  const selectedDateLabel = selectedDateStr ? formatDisplayDate(selectedDateStr) : "";
 
   const isTimeUnavailable = (time: TimeSlot) =>
     !selectedDateStr || isSlotUnavailable(bookedSlots, selectedDateStr, time, nowInChile());
@@ -119,7 +120,8 @@ export function useAgenda() {
         throw new Error(data.error || "No se pudo realizar el agendamiento.");
       }
 
-      setBookedSlots((prev) => [...prev, { date: selectedDateLabel, time: selectedTime }]);
+      // Las reservas se cruzan por la clave guardada en bookings.date, no por el texto visible.
+      setBookedSlots((prev) => [...prev, { date: formatLongDate(selectedDateStr), time: selectedTime }]);
       trackConversion("reunion_agendada", { duracion: duration, objetivo: details.objective });
       setStep("success");
     } catch (err) {

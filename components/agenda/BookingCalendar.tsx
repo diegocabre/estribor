@@ -48,7 +48,7 @@ export default function BookingCalendar({ agenda }: { agenda: AgendaState }) {
                 type="button"
                 onClick={() => agenda.selectDate(d.dateStr)}
                 aria-pressed={isSelected}
-                aria-label={d.fullDate}
+                aria-label={d.label}
                 className={`flex flex-col items-center py-2.5 px-1 rounded-xl transition-all border ${
                   isSelected
                     ? "bg-brand-gold text-brand-navy border-brand-gold font-bold shadow-md scale-105"

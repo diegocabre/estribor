@@ -49,6 +49,7 @@ Diferencia que una consultora vecina no podría copiar tal cual:
 - **Sectores que el sitio declara:** acuicultura, industria, energía, construcción, alimentos y servicios. Respaldados por la experiencia previa del equipo: acuicultura/salmonicultura, construcción e industrias productivas en general. Minería e industria pesada **no** están respaldadas (aparecen solo en /equipo y deben salir).
 - **Vocabulario del cliente que el sitio debe usar con naturalidad:** DS 44, IRL, RIOHS, Ley Karin, matriz IPER, MINSAL, mutualidad, ISO 45001, ISO 14001, ASC, BAP, GRI, ESG, faena, centro de cultivo, jefaturas, colaboradores.
 - **Canales de conversión del sitio:** formulario de contacto, agenda de reunión virtual con duración elegible, WhatsApp, correo, teléfono.
+- **Oferta confirmada (10-oct-2026):** sesión de diagnóstico gratuita de 15 minutos (se ofrece al final de cada artículo del blog).
 - **Otras superficies:** Servicios, Misión y Visión, Equipo, Blog, Portal de Empleo (con administración interna), páginas legales.
 
 ## Capabilities and Constraints

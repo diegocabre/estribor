@@ -22,7 +22,7 @@ test("agenda una reunión de punta a punta", async ({ page }) => {
   const calendar = page.getByRole("group", { name: "2. Selecciona fecha" });
   await expect(calendar.getByRole("button")).toHaveCount(5);
   await page.getByRole("button", { name: "45 min" }).click();
-  await calendar.getByRole("button", { name: "Martes, 6 de Octubre de 2026" }).click();
+  await calendar.getByRole("button", { name: "Martes, 6 de octubre de 2026" }).click();
 
   // El horario reservado por otra persona aparece bloqueado.
   const times = page.getByRole("group", { name: /Horario disponible/ });
@@ -37,7 +37,7 @@ test("agenda una reunión de punta a punta", async ({ page }) => {
   await page.getByRole("button", { name: "Confirmar cita" }).click();
 
   await expect(page.getByText("¡Cita confirmada!")).toBeVisible();
-  await expect(page.getByText("Martes, 6 de Octubre de 2026 a las 12:00 hrs")).toBeVisible();
+  await expect(page.getByText("Martes, 6 de octubre de 2026 a las 12:00 hrs")).toBeVisible();
   expect(requests[0]).toMatchObject({
     dateStr: "2026-10-06",
     time: "12:00",
@@ -51,7 +51,7 @@ test("agenda una reunión de punta a punta", async ({ page }) => {
 test("los horarios de hoy que ya pasaron no se pueden elegir", async ({ page }) => {
   await page.goto("/contacto");
 
-  await page.getByRole("button", { name: "Lunes, 5 de Octubre de 2026" }).click();
+  await page.getByRole("button", { name: "Lunes, 5 de octubre de 2026" }).click();
   const times = page.getByRole("group", { name: /Horario disponible/ });
   await expect(times.getByRole("button", { name: "09:00 horas, no disponible" })).toBeDisabled();
   await expect(times.getByRole("button", { name: "12:00 horas, no disponible" })).toBeDisabled();
@@ -65,7 +65,7 @@ test("si otra persona reservó primero, muestra el error y deja elegir otro hora
   });
   await page.goto("/contacto");
 
-  await page.getByRole("button", { name: "Martes, 6 de Octubre de 2026" }).click();
+  await page.getByRole("button", { name: "Martes, 6 de octubre de 2026" }).click();
   await page.getByRole("button", { name: "14:30 horas" }).click();
   await page.getByRole("button", { name: "Completar datos de la reunión" }).click();
   await page.getByLabel("Nombre Completo *").fill("Ana Soto");

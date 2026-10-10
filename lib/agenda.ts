@@ -31,8 +31,10 @@ const MONTH_NAMES = [
 export interface AgendaDate {
   dayName: string;
   dayNum: string;
-  /** Texto largo que también se guarda en `bookings.date`, p. ej. "Lunes, 6 de Julio de 2026". */
+  /** Clave que se guarda en `bookings.date`, p. ej. "Lunes, 6 de Julio de 2026". Ver formatLongDate. */
   fullDate: string;
+  /** Texto para mostrar, con el mes en minúscula: "Lunes, 6 de julio de 2026". */
+  label: string;
   /** Fecha ISO "YYYY-MM-DD". */
   dateStr: string;
 }
@@ -53,9 +55,20 @@ export function isWeekend(dateStr: string): boolean {
   return day === 0 || day === 6;
 }
 
+/**
+ * Clave de la reserva en `bookings.date` (único junto con `time`). Conserva el mes con mayúscula
+ * porque así están guardadas las reservas existentes: cambiarlo sin migrar la tabla haría que
+ * esas reservas dejaran de bloquear su horario. Para mostrar en pantalla usar formatDisplayDate.
+ */
 export function formatLongDate(dateStr: string): string {
   const { y, m, d } = parseDateStr(dateStr);
   return `${FULL_DAY_NAMES[weekdayOf(dateStr)]}, ${d} de ${MONTH_NAMES[m - 1]} de ${y}`;
+}
+
+/** Fecha para mostrar, con el mes en minúscula como se escribe en español: "Lunes, 5 de octubre de 2026". */
+export function formatDisplayDate(dateStr: string): string {
+  const { y, m, d } = parseDateStr(dateStr);
+  return `${FULL_DAY_NAMES[weekdayOf(dateStr)]}, ${d} de ${MONTH_NAMES[m - 1].toLowerCase()} de ${y}`;
 }
 
 export function toAgendaDate(dateStr: string): AgendaDate {
@@ -64,6 +77,7 @@ export function toAgendaDate(dateStr: string): AgendaDate {
     dayName: DAY_NAMES[weekdayOf(dateStr)],
     dayNum: String(d).padStart(2, "0"),
     fullDate: formatLongDate(dateStr),
+    label: formatDisplayDate(dateStr),
     dateStr,
   };
 }

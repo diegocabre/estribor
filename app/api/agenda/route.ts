@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import {
   MAX_DAYS_AHEAD,
   addDays,
+  formatDisplayDate,
   formatLongDate,
   getMeetingRange,
   getUpcomingDates,
@@ -128,8 +129,10 @@ export async function POST(request: NextRequest) {
     return jsonError("El horario seleccionado no está disponible. Por favor, elige otro.", 400);
   }
 
-  // La fecha visible se calcula aquí: el cliente no decide qué se guarda.
+  // La fecha se calcula aquí: el cliente no decide qué se guarda. `date` es la clave de
+  // bookings.date; `displayDate` (mes en minúscula) es la que leen las personas en los correos.
   const date = formatLongDate(input.dateStr);
+  const displayDate = formatDisplayDate(input.dateStr);
 
   try {
     const { error } = await getSupabaseAdmin().from("bookings").insert({
@@ -174,19 +177,19 @@ export async function POST(request: NextRequest) {
   });
   const icsUrl = `${getSiteUrl()}/api/agenda?${icsParams.toString()}`;
 
-  const emailData = { ...input, date, googleUrl, icsUrl };
+  const emailData = { ...input, date: displayDate, googleUrl, icsUrl };
   const subjectName = stripControlChars(input.name);
 
   // La reserva ya quedó guardada: un fallo de correo no la deshace, pero se informa.
   const results = await Promise.allSettled([
     sendEmail({
       to: input.email,
-      subject: `Confirmación de Reunión: Estribor Consultores - ${date} a las ${input.time}`,
+      subject: `Confirmación de Reunión: Estribor Consultores - ${displayDate} a las ${input.time}`,
       html: bookingClientEmail(emailData),
     }),
     sendEmail({
       to: getNotificationRecipient(),
-      subject: `[Nueva Reunión] ${subjectName} - ${date} a las ${input.time}`,
+      subject: `[Nueva Reunión] ${subjectName} - ${displayDate} a las ${input.time}`,
       html: bookingAdminEmail(emailData),
     }),
   ]);
