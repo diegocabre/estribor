@@ -3,36 +3,37 @@ import JsonLd from "@/components/seo/JsonLd";
 import { teamMembers } from "@/lib/content/team";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 import Reveal from "@/components/ui/Reveal";
-import { CheckCircle2, ShieldCheck, Scale, Users2, Award } from "lucide-react";
+import { CheckCircle2, ShieldCheck, Megaphone, Users2, Handshake } from "lucide-react";
 
+// Todo lo que se afirma aquí sale de las biografías de lib/content/team.ts (ver PRODUCT.md).
 export const metadata = pageMetadata({
   title: "Nuestro equipo",
   description:
-    "Conoce al equipo de Estribor Consultores: especialistas en gestión de personas, atracción de talento, comunicaciones corporativas, cultura y gestión del cambio.",
+    "Conoce al equipo de Estribor Consultores: prevención de riesgos, atracción de talento, gestión de personas, comunicaciones corporativas, cultura y gestión del cambio.",
   path: "/equipo",
 });
 
 export default function EquipoPage() {
   const pillars = [
     {
-      title: "Prevención de riesgos e ingeniería",
+      title: "Prevención de riesgos",
       subtitle: "Seguridad y salud en el trabajo",
-      description: "Nuestros consultores son ingenieros especialistas con más de 10 y 15 años de trayectoria implementando sistemas de gestión preventiva de riesgos y protocolos de salud ocupacional en minería, industria pesada y construcción.",
+      description: "Programas preventivos, sistemas de gestión, normativa MINSAL y preparación para certificaciones ASC, BAP e ISO, con experiencia en construcción y salmonicultura.",
       icon: ShieldCheck,
       color: "border-brand-electric text-brand-electric bg-brand-electric/5",
     },
     {
-      title: "Asesoría legal y regulatoria",
-      subtitle: "Cumplimiento Normativo",
-      description: "Contamos con un equipo legal enfocado en auditorías regulatorias, cumplimiento normativo laboral y ambiental, y defensa técnica corporativa frente a infracciones.",
-      icon: Scale,
+      title: "Personas y talento",
+      subtitle: "Gestión de personas",
+      description: "Atracción y selección de talento con base en psicología organizacional, y gestión de personas alineada con los objetivos del negocio.",
+      icon: Users2,
       color: "border-brand-blue-med text-brand-blue-med bg-brand-blue-med/5",
     },
     {
-      title: "Gestión y clima organizacional",
-      subtitle: "Desarrollo de Procesos y Cambio",
-      description: "Psicólogos organizacionales y expertos en administración asesoran a las gerencias en el diseño de estructuras eficaces, liderazgo directivo y fortalecimiento del clima interno.",
-      icon: Users2,
+      title: "Comunicaciones, cultura y cambio",
+      subtitle: "Desarrollo organizacional",
+      description: "Comunicaciones corporativas, cultura, gestión del cambio y de crisis, y reportabilidad de sostenibilidad.",
+      icon: Megaphone,
       color: "border-brand-gray text-brand-gray bg-brand-gray/5",
     },
   ];
@@ -41,10 +42,10 @@ export default function EquipoPage() {
   const consultants = teamMembers.filter((m) => m.group === "consultor");
 
   const highlights = [
-    "Profesionales seniors con postgrados y certificaciones vigentes.",
-    "Amplia experiencia en auditorías de sistemas ISO 45001 e ISO 14001.",
-    "Presencia local y cobertura técnica a lo largo de todo Chile.",
-    "Capacidad de integración multidisciplinaria para abordar problemáticas complejas.",
+    "Más de 10 años en industrias productivas: gestión de personas, comunicaciones corporativas, compliance y sostenibilidad.",
+    "Prevención de riesgos en construcción y salmonicultura, con certificaciones ASC, BAP e ISO.",
+    "Psicología organizacional aplicada a la atracción y selección de talento.",
+    "Oficina en Puerto Varas y trabajo en la Región de Los Lagos.",
   ];
 
   return (
@@ -68,7 +69,7 @@ export default function EquipoPage() {
             Equipo multidisciplinario
           </h1>
           <p className="text-base text-brand-gray-dark leading-relaxed">
-            En <strong className="font-semibold text-brand-navy">Estribor Consultores</strong> no dependemos de individualidades, sino de la fuerza colectiva de nuestra red de consultores seniors con una sólida base técnica y legal.
+            Estas son las personas que atienden a los clientes de <strong className="font-semibold text-brand-navy">Estribor Consultores</strong>: prevención de riesgos, selección de personas, comunicaciones y gestión, en un mismo equipo.
           </p>
         </div>
 
@@ -176,10 +177,10 @@ export default function EquipoPage() {
 
           <div className="relative z-10 max-w-4xl">
             <h2 className="text-2xl sm:text-3xl font-bold mb-4 tracking-tight">
-              Sólida trayectoria al servicio de tu empresa
+              Una empresa nueva con un equipo con trayectoria
             </h2>
             <p className="text-base sm:text-lg text-white/80 leading-relaxed mb-8">
-              Contamos con una red de profesionales con más de 10 y 15 años de experiencia acumulada en diversos sectores productivos de Chile. Esta diversidad disciplinaria nos permite abordar de forma integral la seguridad laboral, el cumplimiento fiscal-regulatorio y la eficiencia operacional de nuestros clientes.
+              Estribor partió en 2026. La experiencia que ponemos a tu disposición es la que cada integrante construyó antes, trabajando dentro de industrias productivas y de servicios.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -228,8 +229,8 @@ export default function EquipoPage() {
                   </div>
 
                   <div className="mt-auto pt-6 border-t border-brand-gray/5 text-xs text-brand-gray-dark flex items-center gap-2">
-                    <Award className="h-4.5 w-4.5 text-brand-electric" />
-                    <span>Consultores Senior Asignados por Proyecto</span>
+                    <Handshake aria-hidden="true" className="h-4.5 w-4.5 text-brand-electric" />
+                    <span>Trato directo con quien ejecuta el trabajo</span>
                   </div>
                 </Reveal>
               );

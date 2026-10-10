@@ -115,12 +115,12 @@ Afirmaciones que el sitio hace hoy y que necesitan respaldo:
 | "Tasa de accidentabilidad disminuida en un 42 %" | Casos, portada | **No real.** Eliminar |
 | Sección "Casos de Experiencia" completa | Portada | Los cuatro tipos de trabajo **son reales, pero los hizo el equipo en otra empresa, antes de Estribor** (confirmado). Se pueden contar como experiencia del equipo, sin cifras, sin nombrar al empleador ni al cliente y sin presentarlos como proyectos de Estribor |
 | "Consultores que han liderado operaciones reales" | Por qué Estribor | Válido solo en la medida de las biografías (experiencia previa a Estribor) |
-| "Ingenieros especialistas con más de 10 y 15 años… en minería, industria pesada y construcción" | /equipo | **Sin respaldo.** Eliminar |
-| "Contamos con un equipo legal… defensa técnica corporativa" | /equipo | **Sin respaldo.** Eliminar |
-| "Psicólogos organizacionales y expertos en administración" (en plural) | /equipo | Ajustar a lo publicable (una psicóloga organizacional en el equipo) |
-| "Amplia experiencia en auditorías ISO 45001 e ISO 14001" | /equipo | **Sin respaldo.** Usar solo "sistemas de gestión y certificaciones ASC, BAP e ISO" (Fabián) |
-| "Profesionales seniors con postgrados y certificaciones vigentes" | /equipo | **Sin respaldo.** Eliminar o reducir a lo de las biografías (diplomado de Dayana) |
-| "Presencia local y cobertura técnica a lo largo de todo Chile" | /equipo | **Sin respaldo.** Cambiar a Región de Los Lagos |
+| "Ingenieros especialistas con más de 10 y 15 años… en minería, industria pesada y construcción" | /equipo | Corregido el 10-oct-2026 |
+| "Contamos con un equipo legal… defensa técnica corporativa" | /equipo | Corregido el 10-oct-2026 |
+| "Psicólogos organizacionales y expertos en administración" (en plural) | /equipo | Corregido el 10-oct-2026 |
+| "Amplia experiencia en auditorías ISO 45001 e ISO 14001" | /equipo | Corregido el 10-oct-2026 |
+| "Profesionales seniors con postgrados y certificaciones vigentes" | /equipo | Corregido el 10-oct-2026 |
+| "Presencia local y cobertura técnica a lo largo de todo Chile" | /equipo | Corregido el 10-oct-2026 en /equipo; aún aparece en el portal de empleo (`app/vacantes/page.tsx`) |
 | `areaServed: Chile` | Datos estructurados (`lib/seo.ts`) | Cambiar a Región de Los Lagos |
 | "Trayectoria de impacto", "relaciones de confianza duraderas" | Portada | Empresa de 2026: no implicar historia propia |
 | "Consultora líder y referente" | Visión | Aceptable solo como aspiración (visión), no como hecho |
