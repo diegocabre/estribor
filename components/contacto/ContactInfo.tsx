@@ -1,9 +1,9 @@
 import { Mail, Phone } from "lucide-react";
+import { legalConfig } from "@/lib/legalConfig";
 
-const EMAIL = "contacto@estriborconsultores.cl";
-// TODO(confirmar): lib/legalConfig.ts usa otro número (+56 9 8722 2243). Unificar cuando se confirme cuál es el vigente.
-const PHONE_DISPLAY = "+56 9 4167 6239";
-const PHONE_HREF = "tel:+56941676239";
+const EMAIL = legalConfig.contactEmail;
+const PHONE_DISPLAY = legalConfig.phone;
+const PHONE_HREF = `tel:${legalConfig.phone.replace(/\s/g, "")}`;
 
 /** Franja con correo y teléfono directo. */
 export default function ContactInfo() {

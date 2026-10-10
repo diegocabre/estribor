@@ -3,12 +3,12 @@
 export const legalConfig = {
   companyName: "Estribor Consultores SpA",
   brandName: "Estribor Consultores",
-  companyRut: "78.406.406-9", // Reemplazar con RUT real del cliente
+  companyRut: "78.406.406-9",
   companyAddress: "Parque Westfalia 1, Puerto Varas",
   contactEmail: "contacto@estriborconsultores.cl",
   privacyEmail: "contacto@estriborconsultores.cl", // Casilla para ejercicio de derechos ARCOP
   websiteUrl: "https://www.estriborconsultores.cl/",
-  phone: "+56 9 8722 2243",
+  phone: "+56 9 4167 6239",
   lastUpdated: "1 de septiembre de 2026",
   cityJurisdiction: "Puerto Varas, Chile",
   country: "Chile",
