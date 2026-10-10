@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 interface Case {
   title: string;
   sector: string;
+  /** Solo se muestra en el caso destacado; en los secundarios se conserva como referencia. */
   challenge: string;
   solution: string;
 }
@@ -81,16 +82,13 @@ export default function CasosExperiencia() {
           </div>
         </Reveal>
 
-        {/* Resto de los casos: columnas de texto separadas por una línea superior. */}
+        {/* Resto de los casos: solo la solución, en columnas de texto separadas por una línea superior. */}
         <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
           {OTHERS.map((item) => (
             <article key={item.title} className="border-t border-brand-gray/40 pt-6">
               <p className="text-sm font-semibold text-brand-gold-dark mb-2">{item.sector}</p>
-              <h3 className="font-titles text-xl font-bold text-brand-navy mb-4 leading-snug">{item.title}</h3>
-              <div className="space-y-4">
-                <Detail label="El desafío" text={item.challenge} tone="light" />
-                <Detail label="La solución" text={item.solution} tone="light" />
-              </div>
+              <h3 className="font-titles text-xl font-bold text-brand-navy mb-3 leading-snug">{item.title}</h3>
+              <p className="text-sm text-brand-gray-dark leading-relaxed">{item.solution}</p>
             </article>
           ))}
         </div>
