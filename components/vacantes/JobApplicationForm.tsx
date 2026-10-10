@@ -89,7 +89,7 @@ export default function JobApplicationForm({ jobId, jobTitle }: { jobId: string;
             className="animate-scale-in text-center py-10"
             role="status"
           >
-            <CheckCircle2 aria-hidden="true" className="h-16 w-16 text-emerald-500 mx-auto mb-6" />
+            <CheckCircle2 aria-hidden="true" className="h-16 w-16 text-brand-electric mx-auto mb-6" />
             <h3 className="text-xl font-bold text-brand-navy mb-2">¡Postulación enviada!</h3>
             <p className="text-xs text-brand-gray-dark max-w-sm mx-auto mb-6 leading-relaxed">
               Agradecemos tu interés. Tus antecedentes han sido guardados con éxito para la vacante{" "}

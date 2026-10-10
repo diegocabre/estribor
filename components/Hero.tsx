@@ -7,12 +7,7 @@ export default function Hero() {
       id="inicio"
       className="relative pt-28 pb-16 md:pt-36 md:pb-24 lg:pt-40 lg:pb-32 overflow-hidden bg-gradient-to-b from-white via-brand-bg to-brand-bg"
     >
-      {/* Decorative background grid lines */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgb(125_126_128/0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgb(125_126_128/0.05)_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
 
-      {/* Floating abstract gradients */}
-      <div className="absolute top-1/4 -right-1/4 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] bg-brand-electric/10 rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute bottom-0 -left-1/4 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] bg-brand-blue-med/10 rounded-full blur-3xl pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
@@ -64,8 +59,6 @@ export default function Hero() {
                 className="animate-rotate-slower-reverse absolute w-[85%] h-[85%] border border-brand-blue-light/20 rounded-full"
               ></div>
 
-              {/* Glowing Background */}
-              <div className="absolute w-3/4 h-3/4 bg-gradient-to-tr from-brand-gold/25 to-white/10 rounded-full blur-2xl animate-compass-pulse"></div>
 
               {/* Main Brand Image */}
               <div className="relative w-3/4 h-3/4 select-none drop-shadow-[0_10px_20px_rgba(0,31,66,0.15)]">

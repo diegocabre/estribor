@@ -126,7 +126,6 @@ export default async function BlogPostPage({ params }: PageProps) {
           </div>
 
           <aside className="mt-12 p-8 bg-brand-navy text-white rounded-2xl relative overflow-hidden shadow-md">
-            <div className="absolute right-0 bottom-0 translate-x-12 translate-y-12 opacity-10 w-48 h-48 bg-brand-gold rounded-full blur-2xl"></div>
             <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
               <div>
                 <h2 className="text-lg font-bold text-white mb-2 font-titles">¿Quieres aplicar esto en tu organización?</h2>

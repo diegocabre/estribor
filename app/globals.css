@@ -7,7 +7,7 @@
 
 @theme {
   --font-sans: var(--font-open-sans), system-ui, sans-serif;
-  --font-titles: var(--font-plus-jakarta), system-ui, sans-serif;
+  --font-titles: var(--font-bricolage), system-ui, sans-serif;
   
   --color-brand-navy: #0F1D33;
   --color-brand-blue-light: #3F7096;

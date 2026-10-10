@@ -39,8 +39,8 @@ export default function Servicios() {
       title: "Sostenibilidad organizacional",
       description: "Analizamos materialidad, medimos huella hídrica y de carbono, y preparamos reportes e indicadores ESG.",
       icon: Leaf,
-      color: "border-emerald-500/20 hover:border-emerald-500/50",
-      iconColor: "text-emerald-600 bg-emerald-500/10",
+      color: "border-brand-navy/15 hover:border-brand-navy/40",
+      iconColor: "text-brand-navy bg-brand-navy/5",
       list: [
         "Análisis de materialidad",
         "Gestión de riesgos ambientales y sociales",
@@ -55,8 +55,6 @@ export default function Servicios() {
 
   return (
     <section id="servicios-home" className="py-24 bg-white relative overflow-hidden">
-      {/* Decorative bg gradient */}
-      <div className="absolute right-0 bottom-0 w-[400px] h-[400px] bg-brand-bg rounded-full blur-3xl opacity-50 pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         

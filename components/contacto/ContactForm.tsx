@@ -71,7 +71,7 @@ export default function ContactForm() {
           className="animate-scale-in flex flex-col items-center text-center py-12"
           role="status"
         >
-          <CheckCircle2 aria-hidden="true" className="h-14 w-14 text-emerald-500 mb-4 motion-safe:animate-bounce" />
+          <CheckCircle2 aria-hidden="true" className="h-14 w-14 text-brand-electric mb-4" />
           <h4 className="text-xl font-bold text-brand-navy mb-2">¡Mensaje enviado con éxito!</h4>
           <p className="text-sm text-brand-gray-dark max-w-sm mb-6">
             Agradecemos tu interés. Uno de nuestros consultores especializados responderá a tu solicitud a la brevedad.

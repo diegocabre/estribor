@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Open_Sans, Plus_Jakarta_Sans } from "next/font/google";
+import { Bricolage_Grotesque, Open_Sans } from "next/font/google";
 import "./globals.css";
 import ConsentAnalytics from "@/components/analytics/ConsentAnalytics";
 import CookieBanner from "@/components/CookieBanner";
@@ -9,16 +9,18 @@ import JsonLd from "@/components/seo/JsonLd";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
 import { SITE_NAME, SITE_URL, localBusinessJsonLd, organizationJsonLd } from "@/lib/seo";
 
-// Fuentes variables: un archivo por familia cubre todos los pesos usados (300–800).
+// Fuentes variables: un archivo por familia cubre todos los pesos usados. Títulos en Bricolage Grotesque
+// (licencia OFL) con su eje de tamaño óptico: el dibujo se ajusta solo según el tamaño del título.
 const openSans = Open_Sans({
   subsets: ["latin"],
   variable: "--font-open-sans",
   display: "swap",
 });
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const bricolageGrotesque = Bricolage_Grotesque({
   subsets: ["latin"],
-  variable: "--font-plus-jakarta",
+  axes: ["opsz"],
+  variable: "--font-bricolage",
   display: "swap",
 });
 
@@ -60,7 +62,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es-CL" className={`${openSans.variable} ${plusJakartaSans.variable} h-full antialiased scroll-smooth`}>
+    <html lang="es-CL" className={`${openSans.variable} ${bricolageGrotesque.variable} h-full antialiased scroll-smooth`}>
       <head>
         {/* Sin JavaScript, el contenido animado con <Reveal> debe verse igual. */}
         <noscript>

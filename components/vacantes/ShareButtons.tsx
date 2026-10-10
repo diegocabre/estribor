@@ -39,7 +39,7 @@ export default function ShareButtons({ title }: { title: string }) {
         type="button"
         onClick={shareOnWhatsApp}
         aria-label="Compartir vacante por WhatsApp"
-        className="px-3 py-1.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-lg text-xs font-bold transition-all hover:bg-emerald-100 flex items-center gap-1.5"
+        className="px-3 py-1.5 bg-white text-brand-navy border border-brand-gray/50 rounded-lg text-xs font-bold transition-colors hover:bg-brand-bg flex items-center gap-1.5"
       >
         WhatsApp
       </button>
@@ -47,7 +47,7 @@ export default function ShareButtons({ title }: { title: string }) {
         type="button"
         onClick={shareOnLinkedIn}
         aria-label="Compartir vacante en LinkedIn"
-        className="px-3 py-1.5 bg-sky-50 text-sky-700 border border-sky-200 rounded-lg text-xs font-bold transition-all hover:bg-sky-100 flex items-center gap-1.5"
+        className="px-3 py-1.5 bg-white text-brand-navy border border-brand-gray/50 rounded-lg text-xs font-bold transition-colors hover:bg-brand-bg flex items-center gap-1.5"
       >
         LinkedIn
       </button>

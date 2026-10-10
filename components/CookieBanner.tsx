@@ -54,7 +54,6 @@ export default function CookieBanner() {
       className="animate-pop-in fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-50"
     >
       <div className="bg-brand-navy text-white border border-brand-blue-med/80 shadow-2xl rounded-2xl p-5 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-brand-electric/10 rounded-full blur-2xl pointer-events-none" />
 
         <div className="flex items-start gap-3.5 relative z-10">
           <div className="w-9 h-9 rounded-xl bg-brand-gold/15 flex items-center justify-center text-brand-gold shrink-0 mt-0.5">

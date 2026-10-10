@@ -30,8 +30,6 @@ export default function QuienesSomos() {
 
   return (
     <section id="quienes-somos" className="py-20 md:py-28 bg-white relative overflow-hidden">
-      {/* Abstract decorations */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-brand-bg rounded-full blur-3xl pointer-events-none opacity-50"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">

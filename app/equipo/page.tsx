@@ -56,8 +56,6 @@ export default function EquipoPage() {
           { name: "Equipo", path: "/equipo" },
         ])}
       />
-      {/* Decorative background grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgb(125_126_128/0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgb(125_126_128/0.05)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Page Header */}

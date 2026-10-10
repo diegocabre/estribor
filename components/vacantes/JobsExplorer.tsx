@@ -131,7 +131,7 @@ export default function JobsExplorer({ jobs }: { jobs: Job[] }) {
               className={`p-6 sm:p-8 rounded-2xl shadow-sm transition-all duration-300 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 border ${
                 job.active
                   ? "bg-white border-brand-gray/10 hover:border-brand-gold/40 hover:shadow-md"
-                  : "bg-slate-50/90 border-emerald-200/60 hover:border-emerald-300"
+                  : "bg-brand-bg border-brand-gray/30 hover:border-brand-gray/60"
               }`}
             >
               <div className="space-y-3">
@@ -141,13 +141,13 @@ export default function JobsExplorer({ jobs }: { jobs: Job[] }) {
                   </span>
 
                   {job.active ? (
-                    <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full uppercase tracking-wider flex items-center gap-1.5">
-                      <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span className="text-[10px] font-bold text-brand-electric bg-brand-electric/10 border border-brand-electric/30 px-2.5 py-0.5 rounded-full uppercase tracking-wider flex items-center gap-1.5">
+                      <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-brand-electric"></span>
                       Convocatoria abierta
                     </span>
                   ) : (
-                    <span className="text-[10px] font-bold text-emerald-900 bg-emerald-100 border border-emerald-300 px-2.5 py-0.5 rounded-full uppercase tracking-wider flex items-center gap-1.5 shadow-xs">
-                      <CheckCircle2 aria-hidden="true" className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                    <span className="text-[10px] font-bold text-brand-navy bg-white border border-brand-gray/50 px-2.5 py-0.5 rounded-full uppercase tracking-wider flex items-center gap-1.5 shadow-xs">
+                      <CheckCircle2 aria-hidden="true" className="h-3.5 w-3.5 text-brand-gray-dark shrink-0" />
                       Proceso cerrado con éxito
                     </span>
                   )}

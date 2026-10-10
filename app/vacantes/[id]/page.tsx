@@ -73,16 +73,16 @@ export default async function VacanteDetailPage({ params }: PageProps) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Vacancy Details (7 columns) */}
           <article className="lg:col-span-7 bg-white border border-brand-gray/10 p-6 sm:p-10 rounded-3xl shadow-sm space-y-8 relative overflow-hidden">
-            <div className={`absolute top-0 bottom-0 left-0 w-1.5 ${job.active ? "bg-brand-gold" : "bg-emerald-500"}`}></div>
+            <div className={`absolute top-0 bottom-0 left-0 w-1.5 ${job.active ? "bg-brand-gold" : "bg-brand-gray"}`}></div>
 
             {!job.active && (
-              <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl flex items-center gap-3.5 mb-2">
-                <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center shrink-0 text-emerald-600">
+              <div className="p-4 bg-brand-bg border border-brand-gray/40 rounded-2xl flex items-center gap-3.5 mb-2">
+                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shrink-0 text-brand-navy">
                   <CheckCircle2 aria-hidden="true" className="h-5 w-5" />
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-emerald-950">Proceso de Selección Cerrado con Éxito</p>
-                  <p className="text-xs text-emerald-800 leading-relaxed">
+                  <p className="text-sm font-bold text-brand-navy">Proceso de selección cerrado con éxito</p>
+                  <p className="text-xs text-brand-gray-dark leading-relaxed">
                     Esta convocatoria de talento ha concluido satisfactoriamente y la vacante ya fue cubierta.
                   </p>
                 </div>
@@ -96,13 +96,13 @@ export default async function VacanteDetailPage({ params }: PageProps) {
                 </span>
 
                 {job.active ? (
-                  <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full uppercase tracking-wider flex items-center gap-1.5">
-                    <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span className="text-[10px] font-bold text-brand-electric bg-brand-electric/10 border border-brand-electric/30 px-2.5 py-1 rounded-full uppercase tracking-wider flex items-center gap-1.5">
+                    <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-brand-electric"></span>
                     Convocatoria abierta
                   </span>
                 ) : (
-                  <span className="text-[10px] font-bold text-emerald-900 bg-emerald-100 border border-emerald-300 px-2.5 py-1 rounded-full uppercase tracking-wider flex items-center gap-1.5 shadow-xs">
-                    <CheckCircle2 aria-hidden="true" className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                  <span className="text-[10px] font-bold text-brand-navy bg-white border border-brand-gray/50 px-2.5 py-1 rounded-full uppercase tracking-wider flex items-center gap-1.5 shadow-xs">
+                    <CheckCircle2 aria-hidden="true" className="h-3.5 w-3.5 text-brand-gray-dark shrink-0" />
                     Proceso cerrado con éxito
                   </span>
                 )}
@@ -169,7 +169,7 @@ export default async function VacanteDetailPage({ params }: PageProps) {
               <ul className="space-y-2.5">
                 {job.requirements.split(", ").map((req, i) => (
                   <li key={i} className="flex items-start gap-2.5 text-sm text-brand-gray-dark">
-                    <CheckCircle aria-hidden="true" className="h-4.5 w-4.5 text-emerald-500 shrink-0 mt-0.5" />
+                    <CheckCircle aria-hidden="true" className="h-4.5 w-4.5 text-brand-electric shrink-0 mt-0.5" />
                     <span>{req.trim()}</span>
                   </li>
                 ))}
@@ -183,15 +183,15 @@ export default async function VacanteDetailPage({ params }: PageProps) {
               <JobApplicationForm jobId={job.id} jobTitle={job.title} />
             ) : (
               <div className="text-center py-4">
-                <div className="w-16 h-16 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center mx-auto mb-4 text-emerald-600 shadow-xs">
+                <div className="w-16 h-16 rounded-2xl bg-brand-bg border border-brand-gray/40 flex items-center justify-center mx-auto mb-4 text-brand-navy shadow-xs">
                   <CheckCircle2 aria-hidden="true" className="h-8 w-8" />
                 </div>
 
-                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100 border border-emerald-200 px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">
+                <span className="text-[10px] font-bold text-brand-navy bg-white border border-brand-gray/50 px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">
                   Búsqueda finalizada
                 </span>
 
-                <h2 className="text-xl font-bold text-brand-navy mb-3 font-titles">Proceso Cerrado con Éxito</h2>
+                <h2 className="text-xl font-bold text-brand-navy mb-3 font-titles">Proceso cerrado con éxito</h2>
 
                 <p className="text-xs text-brand-gray-dark leading-relaxed mb-6">
                   Agradecemos el gran interés de todos los postulantes. Esta búsqueda ha finalizado con la contratación

@@ -97,8 +97,8 @@ export default function SpontaneousApplicationForm() {
             className="animate-scale-in text-center py-8"
             role="status"
           >
-            <CheckCircle2 aria-hidden="true" className="h-12 w-12 text-emerald-500 mx-auto mb-4" />
-            <h3 className="font-bold text-brand-navy mb-2">¡Ingreso Exitoso!</h3>
+            <CheckCircle2 aria-hidden="true" className="h-12 w-12 text-brand-electric mx-auto mb-4" />
+            <h3 className="font-bold text-brand-navy mb-2">¡Ingreso exitoso!</h3>
             <p className="text-xs text-brand-gray-dark max-w-xs mx-auto mb-6 leading-relaxed">
               Hemos incorporado tu CV a nuestra base de datos de selección estratégica.
             </p>
