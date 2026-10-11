@@ -76,7 +76,7 @@ export interface ContactEmailData {
 
 export function contactWelcomeEmail({ name }: Pick<ContactEmailData, "name">): string {
   return wrap(`
-    ${brandHeader("Seguridad, personas y sostenibilidad para la industria de Los Lagos")}
+    ${brandHeader("Seguridad, personas y sostenibilidad para la industria chilena")}
     <div style="background-color: #f9f9f9; padding: 20px; border-radius: 6px; margin-bottom: 20px; border-left: 4px solid #C9A05C;">
       <h2 style="color: #0F1D33; margin-top: 0; font-size: 18px;">Hola, ${escapeHtml(name)}:</h2>
       <p style="color: #475467; line-height: 1.6; font-size: 15px;">

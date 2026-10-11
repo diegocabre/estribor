@@ -24,11 +24,11 @@ export default function Hero() {
 
             <h1 className="text-3xl sm:text-5xl xl:text-6xl font-semibold tracking-[-0.01em] text-brand-navy leading-tight mb-6">
               Seguridad, personas y sostenibilidad para la{" "}
-              <span className="text-brand-gold-dark">industria de Los Lagos</span>
+              <span className="text-brand-gold-dark">industria chilena</span>
             </h1>
 
             <p className="text-base sm:text-lg lg:text-xl text-brand-gray-dark mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-              Desde Puerto Varas, para acuicultura, construcción e industria: Ley Karin, DS 44, sistemas de gestión, reclutamiento y reportes de sostenibilidad.
+              Desde Puerto Varas a todo Chile, para acuicultura, construcción e industria: Ley Karin, DS 44, sistemas de gestión, reclutamiento y reportes de sostenibilidad.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">

@@ -45,7 +45,7 @@ Diferencia que una consultora vecina no podría copiar tal cual:
 ## Operating Context
 
 - **Datos de la empresa (confirmado):** Estribor Consultores SpA, RUT 78.406.406-9, Parque Westfalia 1, Puerto Varas, Región de Los Lagos. Teléfono y WhatsApp +56 9 4167 6239. Correo contacto@estriborconsultores.cl. LinkedIn: linkedin.com/company/estribor-consultores. Inicio de actividades: 2026.
-- **Zona de trabajo (confirmado):** Región de Los Lagos. No afirmar cobertura nacional; se puede decir que atienden otras zonas solo si Estribor lo confirma como oferta.
+- **Zona de trabajo (confirmado el 11-oct-2026):** todo Chile, tanto la consultoría como el portal de empleo. La oficina está en Puerto Varas y la experiencia previa del equipo es en la Región de Los Lagos; no presentar trabajos hechos en otras regiones mientras no existan.
 - **Sectores que el sitio declara:** acuicultura, industria, energía, construcción, alimentos y servicios. Respaldados por la experiencia previa del equipo: acuicultura/salmonicultura, construcción e industrias productivas en general. Minería e industria pesada **no** están respaldadas (aparecen solo en /equipo y deben salir).
 - **Vocabulario del cliente que el sitio debe usar con naturalidad:** DS 44, IRL, RIOHS, Ley Karin, matriz IPER, MINSAL, mutualidad, ISO 45001, ISO 14001, ASC, BAP, GRI, ESG, faena, centro de cultivo, jefaturas, colaboradores.
 - **Canales de conversión del sitio:** formulario de contacto, agenda de reunión virtual con duración elegible, WhatsApp, correo, teléfono.

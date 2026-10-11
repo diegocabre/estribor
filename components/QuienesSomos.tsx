@@ -46,7 +46,7 @@ export default function QuienesSomos() {
               <span className="block font-medium text-brand-navy">• Sostenibilidad organizacional</span>
             </p>
             <p className="text-base text-brand-gray-dark leading-relaxed mb-6">
-              Trabajamos con empresas de acuicultura, construcción, industria y servicios en la Región de Los Lagos, en terreno y en oficina.
+              Trabajamos con empresas de acuicultura, construcción, industria y servicios de todo Chile, en terreno y en oficina, desde nuestra base en Puerto Varas.
             </p>
             <p className="text-base text-brand-gray-dark leading-relaxed mb-8">
               Estribor es una empresa nueva; la experiencia es de su equipo, que viene de años de trabajo en industrias productivas, salmonicultura, construcción y comunicaciones corporativas. Quien te atiende es quien hace el trabajo.

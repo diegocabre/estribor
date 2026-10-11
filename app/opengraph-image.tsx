@@ -7,6 +7,6 @@ export const contentType = "image/png";
 export default function Image() {
   return renderOgImage({
     eyebrow: "Estribor Consultores",
-    title: "Seguridad, personas y sostenibilidad para la industria de Los Lagos",
+    title: "Seguridad, personas y sostenibilidad para la industria chilena",
   });
 }

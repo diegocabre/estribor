@@ -45,7 +45,7 @@ export default function EquipoPage() {
     "Más de 10 años en industrias productivas: gestión de personas, comunicaciones corporativas, compliance y sostenibilidad.",
     "Prevención de riesgos en construcción y salmonicultura, con certificaciones ASC, BAP e ISO.",
     "Psicología organizacional aplicada a la atracción y selección de talento.",
-    "Oficina en Puerto Varas y trabajo en la Región de Los Lagos.",
+    "Oficina en Puerto Varas y trabajo en todo Chile.",
   ];
 
   return (

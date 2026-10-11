@@ -16,7 +16,7 @@ export default function Sectores() {
           <div className="lg:col-span-4">
             <h2 className="text-2xl sm:text-3xl font-semibold text-brand-navy tracking-[-0.01em] mb-3">Sectores donde trabajamos</h2>
             <p className="text-base text-brand-gray-dark leading-relaxed">
-              Rubros en los que asesoramos, con foco en la Región de Los Lagos.
+              Rubros en los que asesoramos, en todo Chile.
             </p>
           </div>
 
