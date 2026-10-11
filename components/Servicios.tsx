@@ -88,7 +88,7 @@ export default function Servicios() {
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${axis.iconColor}`}>
                       <Icon className="h-6 w-6" />
                     </div>
-                    <h3 className="text-xl font-bold text-brand-navy leading-tight">{axis.title}</h3>
+                    <h2 className="font-titles text-xl font-bold text-brand-navy leading-tight">{axis.title}</h2>
                   </div>
 
                   <p className="text-sm text-brand-gray-dark leading-relaxed mb-6">

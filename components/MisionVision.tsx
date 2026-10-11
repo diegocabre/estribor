@@ -44,7 +44,7 @@ export default function MisionVision() {
               <div className="w-12 h-12 rounded-full bg-brand-electric/10 flex items-center justify-center text-brand-electric group-hover:bg-brand-electric group-hover:text-white transition-colors duration-300">
                 <Compass className="h-6 w-6" />
               </div>
-              <h3 className="text-2xl font-bold text-brand-navy tracking-wide">MISIÓN</h3>
+              <h2 className="font-titles text-2xl font-bold text-brand-navy tracking-wide">MISIÓN</h2>
             </div>
 
             <p className="text-brand-navy/90 text-sm sm:text-base leading-relaxed mb-4">
@@ -68,7 +68,7 @@ export default function MisionVision() {
               <div className="w-12 h-12 rounded-full bg-brand-blue-med/10 flex items-center justify-center text-brand-blue-med group-hover:bg-brand-blue-med group-hover:text-white transition-colors duration-300">
                 <Eye className="h-6 w-6" />
               </div>
-              <h3 className="text-2xl font-bold text-brand-navy tracking-wide">VISIÓN</h3>
+              <h2 className="font-titles text-2xl font-bold text-brand-navy tracking-wide">VISIÓN</h2>
             </div>
 
             <p className="text-brand-navy/90 text-sm sm:text-base leading-relaxed">
