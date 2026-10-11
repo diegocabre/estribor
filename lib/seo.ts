@@ -120,9 +120,9 @@ export function jobPostingJsonLd(job: Job) {
       address: {
         "@type": "PostalAddress",
         addressLocality: job.location,
-        // El portal publica solo vacantes de la Región de Los Lagos. Sin calle ni código postal:
-        // las faenas (p. ej. Pargua) no tienen dirección exacta. Sin baseSalary: el sueldo no se publica.
-        addressRegion: "Región de Los Lagos",
+        // Sin calle ni código postal: las faenas (p. ej. Pargua) no tienen dirección exacta.
+        // Sin baseSalary: el sueldo no se publica.
+        addressRegion: job.region,
         addressCountry: "CL",
       },
     },

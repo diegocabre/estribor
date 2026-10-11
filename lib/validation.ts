@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { DURATIONS, OBJECTIVES, TIME_SLOTS } from "@/lib/agenda";
+import { CHILE_REGIONS, DEFAULT_REGION } from "@/lib/regions";
 
 // Sin saltos de línea ni enlaces: estos campos terminan en asuntos y saludos de correo.
 const NO_URL = /(https?:\/\/|www\.)/i;
@@ -137,6 +138,7 @@ export const jobSchema = z.object({
   title: shortText(150).min(3, { error: "El título es requerido." }),
   area: shortText(100).min(1, { error: "El área es requerida." }),
   location: shortText(100).min(1, { error: "La ubicación es requerida." }),
+  region: z.enum(CHILE_REGIONS, { error: "Elige una región de Chile." }).default(DEFAULT_REGION),
   type: shortText(40).min(1),
   description: z.string().trim().min(1).max(10000),
   requirements: z.string().trim().max(10000).default(""),

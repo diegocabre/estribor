@@ -126,7 +126,9 @@ export default async function VacanteDetailPage({ params }: PageProps) {
               <div className="flex flex-wrap gap-4 text-xs text-brand-gray-dark font-medium border-b border-brand-gray/10 pb-4">
                 <div className="flex items-center gap-1.5">
                   <MapPin aria-hidden="true" className="h-4 w-4" />
-                  <span>{job.location}</span>
+                  <span>
+                    {job.location}, {job.region}
+                  </span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <Briefcase aria-hidden="true" className="h-4 w-4" />

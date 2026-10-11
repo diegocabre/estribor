@@ -74,7 +74,10 @@ export default function JobsPanel({
               <tr key={job.id} className="hover:bg-brand-bg/20 transition-colors">
                 <td className="p-4 font-bold">{job.title}</td>
                 <td className="p-4">{job.area}</td>
-                <td className="p-4">{job.location}</td>
+                <td className="p-4">
+                  {job.location}
+                  <span className="block text-[10px] text-brand-gray-dark">{job.region}</span>
+                </td>
                 <td className="p-4">{job.type}</td>
                 <td className="p-4 whitespace-nowrap">
                   {job.closesAt ? formatClosingDate(job.closesAt) : <span className="text-brand-gray-dark">Sin fecha</span>}

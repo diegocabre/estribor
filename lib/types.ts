@@ -1,10 +1,13 @@
 // Tipos de dominio compartidos entre cliente, servidor y rutas /api.
+import { DEFAULT_REGION } from "@/lib/regions";
 
 export interface Job {
   id: string;
   title: string;
   area: string;
   location: string;
+  /** Nombre oficial de la región, p. ej. "Región de Los Lagos". */
+  region: string;
   type: string;
   description: string;
   requirements: string;
@@ -82,6 +85,7 @@ export interface JobRow {
   active: boolean;
   created_at: string;
   closes_at?: string | null;
+  region?: string | null;
 }
 
 export function mapJobRow(row: JobRow): Job {
@@ -90,6 +94,7 @@ export function mapJobRow(row: JobRow): Job {
     title: row.title,
     area: row.area,
     location: row.location,
+    region: row.region || DEFAULT_REGION,
     type: row.type,
     description: row.description,
     requirements: row.requirements,

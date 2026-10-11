@@ -9,6 +9,7 @@ const job: Job = {
   title: "Encargado(a) de Calidad de Agua",
   area: "Acuicultura",
   location: "Pargua",
+  region: "Región de Los Lagos",
   type: "Full-time",
   description: "Descripción",
   requirements: "",
@@ -48,5 +49,17 @@ describe("fecha de cierre de vacantes", () => {
     expect(jobSchema.parse({ ...base, closesAt: "2026-11-16" }).closesAt).toBe("2026-11-16");
     expect(jobSchema.parse(base).closesAt).toBeNull();
     expect(jobSchema.safeParse({ ...base, closesAt: "16/11/2026" }).success).toBe(false);
+  });
+
+  it("usa la región de cada vacante en el JobPosting", () => {
+    const santiago = { ...job, location: "Santiago", region: "Región Metropolitana de Santiago" };
+    expect(jobPostingJsonLd(santiago).jobLocation.address.addressRegion).toBe("Región Metropolitana de Santiago");
+  });
+
+  it("acepta solo regiones de Chile y usa Los Lagos por defecto", () => {
+    const base = { title: "Cargo", area: "Área", location: "Santiago", type: "Full-time", description: "Texto" };
+    expect(jobSchema.parse(base).region).toBe("Región de Los Lagos");
+    expect(jobSchema.parse({ ...base, region: "Región Metropolitana de Santiago" }).region).toBe("Región Metropolitana de Santiago");
+    expect(jobSchema.safeParse({ ...base, region: "Santiago" }).success).toBe(false);
   });
 });

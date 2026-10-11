@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Check, Loader2, Plus, Trash2, X } from "lucide-react";
 import { todayInChile } from "@/lib/job-dates";
+import { CHILE_REGIONS, DEFAULT_REGION } from "@/lib/regions";
 import type { Job } from "@/lib/types";
 import type { AdminData } from "../_hooks/useAdminData";
 import ModalShell from "./ModalShell";
@@ -24,6 +25,7 @@ export default function JobFormModal({ data, editingJob, onClose }: JobFormModal
   const [title, setTitle] = useState(editingJob?.title ?? "");
   const [area, setArea] = useState(editingJob?.area ?? (areas[0]?.name || "Gestión de Personas"));
   const [location, setLocation] = useState(editingJob?.location ?? "");
+  const [region, setRegion] = useState(editingJob?.region ?? DEFAULT_REGION);
   const [type, setType] = useState(editingJob?.type ?? "Full-time");
   const [description, setDescription] = useState(editingJob?.description ?? "");
   const [requirements, setRequirements] = useState(editingJob?.requirements ?? "");
@@ -61,7 +63,7 @@ export default function JobFormModal({ data, editingJob, onClose }: JobFormModal
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const saved = await data.saveJob(
-      { title, area, location, type, description, requirements, functions, confidential, closesAt: closesAt || null },
+      { title, area, location, region, type, description, requirements, functions, confidential, closesAt: closesAt || null },
       editingJob?.id
     );
     if (saved) onClose();
@@ -229,7 +231,20 @@ export default function JobFormModal({ data, editingJob, onClose }: JobFormModal
             </div>
           </div>
 
-          <div className="flex flex-col sm:w-1/2 sm:pr-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="flex flex-col">
+            <label htmlFor="job-region" className={labelClass}>
+              Región *
+            </label>
+            <select id="job-region" value={region} onChange={(e) => setRegion(e.target.value)} className={inputClass}>
+              {CHILE_REGIONS.map((r) => (
+                <option key={r} value={r}>
+                  {r}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="flex flex-col">
             <label htmlFor="job-closes-at" className={labelClass}>
               Fecha de cierre *
             </label>
@@ -247,6 +262,7 @@ export default function JobFormModal({ data, editingJob, onClose }: JobFormModal
             <span id="job-closes-at-hint" className="mt-1 text-[10px] text-brand-gray-dark">
               Último día para postular. Después de esa fecha Google deja de mostrar la oferta.
             </span>
+          </div>
           </div>
 
           <div className="flex items-center gap-2 py-2">

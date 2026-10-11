@@ -8,6 +8,7 @@ export interface JobPayload {
   title: string;
   area: string;
   location: string;
+  region: string;
   type: string;
   description: string;
   requirements: string;
