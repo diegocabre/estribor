@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { jobValidThrough } from "@/lib/job-dates";
 import { legalConfig } from "@/lib/legalConfig";
 import type { BlogPost, Job } from "@/lib/types";
 
@@ -91,10 +92,9 @@ const EMPLOYMENT_TYPES: Record<string, string> = {
   "práctica": "INTERN",
 };
 
-/** JobPosting para Google Empleos. Solo se emite para vacantes abiertas. */
+/** JobPosting para Google Empleos. Solo se emite para vacantes abiertas y no vencidas. */
 export function jobPostingJsonLd(job: Job) {
   const posted = new Date(job.createdAt);
-  const validThrough = new Date(posted.getTime() + 60 * 24 * 60 * 60 * 1000);
   return {
     "@context": "https://schema.org",
     "@type": "JobPosting",
@@ -103,7 +103,8 @@ export function jobPostingJsonLd(job: Job) {
       .filter(Boolean)
       .join("\n\n"),
     datePosted: posted.toISOString().slice(0, 10),
-    validThrough: validThrough.toISOString(),
+    // Fecha de cierre del panel; en vacantes antiguas sin fecha, publicación + 60 días.
+    validThrough: jobValidThrough(job),
     employmentType: EMPLOYMENT_TYPES[job.type.toLowerCase()] ?? "FULL_TIME",
     directApply: true,
     url: absoluteUrl(`/vacantes/${job.id}`),

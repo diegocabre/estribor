@@ -13,6 +13,7 @@ export interface JobPayload {
   requirements: string;
   functions: string;
   confidential: boolean;
+  closesAt: string | null;
 }
 
 const byName = (a: JobArea, b: JobArea) => a.name.localeCompare(b.name);

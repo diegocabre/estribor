@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Award, Briefcase, CheckCircle, CheckCircle2, FileText, ListTodo, Lock, MapPin } from "lucide-react";
+import { ArrowLeft, Award, Briefcase, CalendarClock, CheckCircle, CheckCircle2, FileText, ListTodo, Lock, MapPin } from "lucide-react";
 import JsonLd from "@/components/seo/JsonLd";
 import JobApplicationForm from "@/components/vacantes/JobApplicationForm";
 import ShareButtons from "@/components/vacantes/ShareButtons";
 import { getPublicJob, getPublicJobs } from "@/lib/jobs";
+import { formatClosingDate, isJobExpired } from "@/lib/job-dates";
 import { breadcrumbJsonLd, jobPostingJsonLd } from "@/lib/seo";
 
 // ISR: cada vacante se regenera como máximo cada 5 minutos, y al instante al editarla en el panel.
@@ -55,7 +56,8 @@ export default async function VacanteDetailPage({ params }: PageProps) {
           { name: job.title, path: `/vacantes/${job.id}` },
         ])}
       />
-      {job.active && <JsonLd data={jobPostingJsonLd(job)} />}
+      {/* Google pide retirar el JobPosting cuando vence la postulación. */}
+      {job.active && !isJobExpired(job) && <JsonLd data={jobPostingJsonLd(job)} />}
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back and share header */}
@@ -130,6 +132,12 @@ export default async function VacanteDetailPage({ params }: PageProps) {
                   <Briefcase aria-hidden="true" className="h-4 w-4" />
                   <span>{job.type}</span>
                 </div>
+                {job.active && job.closesAt && (
+                  <div className="flex items-center gap-1.5">
+                    <CalendarClock aria-hidden="true" className="h-4 w-4" />
+                    <span>Postulaciones hasta el {formatClosingDate(job.closesAt)}</span>
+                  </div>
+                )}
               </div>
             </div>
 

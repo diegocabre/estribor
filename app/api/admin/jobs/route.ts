@@ -13,6 +13,11 @@ function revalidateJobs(id?: string) {
   if (id) revalidatePath(`/vacantes/${id}`);
 }
 
+/** El formulario usa closesAt; la columna es closes_at. */
+function toJobColumns({ closesAt, ...rest }: { closesAt?: string | null; [key: string]: unknown }) {
+  return closesAt === undefined ? rest : { ...rest, closes_at: closesAt };
+}
+
 export async function POST(request: NextRequest) {
   const auth = await requireStaff(request);
   if (!auth.ok) return auth.response;
@@ -23,7 +28,7 @@ export async function POST(request: NextRequest) {
   try {
     const { data, error } = await getSupabaseAdmin()
       .from("jobs")
-      .insert({ ...parsed.data, active: true })
+      .insert({ ...toJobColumns(parsed.data), active: true })
       .select("id")
       .single();
     if (error) throw error;
@@ -49,7 +54,7 @@ export async function PATCH(request: NextRequest) {
   const { id, ...changes } = parsed.data;
 
   try {
-    const { error } = await getSupabaseAdmin().from("jobs").update(changes).eq("id", id);
+    const { error } = await getSupabaseAdmin().from("jobs").update(toJobColumns(changes)).eq("id", id);
     if (error) throw error;
     revalidateJobs(id);
     return NextResponse.json({ success: true });

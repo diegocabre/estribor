@@ -12,6 +12,8 @@ export interface Job {
   confidential: boolean;
   active: boolean;
   createdAt: string;
+  /** Último día de postulación ("AAAA-MM-DD"). Nulo en vacantes anteriores al campo. */
+  closesAt: string | null;
 }
 
 export interface JobApplication {
@@ -79,6 +81,7 @@ export interface JobRow {
   confidential: boolean;
   active: boolean;
   created_at: string;
+  closes_at?: string | null;
 }
 
 export function mapJobRow(row: JobRow): Job {
@@ -94,6 +97,7 @@ export function mapJobRow(row: JobRow): Job {
     confidential: row.confidential,
     active: row.active,
     createdAt: row.created_at,
+    closesAt: row.closes_at ?? null,
   };
 }
 

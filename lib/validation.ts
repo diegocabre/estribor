@@ -142,6 +142,7 @@ export const jobSchema = z.object({
   requirements: z.string().trim().max(10000).default(""),
   functions: z.string().trim().max(10000).default(""),
   confidential: z.boolean().default(false),
+  closesAt: z.iso.date({ error: "La fecha de cierre no es válida." }).nullable().default(null),
 });
 
 export const areaSchema = z.object({ name: shortText(100).min(1, { error: "Por favor ingresa un nombre para el área." }) });

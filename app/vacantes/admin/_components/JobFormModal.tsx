@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Check, Loader2, Plus, Trash2, X } from "lucide-react";
+import { todayInChile } from "@/lib/job-dates";
 import type { Job } from "@/lib/types";
 import type { AdminData } from "../_hooks/useAdminData";
 import ModalShell from "./ModalShell";
@@ -28,6 +29,7 @@ export default function JobFormModal({ data, editingJob, onClose }: JobFormModal
   const [requirements, setRequirements] = useState(editingJob?.requirements ?? "");
   const [functions, setFunctions] = useState(editingJob?.functions ?? "");
   const [confidential, setConfidential] = useState(editingJob?.confidential ?? false);
+  const [closesAt, setClosesAt] = useState(editingJob?.closesAt ?? "");
   const [isAddingArea, setIsAddingArea] = useState(false);
   const [newAreaInput, setNewAreaInput] = useState("");
 
@@ -59,7 +61,7 @@ export default function JobFormModal({ data, editingJob, onClose }: JobFormModal
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const saved = await data.saveJob(
-      { title, area, location, type, description, requirements, functions, confidential },
+      { title, area, location, type, description, requirements, functions, confidential, closesAt: closesAt || null },
       editingJob?.id
     );
     if (saved) onClose();
@@ -225,6 +227,26 @@ export default function JobFormModal({ data, editingJob, onClose }: JobFormModal
                 <option value="Remoto">Remoto</option>
               </select>
             </div>
+          </div>
+
+          <div className="flex flex-col sm:w-1/2 sm:pr-2">
+            <label htmlFor="job-closes-at" className={labelClass}>
+              Fecha de cierre *
+            </label>
+            <input
+              id="job-closes-at"
+              type="date"
+              required
+              // Al crear no se puede elegir un día pasado; al editar se respeta la fecha guardada.
+              min={editingJob ? undefined : todayInChile()}
+              value={closesAt}
+              onChange={(e) => setClosesAt(e.target.value)}
+              aria-describedby="job-closes-at-hint"
+              className={inputClass}
+            />
+            <span id="job-closes-at-hint" className="mt-1 text-[10px] text-brand-gray-dark">
+              Último día para postular. Después de esa fecha Google deja de mostrar la oferta.
+            </span>
           </div>
 
           <div className="flex items-center gap-2 py-2">

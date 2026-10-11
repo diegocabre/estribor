@@ -1,6 +1,7 @@
 "use client";
 
 import { Archive, CheckCircle2, Edit2, FolderKanban, Plus, Trash2, XCircle } from "lucide-react";
+import { formatClosingDate, isJobExpired } from "@/lib/job-dates";
 import type { Job } from "@/lib/types";
 
 interface JobsPanelProps {
@@ -62,6 +63,7 @@ export default function JobsPanel({
               <th scope="col" className="p-4">Área</th>
               <th scope="col" className="p-4">Ubicación</th>
               <th scope="col" className="p-4">Tipo</th>
+              <th scope="col" className="p-4">Cierre</th>
               <th scope="col" className="p-4">Confidencial</th>
               <th scope="col" className="p-4">Estado</th>
               <th scope="col" className="p-4 text-center">Acciones</th>
@@ -74,6 +76,14 @@ export default function JobsPanel({
                 <td className="p-4">{job.area}</td>
                 <td className="p-4">{job.location}</td>
                 <td className="p-4">{job.type}</td>
+                <td className="p-4 whitespace-nowrap">
+                  {job.closesAt ? formatClosingDate(job.closesAt) : <span className="text-brand-gray-dark">Sin fecha</span>}
+                  {job.active && isJobExpired(job) && (
+                    <span className="ml-2 text-[10px] font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
+                      Vencida
+                    </span>
+                  )}
+                </td>
                 <td className="p-4">
                   {job.confidential ? (
                     <span className="text-[10px] font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-full">Sí</span>
@@ -131,7 +141,7 @@ export default function JobsPanel({
             ))}
             {jobs.length === 0 && (
               <tr>
-                <td colSpan={7} className="text-center p-12 text-brand-gray-dark">
+                <td colSpan={8} className="text-center p-12 text-brand-gray-dark">
                   No hay ofertas publicadas. Haz clic en &quot;Crear Vacante&quot; para publicar.
                 </td>
               </tr>
