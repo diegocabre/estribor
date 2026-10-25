@@ -99,9 +99,21 @@ export default function Footer() {
 
         {/* Bottom border & Copyright */}
         <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/70 text-center sm:text-left">
-          <p>
-            &copy; {new Date().getFullYear()} Estribor Consultores. Todos los derechos reservados.
-          </p>
+          <div className="flex flex-col gap-1">
+            <p>
+              &copy; {new Date().getFullYear()} Estribor Consultores. Todos los derechos reservados.
+            </p>
+            <p>
+              Desarrollado por{" "}
+              <a href="https://diegocabre.vercel.app" target="_blank" rel="nofollow noopener" className="hover:text-brand-gold transition-colors">
+                Diego Cabré<span className="sr-only"> (abre en otra pestaña)</span>
+              </a>{" "}
+              <span aria-hidden="true">&middot;</span>{" "}
+              <a href="https://www.solucionesdys.cl" target="_blank" rel="nofollow noopener" className="hover:text-brand-gold transition-colors">
+                Soluciones DyS<span className="sr-only"> (abre en otra pestaña)</span>
+              </a>
+            </p>
+          </div>
           <div className="flex flex-wrap items-center justify-center sm:justify-end gap-3 text-xs">
             <Link href="/privacidad" className="hover:text-brand-gold transition-colors">
               Política de privacidad
