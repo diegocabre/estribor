@@ -1,30 +1,53 @@
+import Image from "next/image";
+
 const SECTORS = [
-  { name: "Acuicultura", desc: "Asesorías en terreno para centros de cultivo, plantas de proceso y logística marítima." },
-  { name: "Industria", desc: "Evaluación y optimización de procesos productivos y cumplimiento normativo DS44." },
-  { name: "Energía", desc: "Sistemas de gestión, auditorías operativas e indicadores ESG para el sector energético." },
-  { name: "Construcción", desc: "Supervisión técnica de seguridad y salud (SST) en obras civiles y edificación." },
-  { name: "Alimentos", desc: "Aseguramiento del cumplimiento regulatorio y optimización de procesos en manufactura." },
-  { name: "Servicios", desc: "Outsourcing, clima organizacional y hunting ejecutivo para empresas del sector terciario." },
+  { name: "Acuicultura", desc: "Selección para centros y plantas, SST en faenas marítimas", image: "/images/home/acuicultura.webp" },
+  { name: "Construcción", desc: "Auditorías DS 44 y cultura preventiva en obra", image: "/images/home/construccion.webp" },
+  { name: "Energía", desc: "Estrategia ESG y reportabilidad GRI", image: "/images/home/energia.webp" },
+  { name: "Industria", desc: "Sistemas de gestión, liderazgo y turnos", image: "/images/home/industria.webp" },
+  { name: "Alimentos", desc: "Ley Karin, clima y selección masiva", image: "/images/home/alimentos.webp" },
+  { name: "Servicios", desc: "Desarrollo organizacional y comunicaciones", image: "/images/home/servicios.webp" },
 ];
 
-/** Franja compacta de sectores: continúa el fondo de "¿Por qué Estribor?" y se separa con una línea. */
+const EXPERIENCE = ["Acuicultura", "Energía", "Construcción", "Industria", "Alimentos y servicios"];
+
+/** Sectores con foto y, debajo, los rubros donde el equipo trabajó antes de formar Estribor. */
 export default function Sectores() {
   return (
-    <section id="sectores" className="bg-brand-bg pb-16 md:pb-24">
+    <section id="sectores" className="bg-white py-16 md:py-24 scroll-mt-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 border-t border-brand-gray/40 pt-12 md:pt-16">
-          <div className="lg:col-span-4">
-            <h2 className="text-2xl sm:text-3xl font-semibold text-brand-navy tracking-[-0.01em] mb-3">Sectores donde trabajamos</h2>
-            <p className="text-base text-brand-gray-dark leading-relaxed">
-              Rubros en los que asesoramos, en todo Chile.
-            </p>
-          </div>
+        <div className="max-w-2xl mb-10">
+          <span className="text-brand-gold-dark text-xs font-bold tracking-widest uppercase block mb-3">Sectores</span>
+          <h2 className="text-3xl sm:text-4xl font-semibold text-brand-navy tracking-[-0.01em]">Conocemos tu industria</h2>
+        </div>
 
-          <ul className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-6">
-            {SECTORS.map((sector) => (
-              <li key={sector.name}>
-                <h3 className="font-titles font-bold text-brand-navy">{sector.name}</h3>
-                <p className="mt-1 text-sm text-brand-gray-dark leading-relaxed">{sector.desc}</p>
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {SECTORS.map((sector) => (
+            <li key={sector.name} className="relative aspect-[16/10] rounded-xl overflow-hidden bg-brand-navy">
+              <Image
+                src={sector.image}
+                alt=""
+                fill
+                sizes="(min-width: 1280px) 400px, (min-width: 1024px) 31vw, (min-width: 640px) 50vw, 100vw"
+                className="object-cover"
+              />
+              <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-brand-navy/90 via-brand-navy/30 to-transparent"></div>
+              <div className="absolute inset-x-0 bottom-0 p-5">
+                <h3 className="font-titles text-xl font-bold text-white">{sector.name}</h3>
+                <p className="mt-1 text-sm text-white/85 leading-snug">{sector.desc}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-14 md:mt-16 border-t border-brand-gray/30 pt-10 text-center">
+          <h3 className="text-xs font-bold tracking-widest uppercase text-brand-gray-dark mb-5">
+            Experiencia previa del equipo en empresas de
+          </h3>
+          <ul className="flex flex-wrap justify-center gap-3">
+            {EXPERIENCE.map((item) => (
+              <li key={item} className="px-4 py-2 rounded-full border border-brand-gray/40 text-sm text-brand-navy">
+                {item}
               </li>
             ))}
           </ul>

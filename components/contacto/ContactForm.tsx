@@ -5,8 +5,9 @@ import { CheckCircle2, Loader2, Send } from "lucide-react";
 import Honeypot from "@/components/Honeypot";
 import LegalFormConsent from "@/components/LegalFormConsent";
 import { trackConversion } from "@/lib/analytics";
+import { CONTACT_AREAS } from "@/lib/content/services";
 
-const EMPTY_FORM = { name: "", email: "", phone: "", company: "", role: "", message: "" };
+const EMPTY_FORM = { name: "", email: "", phone: "", company: "", area: "", role: "", message: "" };
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
@@ -23,7 +24,7 @@ export default function ContactForm() {
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
@@ -154,6 +155,20 @@ export default function ContactForm() {
                 placeholder="Nombre de tu empresa"
               />
             </div>
+          </div>
+
+          <div className="flex flex-col">
+            <label htmlFor="form-area" className={labelClass}>
+              Área de interés
+            </label>
+            <select name="area" id="form-area" value={formData.area} onChange={handleChange} className={inputClass}>
+              <option value="">Selecciona un área</option>
+              {CONTACT_AREAS.map((area) => (
+                <option key={area} value={area}>
+                  {area}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="flex flex-col">

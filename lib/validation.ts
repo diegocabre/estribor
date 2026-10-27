@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { DURATIONS, OBJECTIVES, TIME_SLOTS } from "@/lib/agenda";
+import { CONTACT_AREAS } from "@/lib/content/services";
 import { CHILE_REGIONS, DEFAULT_REGION } from "@/lib/regions";
 
 // Sin saltos de línea ni enlaces: estos campos terminan en asuntos y saludos de correo.
@@ -57,6 +58,7 @@ export const contactSchema = z.object({
   email,
   phone: phone.optional().default(""),
   company: optionalShortText(120),
+  area: z.enum(["", ...CONTACT_AREAS], { error: "Área de interés inválida." }).optional().default(""),
   role: optionalShortText(100),
   message: z
     .string({ error: "El mensaje es requerido." })

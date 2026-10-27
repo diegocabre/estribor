@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import CasosExperiencia from "@/components/CasosExperiencia";
-import Contacto from "@/components/Contacto";
+import ContactoInicio from "@/components/ContactoInicio";
 import Hero from "@/components/Hero";
 import PorQueEstribor from "@/components/PorQueEstribor";
+import QueHacemos from "@/components/QueHacemos";
 import QuienesSomos from "@/components/QuienesSomos";
 import Sectores from "@/components/Sectores";
 
@@ -10,17 +10,16 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-// Server Component: solo Contacto (formulario y agenda) hidrata en el cliente.
+// Server Component: solo el formulario de contacto hidrata en el cliente.
 export default function Home() {
   return (
     <>
       <Hero />
-      <QuienesSomos />
+      <QueHacemos />
       <PorQueEstribor />
       <Sectores />
-      <CasosExperiencia />
-      {/* Formulario a la izquierda y agenda a la derecha */}
-      <Contacto />
+      <QuienesSomos />
+      <ContactoInicio />
     </>
   );
 }
