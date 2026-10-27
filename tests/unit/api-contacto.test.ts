@@ -41,6 +41,21 @@ describe("POST /api/contacto", () => {
     expect(html).toContain("&lt;script&gt;alert(1)&lt;/script&gt;");
   });
 
+  it("incluye el área de interés en la notificación interna", async () => {
+    const { sent } = mockResend();
+
+    await POST(jsonRequest(URL_CONTACTO, { ...validMessage, area: "Comunicaciones corporativas" }));
+
+    expect(sent[0].html).toContain("Comunicaciones corporativas");
+  });
+
+  it("acepta el área vacía y rechaza un área fuera de la lista", async () => {
+    mockResend();
+
+    expect((await POST(jsonRequest(URL_CONTACTO, { ...validMessage, area: "" }))).status).toBe(200);
+    expect((await POST(jsonRequest(URL_CONTACTO, { ...validMessage, area: "Marketing" }))).status).toBe(400);
+  });
+
   it("rechaza datos inválidos con 400 y sin enviar correos", async () => {
     const { sent } = mockResend();
 

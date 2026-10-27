@@ -25,7 +25,7 @@ const bricolageGrotesque = Bricolage_Grotesque({
 });
 
 const DESCRIPTION =
-  "Consultora boutique de Puerto Varas en seguridad y salud en el trabajo, gestión de personas y sostenibilidad para empresas de todo Chile.";
+  "Consultora boutique de Puerto Varas en seguridad y salud en el trabajo, gestión de personas, sostenibilidad y comunicaciones corporativas para empresas de todo Chile.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

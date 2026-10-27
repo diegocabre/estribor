@@ -69,6 +69,7 @@ export interface ContactEmailData {
   email: string;
   phone?: string;
   company?: string;
+  area?: string;
   role?: string;
   message: string;
   marketingAccepted?: boolean;
@@ -80,7 +81,7 @@ export function contactWelcomeEmail({ name }: Pick<ContactEmailData, "name">): s
     <div style="background-color: #f9f9f9; padding: 20px; border-radius: 6px; margin-bottom: 20px; border-left: 4px solid #C9A05C;">
       <h2 style="color: #0F1D33; margin-top: 0; font-size: 18px;">Hola, ${escapeHtml(name)}:</h2>
       <p style="color: #475467; line-height: 1.6; font-size: 15px;">
-        Hemos recibido correctamente tu mensaje a través de nuestro sitio web. Queremos darte la bienvenida y agradecer tu interés en nuestros servicios de Gestión de Personas, Seguridad y Salud en el Trabajo, y Sostenibilidad Organizacional.
+        Hemos recibido correctamente tu mensaje a través de nuestro sitio web. Queremos darte la bienvenida y agradecer tu interés en nuestros servicios de Gestión de Personas, Seguridad y Salud en el Trabajo, Sostenibilidad Organizacional y Comunicaciones Corporativas.
       </p>
       <p style="color: #475467; line-height: 1.6; font-size: 15px;">
         Uno de nuestros consultores especializados revisará tu consulta de inmediato y se pondrá en contacto contigo en breve para evaluar tus requerimientos específicos.
@@ -100,6 +101,7 @@ export function contactNotificationEmail(data: ContactEmailData): string {
       ${row("Correo Electrónico:", `<a href="mailto:${email}" style="color: #4A7FA5; text-decoration: none;">${email}</a>`)}
       ${row("Teléfono:", escapeHtml(data.phone || "No especificado"))}
       ${row("Empresa:", escapeHtml(data.company || "No especificada"))}
+      ${row("Área de interés:", escapeHtml(data.area || "No especificada"))}
       ${row("Cargo:", escapeHtml(data.role || "No especificado"))}
       ${row("Consentimiento Ley de Datos:", `<span style="color: #16a34a; font-weight: bold;">Aceptado (${escapeHtml(acceptedAt)})</span>`)}
       ${row("Autorización Marketing:", data.marketingAccepted ? "Sí, autoriza recibir información comercial" : "No")}

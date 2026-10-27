@@ -135,7 +135,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                 </p>
               </div>
               <Link
-                href="/#agenda"
+                href="/contacto#agenda"
                 className="bg-brand-gold hover:bg-brand-gold/90 text-brand-navy px-6 py-3 rounded-xl text-xs font-bold transition-all shrink-0 hover:scale-[1.02] flex items-center gap-2"
               >
                 Agendar reunión

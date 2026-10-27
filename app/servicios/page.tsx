@@ -3,7 +3,7 @@ import Servicios from "@/components/Servicios";
 
 export const metadata = pageMetadata({
   title: "Servicios",
-  description: "Asesorías especializadas en seguridad y salud en el trabajo, cumplimiento normativo, asesoría técnica y gestión organizacional en Chile.",
+  description: "Asesorías en gestión de personas, seguridad y salud en el trabajo, sostenibilidad y comunicaciones corporativas para empresas de todo Chile.",
   path: "/servicios",
 });
 
