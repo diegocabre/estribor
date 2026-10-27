@@ -1,4 +1,5 @@
-import { pageMetadata } from "@/lib/seo";
+import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 import Servicios from "@/components/Servicios";
 
 export const metadata = pageMetadata({
@@ -10,6 +11,12 @@ export const metadata = pageMetadata({
 export default function ServiciosPage() {
   return (
     <div className="pt-24 md:pt-28">
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Inicio", path: "/" },
+          { name: "Servicios", path: "/servicios" },
+        ])}
+      />
       <Servicios />
     </div>
   );

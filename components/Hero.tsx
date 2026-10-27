@@ -41,7 +41,7 @@ export default function Hero() {
                 <ArrowRight aria-hidden="true" className="h-5 w-5" />
               </a>
               <a
-                href="#que-hacemos"
+                href="/servicios"
                 className="inline-flex items-center justify-center border border-white/70 hover:bg-white hover:text-brand-navy text-white px-7 py-3.5 rounded-md font-semibold transition-colors"
               >
                 Ver servicios
